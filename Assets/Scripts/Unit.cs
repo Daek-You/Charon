@@ -6,14 +6,8 @@ using UnityEngine.AI;
 
 public abstract class Unit : MonoBehaviour
 {
-    // 스탯은 일단 임시로 넣어둠
-    protected int attackDamage;
-    protected int armor = 50;
-    protected int hp = 1000;
-    protected int moveSpeed = 300;
     protected float rotationSpeed = 15;
     protected Vector3 destination;
-
     protected NavMeshAgent agent;
     protected Rigidbody rigidBody;
     protected Animator animator;
