@@ -6,11 +6,16 @@ using TMPro;
 
 public class UI_InGame : UI_Scene
 {
+    enum GameObjects
+    {
+        SliHP,
+        SliST
+    }
+
     enum Images
     {
         ImgWeapon,
-        ImgHP,
-        ImgST,
+        ImgWeaponFrame,
         ImgGoods
     }
 
@@ -28,6 +33,7 @@ public class UI_InGame : UI_Scene
     {
         base.Init();
 
+        Bind<GameObject>(typeof(GameObjects));
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(Texts));
 
@@ -45,12 +51,14 @@ public class UI_InGame : UI_Scene
 
     public void OnChangeHP(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
     {
-        Debug.Log("Change HP");
+        Slider hpBar = GetObject((int)GameObjects.SliHP).GetComponent<Slider>();
+        hpBar.value = (float)param;
     }
 
     public void OnChangeST(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
     {
-        Debug.Log("Change ST");
+        Slider stBar = GetObject((int)GameObjects.SliST).GetComponent<Slider>();
+        stBar.value = (float)param;
     }
 
     public void OnChangeGoods(UI_EventHandler.UIEventType eventType, Component sender, object param = null)

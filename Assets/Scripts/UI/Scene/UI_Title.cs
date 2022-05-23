@@ -49,17 +49,17 @@ public class UI_Title : UI_Scene
 
     public void OnNewStart(PointerEventData data)
     {
-        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "NewGameScene");
+        UIManager.Instance.ShowPopupUI<UI_NewGame>("UI_StartGame");
     }
 
     public void OnContinue(PointerEventData data)
     {
-        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "ContinueScene");
+        UIManager.Instance.ShowPopupUI<UI_Continue>("UI_StartGame");
     }
 
     public void OnSetting(PointerEventData data)
     {
-        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "SettingScene");
+        UIManager.Instance.ShowPopupUI<UI_Setting>();
     }
 
     public void OnQuit(PointerEventData data)

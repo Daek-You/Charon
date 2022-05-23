@@ -11,7 +11,9 @@ public class UI_EventHandler
         ChangeHP,
         ChangeST,
         ChangeGoods,
-        ChangeScene
+        ChangeScene,
+        NextDialogue,
+        ChangeStat
     }
 
     public Action<UIEventType, Component, object> OnUIEvent = null;

@@ -35,42 +35,64 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (UI_Dialogue.IsDialogue)
         {
-            // 무기가 변경될 경우 리스너를 호출
-            int weapon = Random.Range(0, 3);
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeWeapon, this, weapon);
+            if (Input.GetKeyDown(KeyCode.Space))
+                EventHandler.PostNotification(UI_EventHandler.UIEventType.NextDialogue, this);
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        else
         {
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeST, this, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            // 재화 값이 변경될 경우 리스너를 호출
-            int goods = Random.Range(0, 10000);
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeGoods, this, goods);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (!UI_CheckUpgrade.IsOpen)
-                ShowPopupUI<UI_CheckUpgrade>();
-            else
-                ClosePopupUI();
-
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (!UI_SkillCooldown.IsCooldown)
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                // 쿨타임 스택을 따로 사용하도록 만듦
-                ShowPopupUI<UI_SkillCooldown>();
+                // 무기가 변경될 경우 리스너를 호출
+                int weapon = Random.Range(0, 3);
+                EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeWeapon, this, weapon);
             }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                float curHP = Random.Range(0, 500);
+                EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, (curHP / 500));
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                float curST = Random.Range(0, 5);
+                EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeST, this, (curST / 4));
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                // 재화 값이 변경될 경우 리스너를 호출
+                int goods = Random.Range(0, 10000);
+                EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeGoods, this, goods);
+            }
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                if (!UI_CheckUpgrade.IsUpgradeOpen)
+                    ShowPopupUI<UI_CheckUpgrade>();
+                else
+                    ClosePopupUI();
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (!UI_SkillCooldown.IsCooldown)
+                {
+                    // 쿨타임 스택을 따로 사용하도록 만듦
+                    ShowPopupUI<UI_SkillCooldown>();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+                ShowPopupUI<UI_Dialogue>();
+
+            // 일시 정지 중에는 다른 메뉴를 띄우거나 게임이 진행되어서는 안 됨
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!UI_Pause.IsPauseOpen)
+                    ShowPopupUI<UI_Pause>();
+                else
+                    ClosePopupUI();
+            }
+                
         }
     }
 

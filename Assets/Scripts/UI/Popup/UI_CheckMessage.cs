@@ -46,10 +46,8 @@ public class UI_CheckMessage : UI_Popup
 
     public void OnDeleteAndNewStart(PointerEventData data)
     {
-        // 기존 데이터 삭제 작업이 필요
+        // 기존 데이터 삭제 후 새로 시작
         Debug.Log("데이터 지우고 새로하기");
-
-        // SceneManager.LoadScene();
     }
 
     public void OnDeleteCancle(PointerEventData data)
