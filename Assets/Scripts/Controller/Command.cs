@@ -2,25 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Command
+
+public interface ICommand<T>
 {
-    public virtual void Execute(Player player) { }
+    void InputUpdate(T owner);
+    void PhysicsUpdate(T owner);
 }
 
 
-public class CommandMouseRClick : Command
+public class Move_ : ICommand<Sondol>
 {
-    private int checkingLayer = 1 << LayerMask.NameToLayer("Walkable");
-    // 추후에 몬스터, NPC 레이어도 추가해야 할 것 같음
+    public static bool enabled = true;
+    private Vector3 direction;
+    private int moveAnimation = Animator.StringToHash("Move");
+    private float animationPlaySpeed = 0.9f;
 
-    public override void Execute(Player player)
+
+    public void InputUpdate(Sondol owner)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-        if(Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, checkingLayer))
+        if (enabled)
         {
-            player.Move(hitInfo.point);
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+            
+            bool hasHorizontal = !Mathf.Approximately(horizontal, 0f);
+            bool hasVertical = !Mathf.Approximately(vertical, 0f);
+            bool hasControl = hasHorizontal || hasVertical;
+
+            direction = hasControl ? new Vector3(horizontal, 0f, vertical).normalized : Vector3.zero;
+            
+            // 나중에 이동 속도에 맞게 배속을 결정하는 공식 계산 필요
+            float moveValue = hasControl ? animationPlaySpeed : 0f;
+            owner.animator.SetFloat(moveAnimation, moveValue);
         }
+    }
+
+    public void PhysicsUpdate(Sondol owner)
+    {
+        owner.Move(direction);
     }
 }
 
+
+
+
+public class Dash : ICommand<Sondol>
+{
+    public static int currentDashCount = 0;
+    private const float dashPower = 50f;
+    private const float dashDelay = 0.5f;
+    private const float dashStopTime = 0.25f;
+    private int dashAnimation = Animator.StringToHash("Dash");
+
+    public void InputUpdate(Sondol owner)
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Move_.enabled = false;
+            ++currentDashCount;
+            owner.animator.SetTrigger(dashAnimation);
+            //owner._Dash(dashPower, dashDelay, dashStopTime);
+            Move_.enabled = true;
+        }
+    }
+
+    public void PhysicsUpdate(Sondol owner) { }
+}

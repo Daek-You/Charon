@@ -6,3 +6,10 @@ public enum StatType
     ATTACK_DAMAGE = 1003,
     DASH_COUNT = 1004,
 }
+
+public enum UnitState
+{
+    IDLE = 10000,
+    WALK = 10001,
+    ATTACK = 10002,
+}
