@@ -1,9 +1,4 @@
-
-
-
-public interface ICommand<T>
+public interface IComponent<T>
 {
-    void InputUpdate(T owner);
-    void PhysicsUpdate(T owner);
+    void UpdateComponent(T owner);
 }
-
