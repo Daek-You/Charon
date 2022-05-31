@@ -1,32 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Sondol : Player
+public class Sondol : Unit
 {
-    public Rigidbody rigidBody { get; private set; }
-    public Animator animator { get; private set; }
-    public int dashCount { get; private set; } = 2;
 
-    void Start()
-    {
-        rigidBody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-    }
+    public int dashCount;
 
-    public override void Move(Vector3 direction)
-    {
-        if (direction != Vector3.zero)
-            LookAt(direction);
-        rigidBody.position += direction * moveSpeed * Time.deltaTime;
-    }
 
-    private void LookAt(Vector3 direction)
-    {
-        Quaternion targetAngle = Quaternion.LookRotation(direction);
-        rigidBody.rotation = targetAngle;
-    }
+
+    /// <summary>
+    /// 사용하지 않습니다.
+    /// </summary>
+    /// <param name="vector"></param>
+    public override void Move(Vector3 vector) { }
 
     public void SetStats(int currentHP, int maxHP, int moveSpeed, int armor, int dashCount)
     {
@@ -37,32 +25,6 @@ public class Sondol : Player
         this.dashCount = dashCount;
     }
 
-
-
-    public void _Dash(float dashPower, float dashDelay, float stopTime)
-    {
-        rigidBody.AddForce(rigidBody.transform.forward * dashPower, ForceMode.Impulse);
-        StartCoroutine(DashCor(dashPower, dashDelay, stopTime));
-    }
-
-
-    IEnumerator DashCor(float dashPower, float dashDelay, float stopTime)
-    {
-        float startTime = Time.time;
-
-        while (Time.time < startTime + dashDelay)
-        {
-            if (Time.time > startTime + stopTime)
-                rigidBody.velocity = Vector3.zero;
-
-            yield return null;
-        }
-
-        Dash.currentDashCount = 0;
-        Move_.enabled = true;
-    }
-
-
     protected override void OnDie()
     {
 
@@ -72,3 +34,6 @@ public class Sondol : Player
 
     }
 }
+
+
+

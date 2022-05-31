@@ -1170,8 +1170,8 @@ GameObject:
   - component: {fileID: 1171688502440683420}
   - component: {fileID: 5866666019920290455}
   - component: {fileID: 5866666019920290458}
-  - component: {fileID: 5866666019920290456}
   - component: {fileID: 5866666019920290457}
+  - component: {fileID: 6473499419324380375}
   m_Layer: 0
   m_Name: Sondol
   m_TagString: Untagged
@@ -1206,10 +1206,10 @@ Animator:
   m_GameObject: {fileID: 5614106389420926812}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cc3ca6e67d4422e479110b93638140bf, type: 3}
-  m_Controller: {fileID: 9100000, guid: 9325a63bb7caca54ebaf3aaadf82da5b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5a47b6c9c662fa44aae938abb1e27eb8, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1246,19 +1246,6 @@ CapsuleCollider:
   m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0.08, y: 0.85, z: 0.1}
---- !u!114 &5866666019920290456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5614106389420926812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061b25d5b9a255a48aaf6b04ade0843f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  owner: {fileID: 5866666019920290457}
 --- !u!114 &5866666019920290457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,6 +1261,19 @@ MonoBehaviour:
   maxHP: 0
   moveSpeed: 3
   armor: 0
+  dashCount: 2
+--- !u!114 &6473499419324380375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614106389420926812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061b25d5b9a255a48aaf6b04ade0843f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5633221696431227911
 GameObject:
   m_ObjectHideFlags: 0
