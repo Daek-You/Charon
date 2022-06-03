@@ -34,6 +34,7 @@ public class _Animator : MonoBehaviour, IComponent<Controller>
 
     public void DashAnimation(Controller owner)
     {
+        animator.ResetTrigger(dashAnimation);
         animator.SetTrigger(dashAnimation);
     }
 }

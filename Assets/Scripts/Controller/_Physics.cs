@@ -11,8 +11,10 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
     public float dashPower;
 
     private Rigidbody rigidBody;
-    private WaitForSeconds dashReInputTime = new WaitForSeconds(0.1f);
-    private WaitForSeconds dashDurationTime = new WaitForSeconds(0.3f);
+    private WaitForSeconds dashReInputTime = new WaitForSeconds(0.01f);
+    private WaitForSeconds dashDurationTime = new WaitForSeconds(0.35f);
+    private WaitForSeconds dashFinishTime = new WaitForSeconds(0.1f);
+    private WaitForSeconds dashcoolTime = new WaitForSeconds(0.4f);
     private Coroutine dashCoroutine;
     private bool moveLock = false;
 
@@ -76,15 +78,17 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
     IEnumerator DashMoveCor(Controller owner)
     {
         moveLock = true;
+
         Dash(owner);
         yield return dashReInputTime;
         owner.isDash = false;
         yield return dashDurationTime;
         owner.isDash = true;
-        yield return dashDurationTime;
+        yield return dashFinishTime;
+        moveLock = false;
+        yield return dashcoolTime;
 
         owner.isDash = false;
         owner.theInput.CurrentDashCount = 0;
-        moveLock = false;
     }
 }

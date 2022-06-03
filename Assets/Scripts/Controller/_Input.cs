@@ -9,6 +9,7 @@ using UnityEngine;
 public class _Input : MonoBehaviour, IComponent<Controller>
 {
 
+    public static bool Enable = true;
     public Vector3 MoveVelocity { get; private set; }
     public Vector3 DashVecter { get; private set; }
     public int CurrentDashCount { get; set; } = 0;
@@ -16,8 +17,17 @@ public class _Input : MonoBehaviour, IComponent<Controller>
 
     public void UpdateComponent(Controller owner)
     {
-        UpdateVelocity();
-        UpdateDashVector(owner);
+        if (Enable)
+        {
+            UpdateVelocity();
+            UpdateDashVector(owner);
+        }
+
+        else
+        {
+            MoveVelocity = DashVecter = Vector3.zero;
+        }
+
     }
 
     private void UpdateVelocity()
