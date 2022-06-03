@@ -1,12 +1,3 @@
-
-
-public enum ReinforceType
-{
-    CONSTANT = 10000,   // 합적용
-    MULTIPLI = 10001,   // 곱적용
-}
-
-
 public enum StatType
 {
     MAX_HP = 1000,
@@ -16,6 +7,9 @@ public enum StatType
     DASH_COUNT = 1004,
 }
 
-
-
-
+public enum UnitState
+{
+    IDLE = 10000,
+    WALK = 10001,
+    ATTACK = 10002,
+}

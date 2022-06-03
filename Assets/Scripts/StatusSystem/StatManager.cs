@@ -173,8 +173,10 @@ public class StatManager : MonoBehaviour
             case StatType.MAX_HP:
                 result = (int)(maxHP.initValue + maxHP.IncreasingAmount * maxHP.currentReinforceLevel);
                 break;
+
+            /// 이동 속도 300 -> 3 정도가 알맞은 변환치인 듯
             case StatType.MOVE_SPEED:
-                result = (int)(moveSpeed.initValue + moveSpeed.IncreasingAmount * moveSpeed.currentReinforceLevel);
+                result = (int)(moveSpeed.initValue + moveSpeed.IncreasingAmount * moveSpeed.currentReinforceLevel) / 100;
                 break;
             case StatType.DASH_COUNT:
                 result = (int)(dashCount.initValue + dashCount.IncreasingAmount * dashCount.currentReinforceLevel);
