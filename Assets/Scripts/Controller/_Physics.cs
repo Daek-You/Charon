@@ -78,10 +78,12 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
     IEnumerator DashMoveCor(Controller owner)
     {
         moveLock = true;
+        owner.canDashAttack = false;
 
         Dash(owner);
         yield return dashReInputTime;
         owner.isDash = false;
+        owner.canDashAttack = true;
         yield return dashDurationTime;
         owner.isDash = true;
         yield return dashFinishTime;
@@ -89,6 +91,7 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
         yield return dashcoolTime;
 
         owner.isDash = false;
+        owner.canDashAttack = false;
         owner.theInput.CurrentDashCount = 0;
     }
 }
