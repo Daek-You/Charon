@@ -52,6 +52,7 @@ public class UI_SkillCooldown : UI_Popup
         StartCoroutine("CorFrameCooldown", cool);
     }
 
+    // 스킬 쿨타임의 남은 시간을 출력하는 함수
     IEnumerator CorCooldown (float second)
     {
         var wait = new WaitForSeconds(1);
@@ -65,6 +66,7 @@ public class UI_SkillCooldown : UI_Popup
         Utils.Destroy(gameObject);
     }
 
+    // 스킬 쿨타임의 남은 시간을 시각적으로 보여주는 함수
     IEnumerator CorFrameCooldown (float second)
     {
         float cool = second;

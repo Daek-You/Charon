@@ -45,6 +45,7 @@ public class UIManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A))
             {
                 // 무기가 변경될 경우 리스너를 호출
+                // 무기 아이콘이 확정될 경우 수정이 필요
                 int weapon = Random.Range(0, 3);
                 EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeWeapon, this, weapon);
             }
@@ -61,6 +62,7 @@ public class UIManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 // 재화 값이 변경될 경우 리스너를 호출
+                // 재화 아이콘이 확정될 경우 수정이 필요
                 int goods = Random.Range(0, 10000);
                 EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeGoods, this, goods);
             }

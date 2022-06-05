@@ -23,7 +23,7 @@ public class UI_StatSlot : UI_Base
 
     void OnEnable()
     {
-        
+        // 각 스탯에 대한 초기화를 여기서 해 줄 것
     }
 
     public override void Init()

@@ -14,12 +14,17 @@ public class UI_CheckUpgrade : UI_Popup
     static bool isUpgradeOpen = false;
     public static bool IsUpgradeOpen { get { return isUpgradeOpen; } }
 
-    void Start()
+    private void Awake()
     {
         Init();
     }
 
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        isUpgradeOpen = true;
+    }
+
+    private void OnDisable()
     {
         isUpgradeOpen = false;
     }
@@ -28,7 +33,6 @@ public class UI_CheckUpgrade : UI_Popup
     {
         base.Init();
 
-        isUpgradeOpen = true;
         Bind<GameObject>(typeof(GameObjects));
 
         GameObject panel = Get<GameObject>((int)GameObjects.GridPanel);
