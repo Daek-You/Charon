@@ -47,11 +47,12 @@ public class _Input : MonoBehaviour, IComponent<Controller>
     {
         if (Input.GetKeyDown(KeyCode.Space) && CurrentDashCount < owner.sondol.dashCount)
         {
-            if (!owner.isDash)
+            if (!owner.isDash || owner.canInputKey)
             {
                 DashVecter = MoveVelocity;
                 ++CurrentDashCount;
                 owner.isDash = true;
+                owner.canInputKey = false;
                 owner.thePhysics.DashMove(owner);
             }
         }
@@ -61,10 +62,15 @@ public class _Input : MonoBehaviour, IComponent<Controller>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (owner.canDashAttack)
+            if (owner.isDash && owner.canInputKey)
             {
-                /// 대쉬 공격 처리
-                Debug.Log("대쉬 공격!");
+                Vector3 mouseDirection = GetMouseWorldDirectionOrZero();
+                Coroutine dashCor = owner.thePhysics.dashCoroutine;
+                
+                if(dashCor != null)
+                    GetComponent<_Physics>().StopCoroutine(dashCor);
+                
+                owner.sondol.myWeapon.DashAttack(owner, mouseDirection);
                 return;
             }
 
@@ -72,6 +78,22 @@ public class _Input : MonoBehaviour, IComponent<Controller>
         }
     }
 
+
+    private Vector3 GetMouseWorldDirectionOrZero()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            Vector3 target = hit.point;
+            target.Set(target.x, 0f, target.z);
+            Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f);
+            return (target - transform.position).normalized;
+        }
+
+        return Vector3.zero;
+    }
 
     private IEnumerator ChargingCheckCor(Controller owner)
     {

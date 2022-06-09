@@ -14,7 +14,7 @@ public class Controller : MonoBehaviour
     public Sondol sondol { get; private set; }
 
     public bool isDash { get; set; } = false;
-    public bool canDashAttack { get; set; } = false;
+    public bool canInputKey { get; set; } = false;
     public bool isCharging { get; set; } = false;
 
 

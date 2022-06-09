@@ -9,13 +9,14 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
 {
 
     public float dashPower;
+    public Coroutine dashCoroutine { get; private set; }
 
     private Rigidbody rigidBody;
     private WaitForSeconds dashReInputTime = new WaitForSeconds(0.01f);
     private WaitForSeconds dashDurationTime = new WaitForSeconds(0.35f);
-    private WaitForSeconds dashFinishTime = new WaitForSeconds(0.1f);
-    private WaitForSeconds dashcoolTime = new WaitForSeconds(0.4f);
-    private Coroutine dashCoroutine;
+    private WaitForSeconds dashFinishTime = new WaitForSeconds(0.2f);
+    private WaitForSeconds dashcoolTime = new WaitForSeconds(0.3f);
+    private WaitForSeconds dashAttackDuration = new WaitForSeconds(0.2F);
     private bool moveLock = false;
 
     void Awake()
@@ -71,27 +72,56 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
         Vector3 dashVector = owner.theInput.DashVecter;
         Vector3 finalDirection = dashVector != Vector3.zero ? dashVector : rigidBody.transform.forward;
         LookAt(finalDirection);
-        owner.theAnimator.DashAnimation(owner);
+        owner.theAnimator.DashAnimation();
         rigidBody.velocity = finalDirection * dashPower;
     }
 
     IEnumerator DashMoveCor(Controller owner)
     {
         moveLock = true;
-        owner.canDashAttack = false;
-
         Dash(owner);
+
         yield return dashReInputTime;
-        owner.isDash = false;
-        owner.canDashAttack = true;
+        owner.canInputKey = true;
+
         yield return dashDurationTime;
-        owner.isDash = true;
+        owner.canInputKey = false;
+
         yield return dashFinishTime;
         moveLock = false;
+        Debug.Log("대시 락 풀림");
         yield return dashcoolTime;
-
         owner.isDash = false;
-        owner.canDashAttack = false;
+        owner.theInput.CurrentDashCount = 0;
+    }
+
+
+
+    public IEnumerator DashAttackCor(Controller owner, Vector3 mouseDirection)
+    {
+        InitialDashSetting(owner);
+        
+        moveLock = true;
+        LookAt(mouseDirection);
+        owner.theAnimator.DashAttackAnimation(true);
+        rigidBody.velocity = mouseDirection * dashPower * 2f;
+        owner.theInput.enabled = false;    // 키 입력 받지 못 하도록
+
+        yield return dashAttackDuration;
+        rigidBody.velocity = Vector3.zero;
+        owner.theAnimator.DashAttackAnimation(false);
+
+        yield return new WaitForSeconds(0.5f);
+        moveLock = false;
+        owner.theInput.enabled = true;
+    }
+
+
+    private void InitialDashSetting(Controller owner)
+    {
+        moveLock = false;
+        owner.canInputKey = false;
+        owner.isDash = false;
         owner.theInput.CurrentDashCount = 0;
     }
 }

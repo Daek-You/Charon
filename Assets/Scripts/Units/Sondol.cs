@@ -7,6 +7,16 @@ public class Sondol : Unit
 {
 
     public int dashCount;
+    public IWeapon myWeapon { get; private set; }
+
+
+
+
+    void Start()
+    {
+        myWeapon = GetComponentInChildren<IWeapon>();
+        Debug.Log(myWeapon);
+    }
 
 
 
