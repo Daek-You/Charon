@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
     int order = 10;
     Stack<UI_Popup> popupStack = new Stack<UI_Popup>();
 
-
     // UI Object들을 자식으로 가지는 부모 Object
     public GameObject Root
     {
@@ -85,6 +84,14 @@ public class UIManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.L))
                 ShowPopupUI<UI_Dialogue>();
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                if (!UI_AchievementView.IsAchievementOpen)
+                    ShowPopupUI<UI_AchievementView>();
+                else
+                    ClosePopupUI();
+            }
 
             // 일시 정지 중에는 다른 메뉴를 띄우거나 게임이 진행되어서는 안 됨
             if (Input.GetKeyDown(KeyCode.Escape))

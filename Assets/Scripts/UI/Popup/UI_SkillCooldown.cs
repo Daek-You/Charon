@@ -9,6 +9,8 @@ public class UI_SkillCooldown : UI_Popup
     static bool isCooldown = false;
     public static bool IsCooldown { get { return isCooldown; } }
 
+    
+
     enum Texts
     {
         TxtCooldown
@@ -40,16 +42,25 @@ public class UI_SkillCooldown : UI_Popup
 
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
+
+        UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeSuccess, OnUseSkill);
     }
 
     public void StartCooldown()
     {
         isCooldown = true;
+        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeSuccess, this);
 
         // 현재 무기의 스킬 쿨타임 정보를 받아와야함
         float cool = Random.Range(3, 6);
         StartCoroutine("CorCooldown", cool);
         StartCoroutine("CorFrameCooldown", cool);
+    }
+
+    public void OnUseSkill(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
+    {
+        QuestReporter reporter = Utils.GetAddedComponent<QuestReporter>(this.gameObject);
+        reporter.Report();
     }
 
     // 스킬 쿨타임의 남은 시간을 출력하는 함수

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1152975761538623507}
   - component: {fileID: 1152975761538623506}
   - component: {fileID: 6254819885788373559}
+  - component: {fileID: 6460152473853415910}
   m_Layer: 5
   m_Name: UI_SkillCooldown
   m_TagString: Untagged
@@ -115,6 +116,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33129f67e6ac69c47adc81e7694fd64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6460152473853415910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152975761538623517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd831837571dbe4c9d67a4bf80ef400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: d6885bf7881fe5745b52c16721a92295, type: 2}
+  target: {fileID: 11400000, guid: 1e27f21b6565518459a87b4c4f44450c, type: 2}
+  successCount: 1
 --- !u!1 &1152975762443666410
 GameObject:
   m_ObjectHideFlags: 0

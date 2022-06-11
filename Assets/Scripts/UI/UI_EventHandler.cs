@@ -13,7 +13,8 @@ public class UI_EventHandler
         ChangeGoods,
         ChangeScene,
         NextDialogue,
-        ChangeStat
+        ChangeStat,
+        ChangeSuccess
     }
 
     public Action<UIEventType, Component, object> OnUIEvent = null;

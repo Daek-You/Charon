@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 509647328}
   - component: {fileID: 509647329}
+  - component: {fileID: 509647330}
   m_Layer: 0
   m_Name: '@Scene'
   m_TagString: Untagged
@@ -167,6 +168,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570dc561aa3f39a4a8cab584c839ccb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &509647330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509647327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae3cc5625f8074478ba56ff32437e53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  achievements:
+  - {fileID: 11400000, guid: 101313c4b8ba0ae4790ee3d8b81e76a6, type: 2}
 --- !u!1 &1013448409
 GameObject:
   m_ObjectHideFlags: 0

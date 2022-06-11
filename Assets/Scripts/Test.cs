@@ -12,11 +12,12 @@ public class Test : BaseScene
     public override void Init()
     {
         UIManager.Instance.ShowSceneUI<UI_InGame>();
+        UIManager.Instance.ShowSceneUI<UI_AchievementCompletionNotifier>();
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeScene, OnChangeScene);
     }
 
     public override void Clear()
     {
-        throw new System.NotImplementedException();
+        
     }
 }
