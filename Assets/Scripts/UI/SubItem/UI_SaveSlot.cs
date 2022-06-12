@@ -22,22 +22,22 @@ public class UI_SaveSlot : UI_Base
     public override void Init()
     {
         Bind<Image>(typeof(Images));
-        GameObject image = GetImage((int)Images.ImgSlot).gameObject;
+        // GameObject image = GetImage((int)Images.ImgSlot).gameObject;
 
         // switch 문은 type이 늘어날수록 비효율적이므로 모듈화할 필요가 있음
         // 여유가 된다면 모듈화 구조에 대해서 생각해볼 것
-        switch (SlotType)
-        {
-            case UI_ManageData.DataState.NewGame:
-                BindEvent(image, OnStartNewGame, UIEvent.Click);
-                break;
-            case UI_ManageData.DataState.Continue:
-                BindEvent(image, OnContinueGame, UIEvent.Click);
-                break;
-            case UI_ManageData.DataState.SaveGame:
-                BindEvent(image, OnSaveCurrentGame, UIEvent.Click);
-                break;
-        }
+        //switch (SlotType)
+        //{
+        //    case UI_ManageData.DataState.NewGame:
+        //        BindEvent(image, OnStartNewGame, UIEvent.Click);
+        //        break;
+        //    case UI_ManageData.DataState.Continue:
+        //        BindEvent(image, OnContinueGame, UIEvent.Click);
+        //        break;
+        //    case UI_ManageData.DataState.SaveGame:
+        //        BindEvent(image, OnSaveCurrentGame, UIEvent.Click);
+        //        break;
+        //}
 
         
     }

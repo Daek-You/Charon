@@ -83,6 +83,6 @@ public class UI_ManageData : UI_Popup
 
     public void OnStartGame(PointerEventData data)
     {
-        SceneManager.LoadScene("UITestScene");
+        SceneManager.LoadScene("LobbyScene");
     }
 }
