@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Enemy : Unit
+public abstract class Enemy : Unit, IHittable
 {
-    public int attackDamage;
+    //public int attackDamage;
     protected float rotationSpeed = 15f;
     protected Vector3 destination;
     protected NavMeshAgent agent;
@@ -46,13 +46,13 @@ public abstract class Enemy : Unit
         rigidBody.isKinematic = enable;
     }
 
-    public void SetStats(int currentHP, int maxHP, int moveSpeed, int armor, int attackDamage)
+    public void SetStats(int currentHP, int maxHP, int moveSpeed, int armor/*, int attackDamage*/)
     {
         this.currentHP = currentHP;
         this.maxHP = maxHP;
         this.moveSpeed = moveSpeed;
         this.armor = armor;
-        this.attackDamage = attackDamage;
+        //this.attackDamage = attackDamage;
     }
 
     protected virtual void LookAtMovingDirection()
