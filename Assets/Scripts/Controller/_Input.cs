@@ -91,7 +91,7 @@ public class _Input : MonoBehaviour, IComponent<Controller>
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             Vector3 target = hit.point;
-            target.Set(target.x, 0f, target.z);
+            target.Set(target.x, transform.position.y, target.z);
             Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f);
             return (target - transform.position).normalized;
         }
