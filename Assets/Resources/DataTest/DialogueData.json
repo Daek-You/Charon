@@ -1,0 +1,19 @@
+{
+  "dialogues": [
+    {
+      "id": "0",
+      "name": "sondol",
+      "description": "sondol. sondol."
+    },
+    {
+      "id": "1",
+      "name": "charon",
+      "description": "charon."
+    },
+    {
+      "id": "2",
+      "name": "charon",
+      "description": "dialogue system."
+    }
+  ]
+}
