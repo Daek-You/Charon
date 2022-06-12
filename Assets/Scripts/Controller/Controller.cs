@@ -14,8 +14,11 @@ public class Controller : MonoBehaviour
     public Sondol sondol { get; private set; }
 
     public bool isDash { get; set; } = false;
+    public bool isDashAttack { get; set; } = false;
     public bool canInputKey { get; set; } = false;
     public bool isCharging { get; set; } = false;
+    public bool isAttack  = false;
+    public bool canComboAttack = false;
 
 
     void Awake()
@@ -38,6 +41,25 @@ public class Controller : MonoBehaviour
     void FixedUpdate()
     {
         thePhysics.UpdateComponent(this);
+    }
+
+
+    public void _ResetMove()
+    {
+        theInput.moveInputLock = false;
+        thePhysics.moveLock = false;
+    }
+
+    public void _ResetAttack()
+    {
+        isAttack = false;
+        canComboAttack = false;
+        isDashAttack = false;
+    }
+
+    public void OnPossibleCombo()
+    {
+        canComboAttack = true;
     }
 }
 

@@ -10,8 +10,11 @@ public class _Animator : MonoBehaviour, IComponent<Controller>
     public int _MoveAnimation { get; private set; }
     public int _DashAnimation { get; private set; }
     public int _DashAttackAnimation { get; private set; }
+    public int _AttackAnimation { get; private set; }
+    public int _AttackAnimationSpeed { get; private set; }
+ 
 
-    private Animator animator;
+    public Animator animator { get; private set; }
     private float moveAnimationPlaySpeed = 0.9f;
 
 
@@ -21,6 +24,8 @@ public class _Animator : MonoBehaviour, IComponent<Controller>
         _MoveAnimation = Animator.StringToHash("Move");
         _DashAnimation = Animator.StringToHash("Dash");
         _DashAttackAnimation = Animator.StringToHash("IsDashAttack");
+        _AttackAnimation = Animator.StringToHash("Attack");
+        _AttackAnimationSpeed = Animator.StringToHash("AttackSpeed");
     }
 
     public void UpdateComponent(Controller owner)
@@ -43,5 +48,21 @@ public class _Animator : MonoBehaviour, IComponent<Controller>
     public void DashAttackAnimation(bool enable)
     {
         animator.SetBool(_DashAttackAnimation, enable);
+    }
+
+    public void AttackAnimation()
+    {
+        animator.ResetTrigger(_AttackAnimation);
+        animator.SetTrigger(_AttackAnimation);
+    }
+
+    public void SetAttackAnimationSpeed(float speed)
+    {
+        animator.SetFloat(_AttackAnimationSpeed, speed);
+    }
+
+    public bool IsDoneAnimation(int layer)
+    {
+        return animator.GetCurrentAnimatorStateInfo(layer).normalizedTime >= 1f;
     }
 }

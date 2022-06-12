@@ -15,7 +15,6 @@ public class Sondol : Unit
     void Start()
     {
         myWeapon = GetComponentInChildren<IWeapon>();
-        Debug.Log(myWeapon);
     }
 
 

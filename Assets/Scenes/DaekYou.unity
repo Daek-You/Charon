@@ -817,6 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19bc17ea732f54c49b889de06b4ec7c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveInputLock: 0
 --- !u!114 &1116194293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,6 +1036,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1316790595}
     m_Modifications:
+    - target: {fileID: 1794410353835861296, guid: 6a614af0ddb4e5143966e76e7edd2e5b, type: 3}
+      propertyPath: attackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794410353835861296, guid: 6a614af0ddb4e5143966e76e7edd2e5b, type: 3}
+      propertyPath: attackDamage
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 1794410354651087218, guid: 6a614af0ddb4e5143966e76e7edd2e5b, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1095,6 +1104,10 @@ PrefabInstance:
     - target: {fileID: 1171688502440683420, guid: b379671f06adc514ababe82fffb42b84, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171688502440683420, guid: b379671f06adc514ababe82fffb42b84, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5089771990779117030, guid: b379671f06adc514ababe82fffb42b84, type: 3}
       propertyPath: m_RootOrder

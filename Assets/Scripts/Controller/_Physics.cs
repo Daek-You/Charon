@@ -9,6 +9,7 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
 {
 
     public float dashPower;
+    public bool moveLock { get; set; } = false;
     public Coroutine dashCoroutine { get; private set; }
 
     private Rigidbody rigidBody;
@@ -16,8 +17,8 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
     private WaitForSeconds dashDurationTime = new WaitForSeconds(0.35f);
     private WaitForSeconds dashFinishTime = new WaitForSeconds(0.2f);
     private WaitForSeconds dashcoolTime = new WaitForSeconds(0.3f);
-    private WaitForSeconds dashAttackDuration = new WaitForSeconds(0.2F);
-    private bool moveLock = false;
+    private WaitForSeconds dashAttackDuration = new WaitForSeconds(0.15F);
+    private WaitForSeconds dashAttackCoolTime = new WaitForSeconds(0.5f);
 
     void Awake()
     {
@@ -49,7 +50,7 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
         }
     }
 
-    private void LookAt(Vector3 direction)
+    public void LookAt(Vector3 direction)
     {
         Quaternion targetAngle = Quaternion.LookRotation(direction);
         rigidBody.rotation = targetAngle;
@@ -105,15 +106,16 @@ public class _Physics : MonoBehaviour, IComponent<Controller>
         LookAt(mouseDirection);
         owner.theAnimator.DashAttackAnimation(true);
         rigidBody.velocity = mouseDirection * dashPower * 2f;
-        owner.theInput.enabled = false;    // 키 입력 받지 못 하도록
+        owner.theInput.moveInputLock = true;    // 키 입력 받지 못 하도록
 
         yield return dashAttackDuration;
         rigidBody.velocity = Vector3.zero;
         owner.theAnimator.DashAttackAnimation(false);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return dashAttackCoolTime;
         moveLock = false;
-        owner.theInput.enabled = true;
+        owner.theInput.moveInputLock = false;
+        owner.isDashAttack = false;
     }
 
 

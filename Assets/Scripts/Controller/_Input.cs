@@ -10,6 +10,7 @@ public class _Input : MonoBehaviour, IComponent<Controller>
 {
 
     public static bool Enable = true;
+    public bool moveInputLock = false;
     public Vector3 MoveVelocity { get; private set; }
     public Vector3 DashVecter { get; private set; }
     public int CurrentDashCount { get; set; } = 0;
@@ -22,7 +23,9 @@ public class _Input : MonoBehaviour, IComponent<Controller>
     {
         if (Enable)
         {
-            UpdateVelocity();
+            if (!moveInputLock)
+                UpdateVelocity();
+
             UpdateDashVector(owner);
             AttackInput(owner);
         }
@@ -47,7 +50,7 @@ public class _Input : MonoBehaviour, IComponent<Controller>
     {
         if (Input.GetKeyDown(KeyCode.Space) && CurrentDashCount < owner.sondol.dashCount)
         {
-            if (!owner.isDash || owner.canInputKey)
+            if (!owner.isDash && !owner.isAttack && !owner.isDashAttack || owner.canInputKey)
             {
                 DashVecter = MoveVelocity;
                 ++CurrentDashCount;
@@ -62,19 +65,20 @@ public class _Input : MonoBehaviour, IComponent<Controller>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (owner.isDash && owner.canInputKey)
+            Vector3 mouseDirection = GetMouseWorldDirectionOrZero();
+
+            if (owner.isDash && owner.canInputKey && !owner.isDashAttack)
             {
-                Vector3 mouseDirection = GetMouseWorldDirectionOrZero();
                 Coroutine dashCor = owner.thePhysics.dashCoroutine;
-                
-                if(dashCor != null)
+
+                if (dashCor != null)
                     GetComponent<_Physics>().StopCoroutine(dashCor);
-                
+
                 owner.sondol.myWeapon.DashAttack(owner, mouseDirection);
                 return;
             }
 
-            StartCoroutine(ChargingCheckCor(owner));
+            StartCoroutine(ChargingCheckCor(owner, mouseDirection));
         }
     }
 
@@ -95,7 +99,7 @@ public class _Input : MonoBehaviour, IComponent<Controller>
         return Vector3.zero;
     }
 
-    private IEnumerator ChargingCheckCor(Controller owner)
+    private IEnumerator ChargingCheckCor(Controller owner, Vector3 mouseDirection)
     {
         owner.isCharging = false;
         float startTime = Time.time;
@@ -111,13 +115,13 @@ public class _Input : MonoBehaviour, IComponent<Controller>
             if (owner.isCharging && chargingTime < 3f)         // 차징 시간 기록
             {
                 chargingTime += Time.deltaTime;
-                Debug.Log($"차징 중...");
-            }         
+                //Debug.Log($"차징 중...");
+            }
 
             else if (owner.isCharging && chargingTime >= 3f)   // 3초 이상 차징은 해제
             {
                 /// 모션 취소
-                Debug.Log($"차징 시간 초과 해제");
+                //Debug.Log($"차징 시간 초과 해제");
                 yield break;
             }
 
@@ -128,11 +132,12 @@ public class _Input : MonoBehaviour, IComponent<Controller>
         if (owner.isCharging)
         {
             /// 차징 공격
-            Debug.Log("차징 공격!");
+            //Debug.Log("차징 공격!");
+            owner.isCharging = false;
             yield break;
         }
 
-        Debug.Log("일반 3타 공격");
+        owner.sondol.myWeapon.Attack(owner, mouseDirection);
         /// 3타 공격 시작
     }
 }
