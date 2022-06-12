@@ -67,7 +67,7 @@ public class UI_Pause : UI_Popup
 
     public void OnSave(PointerEventData data)
     {
-        UIManager.Instance.ShowPopupUI<UI_SaveGame>("UI_StartGame");
+        UI_SaveGame popup = UIManager.Instance.ShowPopupUI<UI_SaveGame>("UI_StartGame");
     }
 
     public void OnSetting(PointerEventData data)

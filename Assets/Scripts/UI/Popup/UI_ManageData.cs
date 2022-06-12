@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UI_ManageData : UI_Popup
 {
@@ -75,6 +76,13 @@ public class UI_ManageData : UI_Popup
             // saveSlot에 i번째 세이브 데이터를 할당
             // 새로하기에서 이미 존재하는 데이터를 누를 경우 경고 메시지
             // 이어하기에서 데이터가 없는 슬롯을 누를 경우 무반응
+
+            BindEvent(saveSlot.gameObject, OnStartGame, UIEvent.Click);
         }
+    }
+
+    public void OnStartGame(PointerEventData data)
+    {
+        SceneManager.LoadScene("UITestScene");
     }
 }
