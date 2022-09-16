@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
     {
         float currentMoveSpeed = player.MoveSpeed * CONVERT_UNIT_VALUE;
         calculatedDirection = GetDirection(currentMoveSpeed);
-        Debug.Log(calculatedDirection);
+        //Debug.Log(calculatedDirection);
         ControlGravity();
         Move(calculatedDirection, currentMoveSpeed);
     }
