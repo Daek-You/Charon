@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -43,7 +43,7 @@ GameObject:
   m_Layer: 7
   m_Name: RaycastOrigin
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1277,6 +1277,7 @@ GameObject:
   - component: {fileID: 429436969}
   - component: {fileID: 429436970}
   - component: {fileID: 429436971}
+  - component: {fileID: 432093265}
   m_Layer: 7
   m_Name: Sondol
   m_TagString: Untagged
@@ -1346,7 +1347,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3947188125931925636}
-  m_Material: {fileID: 13400000, guid: c0bcc5d5ae8255b468530c234d1a728b, type: 2}
+  m_Material: {fileID: 13400000, guid: 01e98d0dbaf9bb348ab9975fecceb597, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.4
@@ -1410,6 +1411,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 86104393-4031-49e2-942b-6fac70fe68a4
     m_ActionName: Player/Dash[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7db87e98-90fe-4778-b935-6776c9372b82
+    m_ActionName: Player/LeftMouse[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
   m_DefaultActionMap: Player
@@ -1430,7 +1435,7 @@ MonoBehaviour:
   maxSlopeAngle: 40
   raycastOrigin: {fileID: 1553289450}
   groundCheck: {fileID: 619208587}
-  dashPower: 5
+  dashPower: 8
   dashDuration: 0.5
 --- !u!114 &429436971
 MonoBehaviour:
@@ -1449,6 +1454,19 @@ MonoBehaviour:
   armor: 50
   moveSpeed: 500
   dashCount: 1
+--- !u!114 &432093265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3947188125931925636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87309e72946faa141848ee127d673ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWeapon: {fileID: 0}
 --- !u!1 &4042386410040954771
 GameObject:
   m_ObjectHideFlags: 0
