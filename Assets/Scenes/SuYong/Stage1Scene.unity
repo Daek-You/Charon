@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 18692105}
   - component: {fileID: 18692108}
   - component: {fileID: 18692107}
-  - component: {fileID: 18692106}
+  - component: {fileID: 18692109}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -157,28 +157,6 @@ Transform:
   m_Father: {fileID: 868401027}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &18692106
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18692104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 8.231617, z: -10}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!114 &18692107
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -230,6 +208,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &18692109
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18692104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 5.82, z: -8.09}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!1 &19585791 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4150633961463280772, guid: 23d16ba6027c34a40a8e3838a9255c9e, type: 3}
@@ -1497,8 +1497,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 0
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 597636543}
+  m_Follow: {fileID: 597636543}
   m_Lens:
     FieldOfView: 41.591362
     OrthographicSize: 5
@@ -1596,6 +1596,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &597636543 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 275692369555048431, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+  m_PrefabInstance: {fileID: 502514343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &619789016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2177,8 +2182,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 597636543}
+  m_Follow: {fileID: 597636543}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -2204,8 +2209,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 868401025}
-  m_LocalRotation: {x: 0.3375874, y: 3.3441488e-15, z: -1.1993513e-15, w: 0.9412942}
-  m_LocalPosition: {x: 0, y: 8.231617, z: -10}
+  m_LocalRotation: {x: 0.30678767, y: 3e-45, z: -1e-45, w: 0.951778}
+  m_LocalPosition: {x: 0, y: 5.82, z: -8.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2874,8 +2879,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111831139}
-  m_LocalRotation: {x: 0.3375874, y: 3.3441488e-15, z: -1.1993513e-15, w: 0.9412942}
-  m_LocalPosition: {x: 0, y: 8.231617, z: -10}
+  m_LocalRotation: {x: 0.30678767, y: 3e-45, z: -1e-45, w: 0.951778}
+  m_LocalPosition: {x: 0, y: 5.82, z: -8.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
