@@ -78,7 +78,6 @@ public class PlayerController : MonoBehaviour
     {
         float currentMoveSpeed = player.MoveSpeed * CONVERT_UNIT_VALUE;
         calculatedDirection = GetDirection(currentMoveSpeed);
-        //Debug.Log(calculatedDirection);
         ControlGravity();
         Move(calculatedDirection, currentMoveSpeed);
     }
@@ -123,7 +122,7 @@ public class PlayerController : MonoBehaviour
     {
         gravity = Vector3.down * Mathf.Abs(rigidBody.velocity.y);
 
-        if(isGrounded && isOnSlope)
+        if (isGrounded && isOnSlope)
         {
             gravity = Vector3.zero;
             rigidBody.useGravity = false;
