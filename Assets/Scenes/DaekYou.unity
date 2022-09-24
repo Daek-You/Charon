@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -241,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982471314200708662, guid: 66bce15fd0ab895418236b7b1d004161, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.7443125
+      value: -2.77
       objectReference: {fileID: 0}
     - target: {fileID: 4982471314200708662, guid: 66bce15fd0ab895418236b7b1d004161, type: 3}
       propertyPath: m_LocalPosition.z
@@ -330,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7551440899617009079, guid: a16b2f87455a83f4abde39a4129e4dd8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1656876
+      value: 1.9676876
       objectReference: {fileID: 0}
     - target: {fileID: 7551440899617009079, guid: a16b2f87455a83f4abde39a4129e4dd8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -403,7 +403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7551440899617009079, guid: a16b2f87455a83f4abde39a4129e4dd8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.382
+      value: -0.58
       objectReference: {fileID: 0}
     - target: {fileID: 7551440899617009079, guid: a16b2f87455a83f4abde39a4129e4dd8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -446,6 +446,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 429436970, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: dashCoolTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 429436970, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: dashReInputTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 429436970, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: dashForwardRollTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 429436971, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: dashCount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3947188125931925636, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
       propertyPath: m_Name
       value: Sondol
@@ -460,7 +476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4435177033294654014, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7
+      value: -2.1
       objectReference: {fileID: 0}
     - target: {fileID: 4435177033294654014, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -618,7 +634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7551440899617009079, guid: a16b2f87455a83f4abde39a4129e4dd8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2843127
+      value: -3.4823127
       objectReference: {fileID: 0}
     - target: {fileID: 7551440899617009079, guid: a16b2f87455a83f4abde39a4129e4dd8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1180,7 +1196,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 54561e4081da56a4a9fbd8b3af319877, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

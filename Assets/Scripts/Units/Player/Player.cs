@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public float CurrentHP { get { return currentHP; } }
     public float Armor     { get { return armor; } }
     public float MoveSpeed { get { return moveSpeed; } }
-    public float DashCount { get { return dashCount; } }
+    public int DashCount { get { return dashCount; } }
     #endregion
 
     #region #캐릭터 스탯
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected float currentHP;
     [SerializeField] protected float armor;
     [SerializeField] protected float moveSpeed;
-    [SerializeField] protected float dashCount;
+    [SerializeField] protected int dashCount;
     #endregion
 
     #region #Unity 함수
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    public void OnUpdateStat(float maxHP, float currentHP, float armor, float moveSpeed, float dashCount)
+    public void OnUpdateStat(float maxHP, float currentHP, float armor, float moveSpeed, int dashCount)
     {
         this.maxHP = maxHP;
         this.currentHP = currentHP;

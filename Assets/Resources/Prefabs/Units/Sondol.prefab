@@ -1436,7 +1436,9 @@ MonoBehaviour:
   raycastOrigin: {fileID: 1553289450}
   groundCheck: {fileID: 619208587}
   dashPower: 8
-  dashDuration: 0.5
+  dashForwardRollTime: 0.2
+  dashReInputTime: 0.2
+  dashTetanyTime: 0.1
 --- !u!114 &429436971
 MonoBehaviour:
   m_ObjectHideFlags: 0
