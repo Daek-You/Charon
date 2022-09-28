@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace CharacterController
 {
-    public abstract class BaseState : MonoBehaviour
+    public abstract class BaseState
     {
-        protected PlayerController controller { get; private set; }
+        protected PlayerController Controller { get; private set; }
 
         public BaseState(PlayerController controller)
         {
-            this.controller = controller;
+            this.Controller = controller;
         }
 
         public abstract void OnEnterState();

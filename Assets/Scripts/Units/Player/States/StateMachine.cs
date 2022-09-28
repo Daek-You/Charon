@@ -1,11 +1,19 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CharacterController
 {
     public class StateMachine
     {
-        public BaseState currentState { get; private set; }
+        public BaseState CurrentState { get; private set; }
         private Dictionary<StateName, BaseState> states = new Dictionary<StateName, BaseState>();
+
+
+        public StateMachine(StateName stateName, BaseState state)
+        {
+            AddState(stateName, state);
+            CurrentState = GetState(stateName);
+        }
 
         public void AddState(StateName stateName, BaseState state)
         {
@@ -32,22 +40,22 @@ namespace CharacterController
 
         public void ChangeState(StateName nextStateName)
         {
-            currentState?.OnExitState();
+            CurrentState?.OnExitState();
             if (states.TryGetValue(nextStateName, out BaseState newState))
             {
-                currentState = newState;
+                CurrentState = newState;
             }
-            currentState?.OnEnterState();
+            CurrentState?.OnEnterState();
         }
 
         public void UpdateState()
         {
-            currentState?.OnUpdateState();
+            CurrentState?.OnUpdateState();
         }
 
         public void FixedUpdateState()
         {
-            currentState?.OnFixedUpdateState();
+            CurrentState?.OnFixedUpdateState();
         }
     }
 }

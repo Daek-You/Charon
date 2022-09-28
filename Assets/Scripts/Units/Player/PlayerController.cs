@@ -7,8 +7,6 @@ using CharacterController;
 
 
 [RequireComponent(typeof(Player))]
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
     public StateMachine stateMachine { get; private set; }
@@ -55,10 +53,8 @@ public class PlayerController : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider>();
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
 
-        stateMachine = new StateMachine();
-        stateMachine.AddState(StateName.MOVE, new MoveState(this));
+        stateMachine = new StateMachine(StateName.MOVE, new MoveState(this));
         stateMachine.AddState(StateName.DASH, new DashState(this));
-        stateMachine.ChangeState(StateName.MOVE);
     }
 
     void Update()
@@ -78,8 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            bool isAvailableDash = !(stateMachine.currentState is DashState) &&
-                                    DashState.currentDashCount < player.DashCount && isGrounded;
+            bool isAvailableDash = DashState.CanOtherBehaviour && DashState.CurrentDashCount < player.DashCount && isGrounded;
 
             if (isAvailableDash)
             {
@@ -88,6 +83,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+  
     protected Vector3 GetDirection(float currentMoveSpeed)
 
     {
