@@ -1435,10 +1435,6 @@ MonoBehaviour:
   maxSlopeAngle: 40
   raycastOrigin: {fileID: 1553289450}
   groundCheck: {fileID: 619208587}
-  dashPower: 8
-  dashForwardRollTime: 0.2
-  dashReInputTime: 0.2
-  dashTetanyTime: 0.1
 --- !u!114 &429436971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1455,7 +1451,7 @@ MonoBehaviour:
   currentHP: 1000
   armor: 50
   moveSpeed: 500
-  dashCount: 1
+  dashCount: 3
 --- !u!114 &432093265
 MonoBehaviour:
   m_ObjectHideFlags: 0

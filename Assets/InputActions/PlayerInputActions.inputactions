@@ -25,9 +25,9 @@
                 },
                 {
                     "name": "LeftMouse",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "7db87e98-90fe-4778-b935-6776c9372b82",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -104,7 +104,7 @@
                     "name": "",
                     "id": "cffe9e02-c823-45c0-b99e-47d9f45dcecf",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold,Press(behavior=1)",
                     "processors": "",
                     "groups": "PC",
                     "action": "LeftMouse",

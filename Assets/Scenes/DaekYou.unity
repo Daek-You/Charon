@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44755024, g: 0.49751186, b: 0.57533437, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -446,21 +446,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 429436970, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: dashCoolTime
-      value: 0.5
+    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 429436970, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: dashReInputTime
-      value: 0.2
+    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 429436970, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: dashForwardRollTime
-      value: 0.2
+    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 432093264}
+    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 429436971, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: dashCount
-      value: 3
+    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickLeftMouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3947188125931925636, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
       propertyPath: m_Name
@@ -512,6 +524,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+--- !u!114 &432093264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 429436970, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+  m_PrefabInstance: {fileID: 432093263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02914d0c8244b24c8c7d670e1933416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &462982575
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,8 +779,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: -2.448, y: 3, z: -1.414}
+  m_LocalRotation: {x: 0.3997436, y: -0.016508445, z: 0.007181796, w: 0.91645026}
+  m_LocalPosition: {x: 0.85343045, y: 12.435011, z: -14.7665415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1039,8 +1062,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.5434122, y: -0.02586073, z: 0.016849231, w: 0.83889836}
-  m_LocalPosition: {x: -6.38, y: 13.47, z: -3.01}
+  m_LocalRotation: {x: 0.39974353, y: -0.016508067, z: 0.007181646, w: 0.91645026}
+  m_LocalPosition: {x: 0.8534303, y: 12.435011, z: -14.7665415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

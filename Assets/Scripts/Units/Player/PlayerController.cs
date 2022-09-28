@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 using CharacterController;
 
 
@@ -10,6 +11,9 @@ using CharacterController;
 public class PlayerController : MonoBehaviour
 {
     public StateMachine stateMachine { get; private set; }
+    public Vector3 MouseDirection { get; private set; }
+    //public WeaponManager weaponManager { get; private set; }
+    
 
     #region #컴포넌트
     public Player player { get; private set; }
@@ -52,9 +56,7 @@ public class PlayerController : MonoBehaviour
         player = GetComponent<Player>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
-
-        stateMachine = new StateMachine(StateName.MOVE, new MoveState(this));
-        stateMachine.AddState(StateName.DASH, new DashState(this));
+        InitStateMachine();
     }
 
     void Update()
@@ -70,6 +72,37 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    private void InitStateMachine()
+    {
+        stateMachine = new StateMachine(StateName.MOVE, new MoveState(this));
+        stateMachine.AddState(StateName.DASH, new DashState(this));
+    }
+
+    public void OnClickLeftMouse(InputAction.CallbackContext context)
+    {
+        /// 한 바인딩에 여러 상호작용이 있을 경우,
+        /// 상호작용 우선순위는 상호작용에 추가했던 순서대로이며
+        /// 상호작용이 중간에 취소되어야 다음 상호작용이 발동할 권한을 얻게 된다.
+        ///   - 즉 이전 상호작용이 성공적으로 진행(performed)됐다면, 다음 상호작용은 실행되지 않음
+
+
+        if (context.performed)
+        {
+            MouseDirection = GetMouseWorldPosition();
+            
+            if (context.interaction is HoldInteraction)         // 차지 공격
+            {
+
+            }
+
+            else if (context.interaction is PressInteraction)   // 일반 공격
+            {
+
+            }
+        }
+    }
+
+
     public void OnDashInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -83,7 +116,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-  
+    protected Vector3 GetMouseWorldPosition()
+    {
+        Vector3 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        //Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f);
+
+        if (Physics.Raycast(ray, out RaycastHit HitInfo, Mathf.Infinity))
+        {
+            Vector3 target = HitInfo.point;
+            target.Set(target.x, 0f, target.z);
+            return (target - transform.position).normalized;
+        }
+        return Vector3.zero;
+    }
+
     protected Vector3 GetDirection(float currentMoveSpeed)
 
     {
@@ -111,7 +158,7 @@ public class PlayerController : MonoBehaviour
     private float CalculateNextFrameGroundAngle(float moveSpeed)
     {
         // 다음 프레임 캐릭터 앞 부분 위치
-        Vector3 nextFramePlayerPosition = raycastOrigin.position + inputDirection * moveSpeed * Time.fixedDeltaTime;   
+        Vector3 nextFramePlayerPosition = raycastOrigin.position + inputDirection * moveSpeed * Time.fixedDeltaTime;
 
         if (Physics.Raycast(nextFramePlayerPosition, Vector3.down, out RaycastHit hitInfo, RAY_DISTANCE, groundLayer))
         {
@@ -129,7 +176,7 @@ public class PlayerController : MonoBehaviour
     public bool IsOnSlope()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
-        if(Physics.Raycast(ray, out slopeHit, RAY_DISTANCE, groundLayer))
+        if (Physics.Raycast(ray, out slopeHit, RAY_DISTANCE, groundLayer))
         {
             var angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle != 0f && angle < maxSlopeAngle;
