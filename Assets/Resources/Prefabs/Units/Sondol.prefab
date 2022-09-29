@@ -830,7 +830,6 @@ Transform:
   - {fileID: 3063675245279331773}
   - {fileID: 4938801460927130329}
   - {fileID: 5709511313854355755}
-  - {fileID: 4181121106103043386}
   m_Father: {fileID: 1843394566529661053}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1277,7 +1276,6 @@ GameObject:
   - component: {fileID: 429436969}
   - component: {fileID: 429436970}
   - component: {fileID: 429436971}
-  - component: {fileID: 432093265}
   m_Layer: 7
   m_Name: Sondol
   m_TagString: Untagged
@@ -1412,7 +1410,19 @@ MonoBehaviour:
     m_ActionId: 86104393-4031-49e2-942b-6fac70fe68a4
     m_ActionName: Player/Dash[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 429436970}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnClickLeftMouse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7db87e98-90fe-4778-b935-6776c9372b82
     m_ActionName: Player/LeftMouse[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
@@ -1452,19 +1462,6 @@ MonoBehaviour:
   armor: 50
   moveSpeed: 500
   dashCount: 3
---- !u!114 &432093265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3947188125931925636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87309e72946faa141848ee127d673ea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myWeapon: {fileID: 0}
 --- !u!1 &4042386410040954771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,73 +2481,3 @@ Transform:
   m_Father: {fileID: 3771558669385748579}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2850512370729165876
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2572680962171810333}
-    m_Modifications:
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.059
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.072
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.022
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196640556, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196640558, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_Name
-      value: Charon's Paddle
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128336307196640558, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
---- !u!4 &4181121106103043386 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2128336307196403982, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
-  m_PrefabInstance: {fileID: 2850512370729165876}
-  m_PrefabAsset: {fileID: 0}

@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 {
     public StateMachine stateMachine { get; private set; }
     public Vector3 MouseDirection { get; private set; }
-    //public WeaponManager weaponManager { get; private set; }
     
 
     #region #ÄÄÆ÷³ÍÆ®
@@ -120,7 +119,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        //Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f);
+        Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f);
 
         if (Physics.Raycast(ray, out RaycastHit HitInfo, Mathf.Infinity))
         {
@@ -132,7 +131,6 @@ public class PlayerController : MonoBehaviour
     }
 
     protected Vector3 GetDirection(float currentMoveSpeed)
-
     {
         isOnSlope = IsOnSlope();
         isGrounded = IsGrounded();

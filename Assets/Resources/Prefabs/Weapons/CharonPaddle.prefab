@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2128336307196403980}
   - component: {fileID: 2128336307199828268}
   - component: {fileID: 2128336307198829548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,13 +93,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2128336307196403982}
   - component: {fileID: 2128336306423170380}
-  m_Layer: 0
-  m_Name: Charon's Paddle
+  m_Layer: 10
+  m_Name: CharonPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2128336307196403982
 Transform:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128336307196640558}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.0061706314, z: 0, w: 0.999981}
   m_LocalPosition: {x: -0.059, y: 0.072, z: 0.022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -115,7 +115,7 @@ Transform:
   - {fileID: 2128336307196403980}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2128336306423170380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,5 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710691d41d0c9744180c088e3fee9b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponhandleData: {fileID: 11400000, guid: 438e76a12ab65c444aede5a50a71d88b, type: 2}
+  weaponPrefab: {fileID: 0}
+  _name: "\uCE74\uB860\uC758 \uB178"
   attackDamage: 150
   attackSpeed: 2
+  attackRange: 3

@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
     public static Player Instance { get { return instance; } }
     private static Player instance;
 
+    [SerializeField]
+    private Transform rightHand;
+    public WeaponManager weaponManager { get; private set; }
+
     #region #캐릭터 스탯 프로퍼티
     public float MaxHP     { get { return maxHP; } }
     public float CurrentHP { get { return currentHP; } }
@@ -30,6 +34,8 @@ public class Player : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            weaponManager = new WeaponManager(rightHand);
+            weaponManager.unRegisterWeapon = (weapon) => { Destroy(weapon); };
             DontDestroyOnLoad(gameObject);
             return;
         }
