@@ -48,7 +48,8 @@ namespace CharacterController
 
         public override void OnExitState()
         {
-
+            Controller.animator.SetFloat(hashMoveAnimation, 0f);
+            Controller.rigidBody.velocity = Vector3.zero;
         }
     }
 }

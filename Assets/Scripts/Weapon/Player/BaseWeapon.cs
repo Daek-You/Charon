@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class BaseWeapon : MonoBehaviour
 {
     public WeaponHandleData HandleData { get { return weaponhandleData; } }
+    public RuntimeAnimatorController WeaponAnimator { get { return weaponAnimator; } }
     public string Name { get { return _name; } }
     public float AttackDamage { get { return attackDamage; } }
     public float AttackSpeed { get { return attackSpeed; } }
@@ -16,6 +17,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] protected WeaponHandleData weaponhandleData;
 
     [Header("무기 정보")]
+    [SerializeField] protected RuntimeAnimatorController weaponAnimator;
     [SerializeField] protected string _name;
     [SerializeField] protected float attackDamage;
     [SerializeField] protected float attackSpeed;
@@ -29,9 +31,9 @@ public abstract class BaseWeapon : MonoBehaviour
         this.attackRange = attackRange;
     }
 
-    public abstract void Attack();
-    public abstract void DashAttack();
-    public abstract void ChargingAttack();
-    public abstract void Skill();
-    public abstract void UltimateSkill();
+    public abstract void Attack(PlayerController controller);
+    public abstract void DashAttack(PlayerController controller);
+    public abstract void ChargingAttack(PlayerController controller);
+    public abstract void Skill(PlayerController controller);
+    public abstract void UltimateSkill(PlayerController controller);
 }

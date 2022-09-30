@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         stateMachine = new StateMachine(StateName.MOVE, new MoveState(this));
         stateMachine.AddState(StateName.DASH, new DashState(this));
+        stateMachine.AddState(StateName.ATTACK, new AttackState(this));
     }
 
     public void OnClickLeftMouse(InputAction.CallbackContext context)
@@ -91,12 +92,21 @@ public class PlayerController : MonoBehaviour
             
             if (context.interaction is HoldInteraction)         // 차지 공격
             {
-
+                LookAt(MouseDirection);
+                //player.weaponManager.Weapon.ChargingAttack(MouseDirection);
             }
 
             else if (context.interaction is PressInteraction)   // 일반 공격
             {
+                LookAt(MouseDirection);
+                //if (DashState.CanOtherBehaviour)
+                //{
+                //    /// 대시 공격
+                //    return;
+                //}
 
+                stateMachine.ChangeState(StateName.ATTACK);
+                //player.weaponManager.Weapon.Attack(MouseDirection);
             }
         }
     }
@@ -124,8 +134,9 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit HitInfo, Mathf.Infinity))
         {
             Vector3 target = HitInfo.point;
+            Vector3 myPosition = new Vector3(transform.position.x, 0f, transform.position.z);
             target.Set(target.x, 0f, target.z);
-            return (target - transform.position).normalized;
+            return (target - myPosition).normalized;
         }
         return Vector3.zero;
     }

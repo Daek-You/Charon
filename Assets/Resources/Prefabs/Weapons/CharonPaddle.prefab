@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponhandleData: {fileID: 11400000, guid: 438e76a12ab65c444aede5a50a71d88b, type: 2}
-  weaponPrefab: {fileID: 0}
+  weaponAnimator: {fileID: 22100000, guid: 5c5910d3f7d70aa41aae162009a0d3d4, type: 2}
   _name: "\uCE74\uB860\uC758 \uB178"
   attackDamage: 150
   attackSpeed: 2

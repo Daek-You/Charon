@@ -46,6 +46,7 @@ public class WeaponManager
             weaponObject = weapon;
             Weapon = weapon.GetComponent<BaseWeapon>();
             weaponObject.SetActive(true);
+            //GameObject.FindObjectOfType<PlayerController>().animator.runtimeAnimatorController = Weapon.WeaponAnimator;
             return;
         }
 
@@ -56,6 +57,7 @@ public class WeaponManager
                 weaponObject = weapon;
                 weaponObject.SetActive(true);
                 Weapon = weapon.GetComponent<BaseWeapon>();
+                //GameObject.FindObjectOfType<PlayerController>().animator.runtimeAnimatorController = Weapon.WeaponAnimator;
                 continue;
             }
             weapons[i].SetActive(false);
