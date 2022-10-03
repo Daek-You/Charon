@@ -6,10 +6,10 @@ using UnityEngine;
 public class WeaponManager
 {
     public BaseWeapon Weapon { get; private set; }
+    public Action<GameObject> unRegisterWeapon { get; set; }
     private Transform handPosition;
     private GameObject weaponObject;
     private List<GameObject> weapons = new List<GameObject>();
-    public Action<GameObject> unRegisterWeapon { get; set; }
   
     public WeaponManager(Transform hand)
     {
@@ -46,7 +46,7 @@ public class WeaponManager
             weaponObject = weapon;
             Weapon = weapon.GetComponent<BaseWeapon>();
             weaponObject.SetActive(true);
-            //GameObject.FindObjectOfType<PlayerController>().animator.runtimeAnimatorController = Weapon.WeaponAnimator;
+            Player.Instance.animator.runtimeAnimatorController = Weapon.WeaponAnimator;
             return;
         }
 
@@ -57,7 +57,7 @@ public class WeaponManager
                 weaponObject = weapon;
                 weaponObject.SetActive(true);
                 Weapon = weapon.GetComponent<BaseWeapon>();
-                //GameObject.FindObjectOfType<PlayerController>().animator.runtimeAnimatorController = Weapon.WeaponAnimator;
+                Player.Instance.animator.runtimeAnimatorController = Weapon.WeaponAnimator;
                 continue;
             }
             weapons[i].SetActive(false);

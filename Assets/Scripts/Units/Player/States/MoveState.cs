@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace CharacterController
 {
@@ -29,12 +30,12 @@ namespace CharacterController
 
         public override void OnEnterState()
         {
-
+            /// 아직까진 필요 X
         }
 
         public override void OnUpdateState()
         {
-
+            /// 아직까진 필요 X
         }
 
         public override void OnFixedUpdateState()
@@ -42,14 +43,14 @@ namespace CharacterController
             float currentMoveSpeed = Controller.player.MoveSpeed * CONVERT_UNIT_VALUE;
             float animationPlaySpeed = DEFAULT_ANIMATION_PLAYSPEED + GetAnimationSyncWithMovement(currentMoveSpeed);
             Controller.LookAt(Controller.inputDirection);
-            Controller.rigidBody.velocity = Controller.calculatedDirection * currentMoveSpeed + Controller.gravity;
-            Controller.animator.SetFloat(hashMoveAnimation, animationPlaySpeed);
+            Player.Instance.rigidBody.velocity = Controller.calculatedDirection * currentMoveSpeed + Controller.gravity;
+            Player.Instance.animator.SetFloat(hashMoveAnimation, animationPlaySpeed);
         }
 
         public override void OnExitState()
         {
-            Controller.animator.SetFloat(hashMoveAnimation, 0f);
-            Controller.rigidBody.velocity = Vector3.zero;
+            Player.Instance.animator.SetFloat(hashMoveAnimation, 0f);
+            Player.Instance.rigidBody.velocity = Vector3.zero;
         }
     }
 }

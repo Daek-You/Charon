@@ -1276,6 +1276,7 @@ GameObject:
   - component: {fileID: 429436969}
   - component: {fileID: 429436970}
   - component: {fileID: 429436971}
+  - component: {fileID: 4300747608859661585}
   m_Layer: 7
   m_Name: Sondol
   m_TagString: Untagged
@@ -1457,11 +1458,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0e4bcec3b9a95f4aae2953c1f373e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightHand: {fileID: 2572680962171810333}
   maxHP: 1000
   currentHP: 1000
   armor: 50
   moveSpeed: 500
   dashCount: 3
+--- !u!114 &4300747608859661585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3947188125931925636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c11befe51234148b281f079483c980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4042386410040954771
 GameObject:
   m_ObjectHideFlags: 0

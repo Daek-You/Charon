@@ -10,22 +10,11 @@ using CharacterController;
 [RequireComponent(typeof(Player))]
 public class PlayerController : MonoBehaviour
 {
-    public StateMachine stateMachine { get; private set; }
     public Vector3 MouseDirection { get; private set; }
-    
-
-    #region #컴포넌트
     public Player player { get; private set; }
-    public Rigidbody rigidBody { get; private set; }
-    public Animator animator { get; private set; }
-    public CapsuleCollider capsuleCollider { get; private set; }
-    #endregion
-
-    #region #방향 및 중력 벡터
     public Vector3 inputDirection { get; private set; }          // 키보드 입력으로 들어온 이동 방향
-    public Vector3 calculatedDirection { get; private set; }     // 경사 지형 등을 계산한 이동 방향  -> 추후 수정할 수도 있음
+    public Vector3 calculatedDirection { get; private set; }     // 경사 지형 등을 계산한 이동 방향
     public Vector3 gravity { get; private set; }
-    #endregion
 
     #region #경사 체크 변수
     [Header("경사 지형 검사")]
@@ -50,33 +39,17 @@ public class PlayerController : MonoBehaviour
     #region #UNITY_FUNCTIONS
     void Start()
     {
-        rigidBody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
         player = GetComponent<Player>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
-        InitStateMachine();
     }
 
     void Update()
     {
         calculatedDirection = GetDirection(player.MoveSpeed * MoveState.CONVERT_UNIT_VALUE);
         ControlGravity();
-        stateMachine?.UpdateState();
-    }
-
-    void FixedUpdate()
-    {
-        stateMachine?.FixedUpdateState();
     }
     #endregion
 
-    private void InitStateMachine()
-    {
-        stateMachine = new StateMachine(StateName.MOVE, new MoveState(this));
-        stateMachine.AddState(StateName.DASH, new DashState(this));
-        stateMachine.AddState(StateName.ATTACK, new AttackState(this));
-    }
 
     public void OnClickLeftMouse(InputAction.CallbackContext context)
     {
@@ -89,24 +62,27 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             MouseDirection = GetMouseWorldPosition();
-            
+
             if (context.interaction is HoldInteraction)         // 차지 공격
             {
                 LookAt(MouseDirection);
-                //player.weaponManager.Weapon.ChargingAttack(MouseDirection);
+                /// 차지 공격 상태 전환
             }
 
             else if (context.interaction is PressInteraction)   // 일반 공격
             {
-                LookAt(MouseDirection);
-                //if (DashState.CanOtherBehaviour)
-                //{
-                //    /// 대시 공격
-                //    return;
-                //}
+                if (DashState.IsDash)  // 일단은 막아놨음
+                {
+                    /// 대시 공격 상태전환
+                    return;
+                }
 
-                stateMachine.ChangeState(StateName.ATTACK);
-                //player.weaponManager.Weapon.Attack(MouseDirection);
+                bool isAvailableAttack = !AttackState.IsAttack && (player.weaponManager.Weapon.ComboCount < 3);
+                if (isAvailableAttack)
+                {
+                    LookAt(MouseDirection);
+                    player.stateMachine.ChangeState(StateName.ATTACK);
+                }
             }
         }
     }
@@ -118,9 +94,9 @@ public class PlayerController : MonoBehaviour
         {
             bool isAvailableDash = DashState.CanOtherBehaviour && DashState.CurrentDashCount < player.DashCount && isGrounded;
 
-            if (isAvailableDash)
+            if (isAvailableDash && !AttackState.IsAttack)
             {
-                stateMachine.ChangeState(StateName.DASH);
+                player.stateMachine.ChangeState(StateName.DASH);
             }
         }
     }
@@ -153,15 +129,15 @@ public class PlayerController : MonoBehaviour
 
     protected void ControlGravity()
     {
-        gravity = Vector3.down * Mathf.Abs(rigidBody.velocity.y);
+        gravity = Vector3.down * Mathf.Abs(player.rigidBody.velocity.y);
 
         if (isGrounded && isOnSlope)
         {
             gravity = Vector3.zero;
-            rigidBody.useGravity = false;
+            player.rigidBody.useGravity = false;
             return;
         }
-        rigidBody.useGravity = true;
+        player.rigidBody.useGravity = true;
     }
 
     private float CalculateNextFrameGroundAngle(float moveSpeed)
@@ -204,7 +180,7 @@ public class PlayerController : MonoBehaviour
         if (direction != Vector3.zero)
         {
             Quaternion targetAngle = Quaternion.LookRotation(direction);
-            rigidBody.rotation = targetAngle;
+            transform.rotation = targetAngle;
         }
     }
 

@@ -1,3 +1,4 @@
+using CharacterController;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
+    public int ComboCount { get; set; }
     public WeaponHandleData HandleData { get { return weaponhandleData; } }
     public RuntimeAnimatorController WeaponAnimator { get { return weaponAnimator; } }
     public string Name { get { return _name; } }
@@ -12,8 +14,8 @@ public abstract class BaseWeapon : MonoBehaviour
     public float AttackSpeed { get { return attackSpeed; } }
     public float AttackRange { get { return attackRange; } }
 
-
-    [Header("생성 정보")]
+    #region #무기 정보
+    [Header("생성 정보"), Tooltip("해당 무기를 쥐었을 때의 Local Transform 값 정보입니다.")]
     [SerializeField] protected WeaponHandleData weaponhandleData;
 
     [Header("무기 정보")]
@@ -22,6 +24,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] protected float attackDamage;
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected float attackRange;
+    #endregion
 
     public void SetWeaponData(string name, float attackDamage, float attackSpeed, float attackRange)
     {
@@ -31,9 +34,9 @@ public abstract class BaseWeapon : MonoBehaviour
         this.attackRange = attackRange;
     }
 
-    public abstract void Attack(PlayerController controller);
-    public abstract void DashAttack(PlayerController controller);
-    public abstract void ChargingAttack(PlayerController controller);
-    public abstract void Skill(PlayerController controller);
-    public abstract void UltimateSkill(PlayerController controller);
+    public abstract void Attack(BaseState state);
+    public abstract void DashAttack(BaseState state);
+    public abstract void ChargingAttack(BaseState state);
+    public abstract void Skill(BaseState state);
+    public abstract void UltimateSkill(BaseState state);
 }
