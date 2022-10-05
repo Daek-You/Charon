@@ -9,7 +9,7 @@ public class UI_SkillCooldown : UI_Popup
     static bool isCooldown = false;
     public static bool IsCooldown { get { return isCooldown; } }
 
-    
+    QuestReporter reporter;
 
     enum Texts
     {
@@ -44,6 +44,7 @@ public class UI_SkillCooldown : UI_Popup
         Bind<Image>(typeof(Images));
 
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeSuccess, OnUseSkill);
+        reporter = Utils.GetAddedComponent<QuestReporter>(this.gameObject);
     }
 
     public void StartCooldown()
@@ -59,7 +60,6 @@ public class UI_SkillCooldown : UI_Popup
 
     public void OnUseSkill(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
     {
-        QuestReporter reporter = Utils.GetAddedComponent<QuestReporter>(this.gameObject);
         reporter.Report();
     }
 

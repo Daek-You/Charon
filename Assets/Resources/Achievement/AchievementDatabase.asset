@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90a0a54898852384f977081d38a9b8fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 299820c9d132692459b385c91d7777eb, type: 3}
   m_Name: AchievementDatabase
   m_EditorClassIdentifier: 
-  achievemnets: []
+  quests:
+  - {fileID: 11400000, guid: 2c7d9099a9413a34d83ec295a1524fba, type: 2}
+  - {fileID: 11400000, guid: 101313c4b8ba0ae4790ee3d8b81e76a6, type: 2}

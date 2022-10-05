@@ -35,12 +35,12 @@ public class UI_AchievementView : UI_Popup
         foreach (Transform child in panel.transform)
             Utils.Destroy(child.gameObject);
 
-        var achieveManager = AchievementManager.Instance;
+        var achieveManager = QuestManager.Instance;
         CreateDetailViews(achieveManager.ActiveAchivements, panel);
         CreateDetailViews(achieveManager.CompletedAchivements, panel);
     }
 
-    private void CreateDetailViews(IReadOnlyList<Achievement> achievements, GameObject parent)
+    private void CreateDetailViews(IReadOnlyList<Quest> achievements, GameObject parent)
     {
         foreach (var achievement in achievements)
         {

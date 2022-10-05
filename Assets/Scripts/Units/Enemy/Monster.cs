@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum MonsterType { private_k, private_a, C }
+
 public class Monster : Enemy
 { 
-    public enum Type {  A, B, C }
-    public Type MonsterType;
+    public MonsterType MonsterType;
     [SerializeField] private Transform target;
     public Collider HitArea;
     public bool isChase;
@@ -51,17 +52,17 @@ public class Monster : Enemy
 
         switch (MonsterType)
         {
-            case Type.A:
+            case MonsterType.private_k:
                 targetRadius = 1.0f;
                 targetRange = agent.stoppingDistance;
                 break;
 
-            case Type.B:
+            case MonsterType.private_a:
                 targetRadius = 1.5f;
                 targetRange = agent.stoppingDistance + 5;
 
                 break;
-            case Type.C:
+            case MonsterType.C:
                 targetRadius = 1.5f;
                 targetRange = agent.stoppingDistance;
                 break;
@@ -82,10 +83,10 @@ public class Monster : Enemy
         animator.SetBool("isAttack", true);
         switch (MonsterType)
         {
-            case Type.A:
+            case MonsterType.private_k:
                 yield return new WaitForSeconds(1.0f);
                 break;
-            case Type.B:
+            case MonsterType.private_a:
                 yield return new WaitForSeconds(1.0f);
                 GameObject instantArrow = Instantiate(arrow, arrowPos.position, arrowPos.rotation);
                 Rigidbody rigidArrow = instantArrow.GetComponent<Rigidbody>();
@@ -94,7 +95,7 @@ public class Monster : Enemy
                 rigidArrow.velocity = transform.forward * 10;
                 yield return new WaitForSeconds(1.0f);
                 break;
-            case Type.C:
+            case MonsterType.C:
                 yield return new WaitForSeconds(3.0f);
                 break;
         }

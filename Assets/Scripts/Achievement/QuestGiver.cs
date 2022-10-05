@@ -5,14 +5,17 @@ using UnityEngine;
 public class QuestGiver : MonoBehaviour
 {
     [SerializeField]
-    private Achievement[] achievements;
+    private Quest quest;
 
-    private void Start()
+    public void SetQuest(Quest quest)
     {
-        foreach (var achievement in achievements)
-        {
-            if (!AchievementManager.Instance.ContainsInCompletedAchievements(achievement))
-                AchievementManager.Instance.Register(achievement);
-        }
+        this.quest = quest;
+        Register();
+    }
+
+    public void Register()
+    {
+        if (!QuestManager.Instance.ContainsInCompletedQuests(quest) && !QuestManager.Instance.ContainsInActiveQuests(quest))
+            QuestManager.Instance.Register(quest);
     }
 }

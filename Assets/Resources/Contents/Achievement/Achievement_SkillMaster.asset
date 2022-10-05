@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Achievement_SkillMaster
   m_EditorClassIdentifier: 
   category: {fileID: 11400000, guid: 6953854e3d652ac4cb61f93de6406505, type: 2}
-  icon: {fileID: 0}
   codeName: SKILL_MASTER
   displayName: "\uC2A4\uD0AC \uB9C8\uC2A4\uD130"
   description: "\uC2A4\uD0AC\uC744 \uB9C8\uC2A4\uD130\uD55C \uC790\uB9CC\uC774 \uC5BB\uC744
     \uC218 \uC788\uB294 \uC774\uB984."
+  useAutoComplete: 1
+  isCancelable: 0
   taskGroups:
   - tasks:
-    - {fileID: 11400000, guid: b1cec8b5885e57f41aa2ced90f912117, type: 2}
+    - {fileID: 11400000, guid: eb3f871033da12a419cf595a8469256b, type: 2}
   acceptionConditions: []

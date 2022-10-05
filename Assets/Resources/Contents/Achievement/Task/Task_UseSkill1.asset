@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b615db1c0fff89e48a59638808b8abcc, type: 3}
-  m_Name: Task_UseSkill3
+  m_Name: Task_UseSkill1
   m_EditorClassIdentifier: 
   category: {fileID: 11400000, guid: d6885bf7881fe5745b52c16721a92295, type: 2}
-  codeName: USE_SKILL_3
-  description: "\uC2A4\uD0AC 3\uD68C \uC0AC\uC6A9"
+  codeName: USE_SKILL_1
+  description: "\uC2A4\uD0AC 1\uD68C \uC0AC\uC6A9"
   action: {fileID: 11400000, guid: a239505f757c9e149b835b137b855c4d, type: 2}
   targets:
   - {fileID: 11400000, guid: 1e27f21b6565518459a87b4c4f44450c, type: 2}
-  needSuccessToComplete: 3
+  needSuccessToComplete: 1
   initialSuccessValue: {fileID: 0}

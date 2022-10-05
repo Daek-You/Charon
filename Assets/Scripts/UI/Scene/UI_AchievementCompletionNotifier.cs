@@ -6,7 +6,7 @@ using TMPro;
 public class UI_AchievementCompletionNotifier : UI_Scene
 {
     private float showTime = 3.0f;
-    private Queue<Achievement> reservedAchievements = new Queue<Achievement>();
+    private Queue<Quest> reservedAchievements = new Queue<Quest>();
 
     enum Texts
     {
@@ -25,7 +25,7 @@ public class UI_AchievementCompletionNotifier : UI_Scene
 
         Bind<TextMeshProUGUI>(typeof(Texts));
 
-        var achieveManager = AchievementManager.Instance;
+        var achieveManager = QuestManager.Instance;
         achieveManager.onAchievementCompleted += Notify;
 
         gameObject.SetActive(false);
@@ -33,12 +33,12 @@ public class UI_AchievementCompletionNotifier : UI_Scene
 
     private void OnDestroy()
     {
-        var achieveManager = AchievementManager.Instance;
+        var achieveManager = QuestManager.Instance;
         if (achieveManager != null)
             achieveManager.onAchievementCompleted -= Notify;
     }
 
-    private void Notify(Achievement achievement)
+    private void Notify(Quest achievement)
     {
         reservedAchievements.Enqueue(achievement);
 
@@ -53,7 +53,7 @@ public class UI_AchievementCompletionNotifier : UI_Scene
     {
         var waitSeconds = new WaitForSeconds(showTime);
 
-        Achievement achievement;
+        Quest achievement;
         while (reservedAchievements.TryDequeue(out achievement))
         {
             GetText((int)Texts.TxtAchievement).text = achievement.DisplayName;

@@ -7,5 +7,5 @@ public abstract class Condition : ScriptableObject
     [SerializeField]
     private string description;
 
-    public abstract bool IsPass(Achievement achievement);
+    public abstract bool IsPass(Quest quest);
 }

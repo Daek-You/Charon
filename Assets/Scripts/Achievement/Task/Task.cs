@@ -79,9 +79,9 @@ public class Task : ScriptableObject
     }
 
     public bool IsComplete => State == TaskState.Complete;
-    public Achievement Owner { get; private set; }
+    public Quest Owner { get; private set; }
 
-    public void Setup(Achievement owner)
+    public void Setup(Quest owner)
     {
         Owner = owner;
     }

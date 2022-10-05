@@ -14,6 +14,7 @@ public class TitleScene : BaseScene
     {
         UIManager.Instance.ShowSceneUI<UI_Title>();
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeScene, OnChangeScene);
+        StageManager.Instance.CurrentStage = StageType.Unknown;
     }
 
     public override void Clear()

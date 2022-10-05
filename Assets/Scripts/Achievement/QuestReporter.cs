@@ -14,6 +14,6 @@ public class QuestReporter : MonoBehaviour
 
     public void Report()
     {
-        AchievementManager.Instance.ReceiveReport(category, target, successCount);
+        QuestManager.Instance.ReceiveReport(category, target, successCount);
     }
 }

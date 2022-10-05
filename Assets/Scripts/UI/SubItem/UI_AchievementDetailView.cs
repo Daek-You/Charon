@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class UI_AchievementDetailView : UI_Base
 {
-    private Achievement target;
+    private Quest target;
+    private Dictionary<Task, string> taskDescriptionDict = new Dictionary<Task, string>();
 
     enum GameObjects
     {
@@ -23,7 +24,7 @@ public class UI_AchievementDetailView : UI_Base
         if (target != null)
         {
             target.onTaskSuccessChanged -= UpdateDescription;
-            target.onComplete -= ShowCompletionScreen;
+            target.onCompleted -= ShowCompletionScreen;
         }
     }
 
@@ -35,7 +36,7 @@ public class UI_AchievementDetailView : UI_Base
         GetObject((int)GameObjects.ImgComplete).SetActive(false);
     }
 
-    public void Setup(Achievement achievement)
+    public void Setup(Quest achievement)
     {
         Init();
 
@@ -43,25 +44,48 @@ public class UI_AchievementDetailView : UI_Base
 
         GetText((int)Texts.TxtAchievementName).text = achievement.DisplayName;
 
-        var task = achievement.CurrentTaskGroup.Tasks[0];
-        GetText((int)Texts.TxtAchievementDetails).text = BuildTaskDescription(task);
+        // TaskGroup이 없을 때, 즉 연계 퀘스트가 없을 때만 기능
+        for (int i = 0; i < achievement.TaskGroups[0].Tasks.Count; i++)
+        {
+            var task = achievement.CurrentTaskGroup.Tasks[i];
+            taskDescriptionDict.Add(task, BuildTaskDescription(task));
+        }
 
-        if (achievement.IsComplete)
+        BuildAchievementDescription();
+
+        if (achievement.IsCompleted)
             GetObject((int)GameObjects.ImgComplete).SetActive(true);
         else
         {
             GetObject((int)GameObjects.ImgComplete).SetActive(false);
             achievement.onTaskSuccessChanged += UpdateDescription;
-            achievement.onComplete += ShowCompletionScreen;
+            achievement.onCompleted += ShowCompletionScreen;
         }
+    }
+
+    // 문자열 관련 함수, 최적화 필요함
+    private void BuildAchievementDescription()
+    {
+        string text = "";
+        foreach (KeyValuePair<Task, string> item in taskDescriptionDict)
+        {
+            text += item.Value;
+            text += '\n';
+        }
+        text = text.Substring(0, text.Length - 1);
+
+        GetText((int)Texts.TxtAchievementDetails).text = text;
     }
 
     private string BuildTaskDescription(Task task)
         => $"{task.Description} {task.CurrentSuccess}/{task.NeedSuccessToComplete}";
 
-    private void UpdateDescription(Achievement achievement, Task task, int curSuccess, int preSuccess)
-        => GetText((int)Texts.TxtAchievementDetails).text = BuildTaskDescription(task);
+    private void UpdateDescription(Quest achievement, Task task, int curSuccess, int preSuccess)
+    {
+        taskDescriptionDict[task] = BuildTaskDescription(task);
+        BuildAchievementDescription();
+    }
 
-    private void ShowCompletionScreen(Achievement achievement)
+    private void ShowCompletionScreen(Quest achievement)
         => GetObject((int)GameObjects.ImgComplete).SetActive(true);
 }

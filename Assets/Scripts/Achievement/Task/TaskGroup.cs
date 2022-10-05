@@ -17,7 +17,7 @@ public class TaskGroup
     private Task[] tasks;
 
     public IReadOnlyList<Task> Tasks => tasks;
-    public Achievement Owner { get; private set; }
+    public Quest Owner { get; private set; }
 
     public bool IsAllTaskComplete => tasks.All(x => x.IsComplete);
     public bool IsComplete => State == TaskGroupState.Complete;
@@ -28,10 +28,9 @@ public class TaskGroup
         tasks = copyTarget.Tasks.Select(x => Object.Instantiate(x)).ToArray();
     }
 
-    public void Setup(Achievement owner)
+    public void Setup(Quest owner)
     {
         Owner = owner;
-        // foreach는 다른 반복문에 비해 성능 저하가 심하므로 여유가 있을 때 수정할 것
         foreach (var task in tasks)
             task.Setup(owner);
     }
