@@ -10,7 +10,8 @@ public enum StageType
     Stage12,
     Stage13,
     Stage14,
-    Stage15
+    Stage15,
+    Ending
 }
 
 public class StageManager : MonoBehaviour
@@ -85,10 +86,14 @@ public class StageManager : MonoBehaviour
 
     public void ActiveStage(StageType type)
     {
+        if (currentStage == StageType.Ending)
+            return;
+
         currentStage = type;
         isCleared = false;
 
         // 현재 스테이지에 맞는 몬스터를 활성화
+        Debug.Log($"{currentStage} Start!");
 
         giver.SetQuest(questDictionary[currentStage]);
         QuestManager.Instance.onQuestCompleted += OnClearStage;
@@ -125,5 +130,6 @@ public class StageManager : MonoBehaviour
     {
         Quest quest = Resources.Load<Quest>("Contents/Achievement/Quest_Stage11");
         questDictionary.Add(StageType.Stage11, quest);
+        questDictionary.Add(StageType.Stage12, quest);
     }
 }
