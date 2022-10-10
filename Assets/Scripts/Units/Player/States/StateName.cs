@@ -6,5 +6,6 @@ namespace CharacterController
         DASH,
         NDASH,
         ATTACK,
+        DASH_ATTACK,
     }
 }

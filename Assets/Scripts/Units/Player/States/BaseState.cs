@@ -6,7 +6,7 @@ namespace CharacterController
 {
     public abstract class BaseState
     {
-        protected PlayerController Controller { get; private set; }
+        public PlayerController Controller { get; private set; }
 
         public BaseState(PlayerController controller)
         {

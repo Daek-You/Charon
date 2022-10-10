@@ -53,12 +53,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnClickLeftMouse(InputAction.CallbackContext context)
     {
-        /// 한 바인딩에 여러 상호작용이 있을 경우,
-        /// 상호작용 우선순위는 상호작용에 추가했던 순서대로이며
-        /// 상호작용이 중간에 취소되어야 다음 상호작용이 발동할 권한을 얻게 된다.
-        ///   - 즉 이전 상호작용이 성공적으로 진행(performed)됐다면, 다음 상호작용은 실행되지 않음
-
-
         if (context.performed)
         {
             MouseDirection = GetMouseWorldPosition();
@@ -69,18 +63,24 @@ public class PlayerController : MonoBehaviour
                 /// 차지 공격 상태 전환
             }
 
-            else if (context.interaction is PressInteraction)   // 일반 공격
+            else if (context.interaction is PressInteraction)
             {
-                if (DashState.IsDash)  // 일단은 막아놨음
+                LookAt(MouseDirection);
+                if (DashState.CanOtherBehaviour)  // 대시 공격
                 {
-                    /// 대시 공격 상태전환
+                    Debug.Log("상태전환 To DashAttack");
+                    player.stateMachine.ChangeState(StateName.DASH_ATTACK);
                     return;
                 }
 
-                bool isAvailableAttack = !AttackState.IsAttack && (player.weaponManager.Weapon.ComboCount < 3);
-                if (isAvailableAttack)
+                if (DashAttackState.IsDashAttack) // 대시 공격 중일 때는 공격 못하게
+                    return;
+
+
+                bool isAvailableAttack = (!DashState.IsDash && !AttackState.IsAttack) && (player.weaponManager.Weapon.ComboCount < 3);
+                if (isAvailableAttack)                                // 일반 공격
                 {
-                    LookAt(MouseDirection);
+                    Debug.Log("상태전환 To Attack");
                     player.stateMachine.ChangeState(StateName.ATTACK);
                 }
             }
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            bool isAvailableDash = DashState.CanOtherBehaviour && DashState.CurrentDashCount < player.DashCount && isGrounded;
+            bool isAvailableDash = (!DashState.IsDash || DashState.CanOtherBehaviour) && DashState.CurrentDashCount < player.DashCount && isGrounded;
 
             if (isAvailableDash && !AttackState.IsAttack)
             {

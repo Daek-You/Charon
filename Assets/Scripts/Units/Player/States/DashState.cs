@@ -19,7 +19,7 @@ namespace CharacterController
 
         #region #대시 동작별 스위치 변수
         public static bool IsDash = false;
-        public static bool CanOtherBehaviour { get; private set; } = true;
+        public static bool CanOtherBehaviour { get; private set; } = false;
         private bool onReInputSwitch;
         private bool onTetanySwitch;
         private bool onSwitchDash;
@@ -27,7 +27,7 @@ namespace CharacterController
         private float timer = 0f;
         #endregion
 
-        public DashState(PlayerController Controller) : base(Controller)
+        public DashState(PlayerController controller) : base(controller)
         {
             hashDashAnimation = Animator.StringToHash("Dash");
             hashDashBoolAnimation = Animator.StringToHash("IsDashing");
@@ -104,9 +104,10 @@ namespace CharacterController
    
         public override void OnExitState()
         {
+            Player.Instance.animator.SetBool(hashDashBoolAnimation, false);
             CurrentDashCount = (CurrentDashCount >= Controller.player.DashCount) ? 0 : CurrentDashCount;
             timer = 0f;
-            CanOtherBehaviour = true;
+            CanOtherBehaviour = false;
             IsDash = false;
             Player.Instance.animator.applyRootMotion = true;
         }

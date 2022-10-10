@@ -13,6 +13,9 @@ public abstract class BaseWeapon : MonoBehaviour
     public float AttackDamage { get { return attackDamage; } }
     public float AttackSpeed { get { return attackSpeed; } }
     public float AttackRange { get { return attackRange; } }
+    private Coroutine checkAttackReInputCor;
+
+
 
     #region #무기 정보
     [Header("생성 정보"), Tooltip("해당 무기를 쥐었을 때의 Local Transform 값 정보입니다.")]
@@ -39,4 +42,26 @@ public abstract class BaseWeapon : MonoBehaviour
     public abstract void ChargingAttack(BaseState state);
     public abstract void Skill(BaseState state);
     public abstract void UltimateSkill(BaseState state);
+
+    public void CheckAttackReInput(float reInputTime)
+    {
+        if (checkAttackReInputCor != null)
+            StopCoroutine(checkAttackReInputCor);
+        checkAttackReInputCor = StartCoroutine(CheckAttackReInputCoroutine(reInputTime));
+    }
+
+    private IEnumerator CheckAttackReInputCoroutine(float reInputTime)
+    {
+        float currentTime = 0f;
+        while (true)
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime >= reInputTime)
+                break;
+            yield return null;
+        }
+
+        ComboCount = 0;
+        Player.Instance.animator.SetInteger("AttackCombo", 0);
+    }
 }

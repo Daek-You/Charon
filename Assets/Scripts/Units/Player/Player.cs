@@ -81,5 +81,6 @@ public class Player : MonoBehaviour
         stateMachine = new StateMachine(StateName.MOVE, new MoveState(controller));
         stateMachine.AddState(StateName.DASH, new DashState(controller));
         stateMachine.AddState(StateName.ATTACK, new AttackState(controller));
+        stateMachine.AddState(StateName.DASH_ATTACK, new DashAttackState(controller));
     }
 }
