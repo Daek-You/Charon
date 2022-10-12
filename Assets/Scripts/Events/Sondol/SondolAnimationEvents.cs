@@ -20,4 +20,9 @@ public class SondolAnimationEvents : MonoBehaviour
         Player.Instance.stateMachine.ChangeState(StateName.MOVE);
         Debug.Log("상태전환 : DashAttack -> Move");
     }
+
+    public void OnFinishedDash()
+    {
+
+    }
 }
