@@ -6,15 +6,21 @@ namespace CharacterController
 {
     public class DashAttackState : BaseState
     {
-        public static bool IsDashAttack = false;
+        public bool IsDashAttack { get; set; }
+        public bool IsPressDashAttack { get; set; }
+        public Vector3 direction { get; set; }
 
         public DashAttackState(PlayerController controller) : base(controller) { }
 
         public override void OnEnterState()
         {
+            IsDashAttack = true;
+            DashState dashState = Player.Instance.stateMachine.GetState(StateName.DASH) as DashState;
+            dashState.Reset();
+
+            Controller.LookAt(direction);
             Player.Instance.rigidBody.velocity = Vector3.zero;
             Player.Instance.animator.applyRootMotion = false;
-            IsDashAttack = true;
             Player.Instance.weaponManager.Weapon?.DashAttack(this);
         }
 

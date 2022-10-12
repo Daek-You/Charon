@@ -1308,7 +1308,7 @@ GameObject:
   - component: {fileID: 429436969}
   - component: {fileID: 429436970}
   - component: {fileID: 429436971}
-  - component: {fileID: 4300747608859661585}
+  - component: {fileID: 7655446729700376020}
   m_Layer: 7
   m_Name: Sondol
   m_TagString: Untagged
@@ -1496,7 +1496,7 @@ MonoBehaviour:
   armor: 50
   moveSpeed: 500
   dashCount: 3
---- !u!114 &4300747608859661585
+--- !u!114 &7655446729700376020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2589,7 +2589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2128336307196640558, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0fc7181466a79d4a8fffabbd12de2e5, type: 3}

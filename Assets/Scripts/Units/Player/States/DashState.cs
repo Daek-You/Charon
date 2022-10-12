@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -6,110 +7,73 @@ namespace CharacterController
 {
     public class DashState : BaseState
     {
-        #region #대시 관련 변수
-        public static int CurrentDashCount { get; private set; } = 0;
-        public float dashPower { get; private set; } = 2f;
-        public float dashForwardRollTime { get; private set; } = 0.2f;
-        public float dashReInputTime { get; private set; } = 0.2f;
-        public float dashTetanyTime { get; private set; } = 0.1f;
-        public float dashCoolTime { get; private set; } = 0.5f;
-        private int hashDashAnimation;
-        private int hashDashBoolAnimation;
-        #endregion
+        public int CurrentDashCount { get; set; } = 0;
+        public bool CanAddInputBuffer { get; set; }
+        public bool CanDashAttack { get; set; }
+        public bool IsDash { get; set; }
+        public int Hash_DashTrigger { get; private set; }
+        public int Hash_IsDashBool { get; private set; }
+        public int Hash_DashPlaySpeedFloat { get; private set; }
+        public Queue<Vector3> inputDirectionBuffer { get; private set; }
 
-        #region #대시 동작별 스위치 변수
-        public static bool IsDash = false;
-        public static bool CanOtherBehaviour { get; private set; } = false;
-        private bool onReInputSwitch;
-        private bool onTetanySwitch;
-        private bool onSwitchDash;
-        private bool isDashFinished;
-        private float timer = 0f;
-        #endregion
+        public readonly float dashPower;
+        public readonly float dashTetanyTime;
+        public readonly float dashCooltime;
 
-        public DashState(PlayerController controller) : base(controller)
+
+        public DashState(PlayerController controller, float dashPower, float dashTetanyTime, float dashCoolTime) : base(controller)
         {
-            hashDashAnimation = Animator.StringToHash("Dash");
-            hashDashBoolAnimation = Animator.StringToHash("IsDashing");
-        }
-
-        public void SetDashSettings(float dashPower, float dashForwardRollTime, float dashReInputTime, float dashTetanyTime, float dashCoolTime)
-        {
+            inputDirectionBuffer = new Queue<Vector3>();
             this.dashPower = dashPower;
-            this.dashForwardRollTime = dashForwardRollTime;
-            this.dashReInputTime = dashReInputTime;
             this.dashTetanyTime = dashTetanyTime;
-            this.dashCoolTime = dashCoolTime;
+            this.dashCooltime = dashCoolTime;
+            Hash_DashTrigger = Animator.StringToHash("Dash");
+            Hash_IsDashBool = Animator.StringToHash("IsDashing");
+            Hash_DashPlaySpeedFloat = Animator.StringToHash("DashPlaySpeed");   /// 이동 속도에 따라 대시 애니메이션 재생 속도를 달리 할 필요가 있음. 어떻게 할까?
         }
 
         public override void OnEnterState()
         {
             IsDash = true;
-            CurrentDashCount++;
-            onSwitchDash = true;
-            onReInputSwitch = true;
-            onTetanySwitch = true;
-            isDashFinished = false;
-            CanOtherBehaviour = false;
+            CanAddInputBuffer = false;
+            CanDashAttack = false;
+            Player.Instance.animator.applyRootMotion = false;
+            Dash();
+        }
+
+        private void Dash()
+        {
+            Vector3 dashDirection = inputDirectionBuffer.Dequeue();
+            dashDirection = (dashDirection == Vector3.zero) ? Controller.transform.forward : dashDirection;
+
+            Player.Instance.animator.SetBool(Hash_IsDashBool, true);
+            Player.Instance.animator.SetTrigger(Hash_DashTrigger);
+            Controller.LookAt(new Vector3(dashDirection.x, 0f, dashDirection.z));
+            Player.Instance.rigidBody.velocity = dashDirection * (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE) * dashPower;    // 이동 속도에 따라 유동적으로 달라질 수 있도록 하자.
         }
 
         public override void OnUpdateState()
         {
-            if (!onSwitchDash && !isDashFinished)
-            {
-                timer += Time.deltaTime;
-                float validReInputTime = dashForwardRollTime + dashReInputTime;
-                float validTetanyTime = validReInputTime + dashTetanyTime;
-                bool canDashReInput = (timer >= dashForwardRollTime) && (timer < validReInputTime);
-                bool isTetanyTime = (timer >= validReInputTime) && (timer < validTetanyTime);
-      
 
-                if (canDashReInput && onReInputSwitch)      // 재입력이 가능한 시간대로 진입한 경우
-                {
-                    CanOtherBehaviour = true;
-                    onReInputSwitch = false;
-                }
-                else if (isTetanyTime && onTetanySwitch)    // 대시 동작이 끝난 경우
-                {
-                    Player.Instance.animator.SetBool(hashDashBoolAnimation, false);
-                    Player.Instance.rigidBody.velocity = Vector3.zero;
-                    onTetanySwitch = false;
-                    CanOtherBehaviour = false;
-                }
-                else if (!isTetanyTime && !onTetanySwitch)  // 대시 동작이 끝나고 경직 시간이 지나고 상태 전환
-                {
-                    isDashFinished = true;
-                    Player.Instance.stateMachine.ChangeState(StateName.MOVE);
-                }
-            }
         }
 
         public override void OnFixedUpdateState()
         {
-            if (onSwitchDash)
-            {
-                Player.Instance.animator.applyRootMotion = false;
-                Vector3 LookAtDirection = (Controller.inputDirection == Vector3.zero) ? Controller.transform.forward : Controller.inputDirection;
-                Vector3 dashDirection = (Controller.calculatedDirection == Vector3.zero) ? Controller.transform.forward : Controller.calculatedDirection;
 
-                Player.Instance.animator.SetFloat("Velocity", 0f);
-                Player.Instance.animator.SetBool(hashDashBoolAnimation, true);
-                Player.Instance.animator.SetTrigger(hashDashAnimation);
-                Controller.LookAt(LookAtDirection);
-                Player.Instance.rigidBody.velocity = dashDirection * (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE) * dashPower;    // 이동 속도에 따라 유동적으로 달라질 수 있도록 하자.
-                onSwitchDash = false;
-                timer = 0f;
-            }
         }
-   
+
         public override void OnExitState()
         {
-            Player.Instance.animator.SetBool(hashDashBoolAnimation, false);
-            CurrentDashCount = (CurrentDashCount >= Controller.player.DashCount) ? 0 : CurrentDashCount;
-            timer = 0f;
-            CanOtherBehaviour = false;
-            IsDash = false;
+            Player.Instance.rigidBody.velocity = Vector3.zero;
             Player.Instance.animator.applyRootMotion = true;
+            Player.Instance.animator.SetBool(Hash_IsDashBool, false);
+        }
+
+        public void Reset()
+        {
+            IsDash = false;
+            CanAddInputBuffer = false;
+            CurrentDashCount = 0;
         }
     }
 }

@@ -4,7 +4,6 @@ namespace CharacterController
     {
         MOVE = 100,
         DASH,
-        NDASH,
         ATTACK,
         DASH_ATTACK,
     }

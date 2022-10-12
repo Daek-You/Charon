@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 calculatedDirection { get; private set; }     // 경사 지형 등을 계산한 이동 방향
     public Vector3 gravity { get; private set; }
 
+    public bool IsPressDashKey { get; private set; }
+
     #region #경사 체크 변수
     [Header("경사 지형 검사")]
     [SerializeField, Tooltip("캐릭터가 등반할 수 있는 최대 경사 각도입니다.")]
@@ -54,7 +56,7 @@ public class PlayerController : MonoBehaviour
     public void OnClickLeftMouse(InputAction.CallbackContext context)
     {
         if (context.performed)
-        {
+         {
             MouseDirection = GetMouseWorldPosition();
 
             if (context.interaction is HoldInteraction)         // 차지 공격
@@ -65,22 +67,24 @@ public class PlayerController : MonoBehaviour
 
             else if (context.interaction is PressInteraction)
             {
-                LookAt(MouseDirection);
-                if (DashState.CanOtherBehaviour)  // 대시 공격
+                DashState dashState = player.stateMachine.GetState(StateName.DASH) as DashState;
+                DashAttackState dashAttackState = player.stateMachine.GetState(StateName.DASH_ATTACK) as DashAttackState;
+
+                if (dashState.CanDashAttack)        // 대시 공격
                 {
-                    Debug.Log("상태전환 To DashAttack");
-                    player.stateMachine.ChangeState(StateName.DASH_ATTACK);
+                    dashAttackState.IsPressDashAttack = true;
+                    dashAttackState.direction = MouseDirection;
                     return;
                 }
 
-                if (DashAttackState.IsDashAttack) // 대시 공격 중일 때는 공격 못하게
+
+                if (dashAttackState.IsDashAttack)   // 대시 공격 중일 때는 공격 못하게
                     return;
 
-
-                bool isAvailableAttack = (!DashState.IsDash && !AttackState.IsAttack) && (player.weaponManager.Weapon.ComboCount < 3);
-                if (isAvailableAttack)                                // 일반 공격
+                bool isAvailableAttack = (!dashState.IsDash && !AttackState.IsAttack) && (player.weaponManager.Weapon.ComboCount < 3);
+                if (isAvailableAttack)              // 일반 공격
                 {
-                    Debug.Log("상태전환 To Attack");
+                    LookAt(MouseDirection);
                     player.stateMachine.ChangeState(StateName.ATTACK);
                 }
             }
@@ -92,11 +96,27 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            bool isAvailableDash = (!DashState.IsDash || DashState.CanOtherBehaviour) && DashState.CurrentDashCount < player.DashCount && isGrounded;
+            DashState dashState = player.stateMachine.GetState(StateName.DASH) as DashState;
+            DashAttackState dashAttackState = player.stateMachine.GetState(StateName.DASH_ATTACK) as DashAttackState;
+            if (dashAttackState.IsDashAttack || AttackState.IsAttack)
+                return;
 
-            if (isAvailableDash && !AttackState.IsAttack)
+            if (dashState.CurrentDashCount >= player.DashCount)
+                return;
+
+            if (dashState.CanAddInputBuffer && isGrounded)
             {
+                dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
+                dashState.CurrentDashCount++;
+                return;
+            }
+
+            if (!dashState.IsDash)
+            {
+                dashState.IsDash = true;        // ChangeState()에서 IsDash가 true가 되기 전에 한 번 더 호출되는 경우가 있어 이를 방지하기 위함
+                dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
                 player.stateMachine.ChangeState(StateName.DASH);
+                dashState.CurrentDashCount++;
             }
         }
     }

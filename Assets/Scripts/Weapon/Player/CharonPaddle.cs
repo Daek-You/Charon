@@ -46,7 +46,8 @@ public class CharonPaddle : BaseWeapon
     }
     private IEnumerator ProcessDashAttackPhysics(BaseState state)
     {
-        Player.Instance.rigidBody.velocity = state.Controller.MouseDirection * (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE) * 3;
+        DashAttackState _state = state as DashAttackState;
+        Player.Instance.rigidBody.velocity = _state.direction * (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE) * 4;
         yield return dashAttackSecond;
         Player.Instance.rigidBody.velocity = Vector3.zero;
     }

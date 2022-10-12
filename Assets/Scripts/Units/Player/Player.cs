@@ -44,15 +44,11 @@ public class Player : MonoBehaviour
             rigidBody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
             capsuleCollider = GetComponent<CapsuleCollider>();
+            InitStateMachine();
             DontDestroyOnLoad(gameObject);
             return;
         }
         DestroyImmediate(gameObject);
-    }
-
-    void Start()
-    {
-        InitStateMachine();
     }
 
     void Update()
@@ -79,7 +75,7 @@ public class Player : MonoBehaviour
     {
         PlayerController controller = GetComponent<PlayerController>();
         stateMachine = new StateMachine(StateName.MOVE, new MoveState(controller));
-        stateMachine.AddState(StateName.DASH, new DashState(controller));
+        stateMachine.AddState(StateName.DASH, new DashState(controller, dashPower: 2f, dashTetanyTime: 0.5f, dashCoolTime: 0.5f));
         stateMachine.AddState(StateName.ATTACK, new AttackState(controller));
         stateMachine.AddState(StateName.DASH_ATTACK, new DashAttackState(controller));
     }
