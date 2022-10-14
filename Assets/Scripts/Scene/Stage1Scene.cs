@@ -20,6 +20,6 @@ public class Stage1Scene : BaseScene
 
     public override void Clear()
     {
-
+        UIManager.Instance.Clear();
     }
 }

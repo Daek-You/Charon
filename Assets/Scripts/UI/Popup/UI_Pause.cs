@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class UI_Pause : UI_Popup
 {
-    static bool isPauseOpen = false;
-    public static bool IsPauseOpen { get { return isPauseOpen; } }
+    private static bool isPause;
+    public static bool IsPause { get { return isPause; } }
 
     enum GameObjects
     {
@@ -37,14 +37,13 @@ public class UI_Pause : UI_Popup
 
     private void OnDestroy()
     {
-        isPauseOpen = false;
+        Time.timeScale = 1;
+        isPause = false;
     }
 
     public override void Init()
     {
         base.Init();
-
-        isPauseOpen = true;
 
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(Texts));
@@ -58,6 +57,9 @@ public class UI_Pause : UI_Popup
         BindEvent(go, OnSetting, UIEvent.Click);
         go = GetImage((int)Images.ImgQuit).gameObject;
         BindEvent(go, OnQuit, UIEvent.Click);
+
+        Time.timeScale = 0;
+        isPause = true;
     }
 
     public void OnCancelPause(PointerEventData data)
@@ -77,7 +79,6 @@ public class UI_Pause : UI_Popup
 
     public void OnQuit(PointerEventData data)
     {
-        // 추후에 InGameScene에서 AddListener 해줘야함
         UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "TitleScene");
     }
 }

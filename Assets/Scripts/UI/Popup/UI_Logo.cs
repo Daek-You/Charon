@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class UI_Logo : UI_Popup
 {
+    static bool escLock = false;
+    public static bool EscLock { get { return escLock; } }
+
     enum Images
     {
         ImgLogo
@@ -15,9 +18,16 @@ public class UI_Logo : UI_Popup
         Init();
     }
 
+    private void OnDestroy()
+    {
+        escLock = false;
+    }
+
     public override void Init()
     {
         base.Init();
+
+        escLock = true;
 
         Bind<Image>(typeof(Images));
         StartCoroutine("CorFadeAnimation", 4.0f);

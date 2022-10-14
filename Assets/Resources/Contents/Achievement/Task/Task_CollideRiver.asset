@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b615db1c0fff89e48a59638808b8abcc, type: 3}
+  m_Name: Task_CollideRiver
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 780a921214b3cef4c9eb1e91192bdd15, type: 2}
+  codeName: COLLIDE_RIVER
+  description: "\uAC15\uC5D0 \uBC1C \uB2F4\uADF8\uAE30"
+  action: {fileID: 11400000, guid: a239505f757c9e149b835b137b855c4d, type: 2}
+  targets:
+  - {fileID: 11400000, guid: 55fc6b94cd6f39b458490d730da8f02b, type: 2}
+  needSuccessToComplete: 1
+  initialSuccessValue: {fileID: 0}

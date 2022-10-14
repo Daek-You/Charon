@@ -10,7 +10,7 @@ public abstract class BaseScene : MonoBehaviour
 
     public void OnChangeScene(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
     {
-        SceneManager.LoadScene((string)param);
         Clear();
+        SceneManager.LoadScene((string)param);
     }
 }

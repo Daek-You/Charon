@@ -34,38 +34,27 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        // 일시 정지 중에는 다른 메뉴를 띄우거나 게임이 진행되어서는 안 됨
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (popupStack.Count == 0 && StageManager.Instance.CurrentStage != StageType.Unknown)
+                ShowPopupUI<UI_Pause>();
+            else if (!UI_Logo.EscLock)
+                ClosePopupUI();
+
+            return;
+        }
+
         if (UI_Dialogue.IsDialogue)
         {
             if (Input.GetKeyDown(KeyCode.Space))
                 EventHandler.PostNotification(UI_EventHandler.UIEventType.NextDialogue, this);
-        }
-        else
-        {
-            //if (Input.GetKeyDown(KeyCode.A))
-            //{
-            //    // 무기가 변경될 경우 리스너를 호출
-            //    // 무기 아이콘이 확정될 경우 수정이 필요
-            //    int weapon = Random.Range(0, 3);
-            //    EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeWeapon, this, weapon);
-            //}
-            //if (Input.GetKeyDown(KeyCode.S))
-            //{
-            //    float curHP = Random.Range(0, 500);
-            //    EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, (curHP / 500));
-            //}
-            //if (Input.GetKeyDown(KeyCode.D))
-            //{
-            //    float curST = Random.Range(0, 5);
-            //    EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeST, this, (curST / 4));
-            //}
-            //if (Input.GetKeyDown(KeyCode.F))
-            //{
-            //    // 재화 값이 변경될 경우 리스너를 호출
-            //    // 재화 아이콘이 확정될 경우 수정이 필요
-            //    int goods = Random.Range(0, 10000);
-            //    EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeGoods, this, goods);
-            //}
 
+            return;
+        }
+
+        if (!UI_Pause.IsPause)
+        {
             if (Input.GetKeyDown(KeyCode.B))
             {
                 if (!UI_CheckUpgrade.IsUpgradeOpen)
@@ -78,6 +67,7 @@ public class UIManager : MonoBehaviour
                 if (!UI_SkillCooldown.IsCooldown)
                 {
                     // 쿨타임 스택을 따로 사용하도록 만듦
+                    // 이런 식으로 따로 관리해야하는 UI는 Scene UI로 만들고 비활성화하는 쪽이 좋을 듯
                     ShowPopupUI<UI_SkillCooldown>();
                 }
             }
@@ -92,17 +82,31 @@ public class UIManager : MonoBehaviour
                 else
                     ClosePopupUI();
             }
-
-            // 일시 정지 중에는 다른 메뉴를 띄우거나 게임이 진행되어서는 안 됨
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (!UI_Pause.IsPauseOpen)
-                    ShowPopupUI<UI_Pause>();
-                else
-                    ClosePopupUI();
-            }
-                
         }
+
+        /* if (Input.GetKeyDown(KeyCode.A))
+        {
+            // 무기가 변경될 경우 리스너를 호출
+            // 무기 아이콘이 확정될 경우 수정이 필요
+            int weapon = Random.Range(0, 3);
+            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeWeapon, this, weapon);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            float curHP = Random.Range(0, 500);
+            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, (curHP / 500));
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            float curST = Random.Range(0, 5);
+            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeST, this, (curST / 4));
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // 재화 값이 변경될 경우 리스너를 호출
+            int goods = Random.Range(0, 10000);
+            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeGoods, this, goods);
+        } */
     }
 
     static void Init()

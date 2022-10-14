@@ -72,17 +72,7 @@ public class UI_ManageData : UI_Popup
 
             UI_SaveSlot saveSlot = Utils.GetAddedComponent<UI_SaveSlot>(slot);
             saveSlot.SlotType = type;
-
-            // saveSlot에 i번째 세이브 데이터를 할당
-            // 새로하기에서 이미 존재하는 데이터를 누를 경우 경고 메시지
-            // 이어하기에서 데이터가 없는 슬롯을 누를 경우 무반응
-
-            BindEvent(saveSlot.gameObject, OnStartGame, UIEvent.Click);
+            saveSlot.SlotIndex = i;
         }
-    }
-
-    public void OnStartGame(PointerEventData data)
-    {
-        SceneManager.LoadScene("LobbyScene");
     }
 }

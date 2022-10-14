@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UI_Setting : UI_Popup
 {
@@ -46,7 +47,7 @@ public class UI_Setting : UI_Popup
 
     private int sliderMin = 0;
     private int sliderMax = 100;
-    private string[] options = { "1920 * 1080", "Test" };
+    private string[] options = { "1920 * 1080" };
 
     public override void Init()
     {
@@ -68,7 +69,9 @@ public class UI_Setting : UI_Popup
 
         TMP_Dropdown dropdown = InitDropdown();
 
-        // 기존에 저장된 설정 값을 불러와야 함
+        DataManager.Instance.LoadOptionData();
+        bgmSlider.value = DataManager.Instance.OptData.bgmValue;
+        effectSlider.value = DataManager.Instance.OptData.seValue;
     }
 
     public void InitSlider(Slider slider, UnityEngine.Events.UnityAction<float> action)
@@ -77,6 +80,7 @@ public class UI_Setting : UI_Popup
         slider.minValue = sliderMin;
         slider.wholeNumbers = true;
         slider.onValueChanged.AddListener(action);
+        BindEvent(slider.gameObject, OnPointerUp, UIEvent.Up);
     }
 
     public TMP_Dropdown InitDropdown()
@@ -103,14 +107,21 @@ public class UI_Setting : UI_Popup
         ClosePopupUI();
     }
 
+    public void OnPointerUp(PointerEventData data)
+    {
+        DataManager.Instance.SaveOptionData();
+    }
+
     public void OnChangeBGMSlider(float sound)
     {
         GetText((int)Texts.TxtBGMSlider).text = sound.ToString();
+        DataManager.Instance.OptData.bgmValue = (int)sound;
     }
 
     public void OnChangeEffectSlider(float sound)
     {
         GetText((int)Texts.TxtEffectSlider).text = sound.ToString();
+        DataManager.Instance.OptData.seValue = (int)sound;
     }
 
     public void OnChangeDropdown(TMP_Dropdown box)

@@ -15,10 +15,11 @@ public class LobbyScene : BaseScene
         UIManager.Instance.ShowSceneUI<UI_AchievementCompletionNotifier>();
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeScene, OnChangeScene);
         StageManager.Instance.CurrentStage = StageType.Lobby;
+        DataManager.Instance.SaveGameData(DataManager.Instance.DataIndex);
     }
 
     public override void Clear()
     {
-        
+        UIManager.Instance.Clear();
     }
 }

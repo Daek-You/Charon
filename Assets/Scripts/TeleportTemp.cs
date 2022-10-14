@@ -9,7 +9,7 @@ public class TeleportTemp : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Sondol"))
         {
-            SceneManager.LoadScene("Stage1Scene");
+            UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
         }
     }
 }
