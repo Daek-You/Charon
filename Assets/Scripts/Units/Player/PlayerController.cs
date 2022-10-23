@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     public Vector3 calculatedDirection { get; private set; }     // 경사 지형 등을 계산한 이동 방향
     public Vector3 gravity { get; private set; }
 
-    public bool IsPressDashKey { get; private set; }
-
     #region #경사 체크 변수
     [Header("경사 지형 검사")]
     [SerializeField, Tooltip("캐릭터가 등반할 수 있는 최대 경사 각도입니다.")]
@@ -25,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("경사 지형을 체크할 Raycast 발사 시작 지점입니다.")]
     Transform raycastOrigin;
 
-    private const float RAY_DISTANCE = 2f;
+    private const float RAY_DISTANCE = 0.3f;
     private RaycastHit slopeHit;
     private bool isOnSlope;
     #endregion
@@ -58,11 +56,15 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
          {
             MouseDirection = GetMouseWorldPosition();
+            
 
-            if (context.interaction is HoldInteraction)         // 차지 공격
+
+            if (context.interaction is HoldInteraction)         // 차징 공격
             {
+                MouseDirection = isOnSlope ? AdjustDirectionToSlope(MouseDirection) : MouseDirection;
                 LookAt(MouseDirection);
                 /// 차지 공격 상태 전환
+                return;
             }
 
             else if (context.interaction is PressInteraction)
@@ -72,16 +74,17 @@ public class PlayerController : MonoBehaviour
 
                 if (dashState.CanDashAttack)        // 대시 공격
                 {
+                    MouseDirection = isOnSlope ? AdjustDirectionToSlope(MouseDirection) : MouseDirection;
                     dashAttackState.IsPressDashAttack = true;
                     dashAttackState.direction = MouseDirection;
                     return;
                 }
 
-
                 if (dashAttackState.IsDashAttack)   // 대시 공격 중일 때는 공격 못하게
                     return;
 
-                bool isAvailableAttack = (!dashState.IsDash && !AttackState.IsAttack) && (player.weaponManager.Weapon.ComboCount < 3);
+                AttackState attackState = player.stateMachine.GetState(StateName.ATTACK) as AttackState;
+                bool isAvailableAttack = (!dashState.IsDash && !attackState.IsAttack) && (player.weaponManager.Weapon.ComboCount < 3);
                 if (isAvailableAttack)              // 일반 공격
                 {
                     LookAt(MouseDirection);
@@ -98,7 +101,9 @@ public class PlayerController : MonoBehaviour
         {
             DashState dashState = player.stateMachine.GetState(StateName.DASH) as DashState;
             DashAttackState dashAttackState = player.stateMachine.GetState(StateName.DASH_ATTACK) as DashAttackState;
-            if (dashAttackState.IsDashAttack || AttackState.IsAttack)
+            AttackState attackState = player.stateMachine.GetState(StateName.ATTACK) as AttackState;
+
+            if (dashAttackState.IsDashAttack || attackState.IsAttack)
                 return;
 
             if (dashState.CurrentDashCount >= player.DashCount)
@@ -106,17 +111,16 @@ public class PlayerController : MonoBehaviour
 
             if (dashState.CanAddInputBuffer && isGrounded)
             {
-                dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
                 dashState.CurrentDashCount++;
+                dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
                 return;
             }
 
             if (!dashState.IsDash)
             {
-                dashState.IsDash = true;        // ChangeState()에서 IsDash가 true가 되기 전에 한 번 더 호출되는 경우가 있어 이를 방지하기 위함
+                dashState.CurrentDashCount++;
                 dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
                 player.stateMachine.ChangeState(StateName.DASH);
-                dashState.CurrentDashCount++;
             }
         }
     }
@@ -187,6 +191,17 @@ public class PlayerController : MonoBehaviour
             return angle != 0f && angle < maxSlopeAngle;
         }
         return false;
+    }
+
+    public void OnDrawGizmos()
+    {
+        Vector3 boxSize = new Vector3(transform.lossyScale.x, 0.4f, transform.lossyScale.z);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(groundCheck.position, boxSize);
+
+        Gizmos.color = Color.blue;
+        Ray ray = new Ray(transform.position, Vector3.down);
+        Gizmos.DrawRay(transform.position, Vector3.down * RAY_DISTANCE);
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)

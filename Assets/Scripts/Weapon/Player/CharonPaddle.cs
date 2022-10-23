@@ -9,6 +9,7 @@ public class CharonPaddle : BaseWeapon
     public readonly int hashAttackAnimation = Animator.StringToHash("AttackCombo");
     public readonly int hashAttackSpeedAnimation = Animator.StringToHash("AttackSpeed");
     public readonly int hashDashAttackAnimation = Animator.StringToHash("IsDashAttack");
+    public const float dashAttackPower = 4f;
     private Coroutine checkAttackReInputCor;
     private Coroutine dashAttackCoroutine;
     private WaitForSeconds dashAttackSecond = new WaitForSeconds(0.2f);
@@ -16,6 +17,8 @@ public class CharonPaddle : BaseWeapon
     public override void Attack(BaseState state)
     {
         ComboCount++;
+
+        //Player.Instance.animator.applyRootMotion = !(ComboCount == 2);     // 2타 모션이 내려찍기인데, 경사로에서 튕겨나가는 버그 때문에
         Player.Instance.animator.SetFloat(hashAttackSpeedAnimation, attackSpeed);
         Player.Instance.animator.SetBool(hashIsAttackAnimation, true);
         Player.Instance.animator.SetInteger(hashAttackAnimation, ComboCount);
@@ -47,7 +50,7 @@ public class CharonPaddle : BaseWeapon
     private IEnumerator ProcessDashAttackPhysics(BaseState state)
     {
         DashAttackState _state = state as DashAttackState;
-        Player.Instance.rigidBody.velocity = _state.direction * (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE) * 4;
+        Player.Instance.rigidBody.velocity = _state.direction * (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE) * dashAttackPower;
         yield return dashAttackSecond;
         Player.Instance.rigidBody.velocity = Vector3.zero;
     }

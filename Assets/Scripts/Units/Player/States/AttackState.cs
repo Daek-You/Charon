@@ -6,7 +6,7 @@ namespace CharacterController
 {
     public class AttackState : BaseState
     {
-        public static bool IsAttack = false;
+        public bool IsAttack { get; set; } = false;
         public const float CanReInputTime = 1f;
 
         public AttackState(PlayerController controller) : base(controller) { }

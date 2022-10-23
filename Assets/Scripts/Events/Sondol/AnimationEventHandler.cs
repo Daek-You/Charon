@@ -5,28 +5,45 @@ using UnityEngine;
 
 public class AnimationEventHandler : MonoBehaviour
 {
-    private Coroutine dashCoolTimeCoroutine;
-    SkinnedMeshRenderer skinnedMeshRenderer;     /// 쿨타임 시각용 테스트 변수
-    Color originColor;                           /// 쿨타임 시각용 테스트 변수
-
+    private Color originColor;                           /// 쿨타임 시각용 테스트 변수
     private DashState dashState;
     private DashAttackState dashAttackState;
+    private AttackState attackState;
+    private Coroutine dashCoolTimeCoroutine;
+    private SkinnedMeshRenderer skinnedMeshRenderer;     /// 쿨타임 시각용 테스트 변수
+
+
+    #region #Unity Functions
+    void Update()
+    {
+        if (attackState.IsAttack)
+        {
+            Vector3 velocity = Player.Instance.rigidBody.velocity;
+            Player.Instance.rigidBody.velocity = new Vector3(velocity.x, 0f, velocity.z);
+        }
+    }
+
 
     void Start()
     {
         dashState = Player.Instance.stateMachine.GetState(StateName.DASH) as DashState;
         dashAttackState = Player.Instance.stateMachine.GetState(StateName.DASH_ATTACK) as DashAttackState;
+        attackState = Player.Instance.stateMachine.GetState(StateName.ATTACK) as AttackState;
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         originColor = skinnedMeshRenderer.material.color;
     }
+    #endregion
 
     public void OnFinishedAttack()
     {
-        AttackState.IsAttack = false;
+        attackState.IsAttack = false;
+        Player.Instance.animator.applyRootMotion = true;
         Player.Instance.animator.SetBool("IsAttack", false);
         Player.Instance.stateMachine.ChangeState(StateName.MOVE);
     }
 
+
+    
     public void OnFinishedDashAttack()
     {
         dashAttackState.IsDashAttack = false;
@@ -40,7 +57,6 @@ public class AnimationEventHandler : MonoBehaviour
         dashState.CanDashAttack = true;
     }
 
-
     public void OnChangeDashToDashAttack()
     {
         if (dashAttackState.IsPressDashAttack)
@@ -48,7 +64,6 @@ public class AnimationEventHandler : MonoBehaviour
             dashAttackState.IsPressDashAttack = false;
             dashState.inputDirectionBuffer.Clear();
             Player.Instance.stateMachine.ChangeState(StateName.DASH_ATTACK);
-            return;
         }
     }
 
@@ -71,8 +86,6 @@ public class AnimationEventHandler : MonoBehaviour
             dashCoolTimeCoroutine = StartCoroutine(CheckDashReInputLimitTime(dashState.dashCooltime));
         }
     }
-
-
 
     public void OnCanAddToDashInputBuffer()
     {
