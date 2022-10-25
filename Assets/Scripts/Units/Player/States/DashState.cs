@@ -16,12 +16,12 @@ namespace CharacterController
         public int Hash_DashPlaySpeedFloat { get; private set; }
         public Queue<Vector3> inputDirectionBuffer { get; private set; }
 
+        public const float DEFAULT_ANIMATION_SPEED = 2f;
         public readonly float dashPower;
         public readonly float dashTetanyTime;
         public readonly float dashCooltime;
 
-
-        public DashState(PlayerController controller, float dashPower, float dashTetanyTime, float dashCoolTime) : base(controller)
+        public DashState(float dashPower, float dashTetanyTime, float dashCoolTime)
         {
             inputDirectionBuffer = new Queue<Vector3>();
             this.dashPower = dashPower;
@@ -29,7 +29,7 @@ namespace CharacterController
             this.dashCooltime = dashCoolTime;
             Hash_DashTrigger = Animator.StringToHash("Dash");
             Hash_IsDashBool = Animator.StringToHash("IsDashing");
-            Hash_DashPlaySpeedFloat = Animator.StringToHash("DashPlaySpeed");   /// 이동 속도에 따라 대시 애니메이션 재생 속도를 달리 할 필요가 있음. 어떻게 할까?
+            Hash_DashPlaySpeedFloat = Animator.StringToHash("DashPlaySpeed"); 
         }
 
         public override void OnEnterState()
@@ -44,12 +44,15 @@ namespace CharacterController
         private void Dash()
         {
             Vector3 dashDirection = inputDirectionBuffer.Dequeue();
-            dashDirection = (dashDirection == Vector3.zero) ? Controller.transform.forward : dashDirection;
+            dashDirection = (dashDirection == Vector3.zero) ? Player.Instance.Controller.transform.forward : dashDirection;
 
             Player.Instance.animator.SetBool(Hash_IsDashBool, true);
             Player.Instance.animator.SetTrigger(Hash_DashTrigger);
-            Controller.LookAt(new Vector3(dashDirection.x, 0f, dashDirection.z));
-            Player.Instance.rigidBody.velocity = dashDirection * (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE) * dashPower;    // 이동 속도에 따라 유동적으로 달라질 수 있도록 하자.
+            Player.Instance.Controller.LookAt(new Vector3(dashDirection.x, 0f, dashDirection.z));
+
+            float dashAnimationPlaySpeed = DEFAULT_ANIMATION_SPEED + (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE - MoveState.DEFAULT_CONVERT_MOVESPEED) * 0.1f;
+            Player.Instance.animator.SetFloat(Hash_DashPlaySpeedFloat, dashAnimationPlaySpeed);
+            Player.Instance.rigidBody.velocity = dashDirection * (Player.Instance.MoveSpeed * MoveState.CONVERT_UNIT_VALUE) * dashPower;
         }
 
         public override void OnUpdateState()

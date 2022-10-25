@@ -93,7 +93,7 @@
                     "name": "",
                     "id": "2a6c7ced-37fc-43a7-ab4e-6b8e29f85172",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Press(pressPoint=0.7)",
                     "processors": "",
                     "groups": "PC",
                     "action": "Dash",

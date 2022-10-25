@@ -11,14 +11,14 @@ namespace CharacterController
         public const float DEFAULT_ANIMATION_PLAYSPEED = 0.9f;
         private int hashMoveAnimation;
 
-        public MoveState(PlayerController controller) : base(controller)
+        public MoveState()
         {
             hashMoveAnimation = Animator.StringToHash("Velocity");
         }
 
         protected float GetAnimationSyncWithMovement(float changedMoveSpeed)
         {
-            if (Controller.inputDirection == Vector3.zero)
+            if (Player.Instance.Controller.inputDirection == Vector3.zero)
             {
                 return -DEFAULT_ANIMATION_PLAYSPEED;
             }
@@ -39,10 +39,10 @@ namespace CharacterController
 
         public override void OnFixedUpdateState()
         {
-            float currentMoveSpeed = Controller.player.MoveSpeed * CONVERT_UNIT_VALUE;
+            float currentMoveSpeed = Player.Instance.MoveSpeed * CONVERT_UNIT_VALUE;
             float animationPlaySpeed = DEFAULT_ANIMATION_PLAYSPEED + GetAnimationSyncWithMovement(currentMoveSpeed);
-            Controller.LookAt(Controller.inputDirection);
-            Player.Instance.rigidBody.velocity = Controller.calculatedDirection * currentMoveSpeed + Controller.gravity;
+            Player.Instance.Controller.LookAt(Player.Instance.Controller.inputDirection);
+            Player.Instance.rigidBody.velocity = Player.Instance.Controller.calculatedDirection * currentMoveSpeed + Player.Instance.Controller.gravity;
             Player.Instance.animator.SetFloat(hashMoveAnimation, animationPlaySpeed);
         }
 

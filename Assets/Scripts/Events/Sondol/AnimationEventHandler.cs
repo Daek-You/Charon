@@ -34,15 +34,38 @@ public class AnimationEventHandler : MonoBehaviour
     }
     #endregion
 
-    public void OnFinishedAttack()
+    public void OnStartAttack()
     {
-        attackState.IsAttack = false;
-        Player.Instance.animator.applyRootMotion = true;
-        Player.Instance.animator.SetBool("IsAttack", false);
-        Player.Instance.stateMachine.ChangeState(StateName.MOVE);
+        BaseWeapon currentWeapon = Player.Instance.weaponManager.Weapon;
+        GameObject effect = Instantiate(currentWeapon.defaultAttackEffs[currentWeapon.ComboCount - 1]);
+
+        Vector3 targetDirection = Player.Instance.Controller.MouseDirection;
+        effect.transform.position = Player.Instance.effectGenerator.position;
+
+        Vector3 secondAttackAdjustAngle = currentWeapon.ComboCount == 2 ? new Vector3(0f, -90f, 0f) : Vector3.zero;
+        effect.transform.rotation = Quaternion.LookRotation(targetDirection);
+        effect.transform.eulerAngles += secondAttackAdjustAngle;
+        effect.GetComponent<ParticleSystem>().Play();
+    }
+
+    public void OnStartDashAttack()
+    {
+        BaseWeapon currentWeapon = Player.Instance.weaponManager.Weapon;
+        GameObject effect = Instantiate(currentWeapon.dashAttackEffs);
+        Vector3 targetDirection = Player.Instance.Controller.MouseDirection;
+
+        effect.transform.position = Player.Instance.effectGenerator.position;
+        effect.transform.rotation = Quaternion.LookRotation(targetDirection);
+        effect.GetComponent<ParticleSystem>().Play();
     }
 
 
+    public void OnFinishedAttack()
+    {
+        attackState.IsAttack = false;
+        Player.Instance.animator.SetBool("IsAttack", false);
+        Player.Instance.stateMachine.ChangeState(StateName.MOVE);
+    }
     
     public void OnFinishedDashAttack()
     {

@@ -6,13 +6,6 @@ namespace CharacterController
 {
     public abstract class BaseState
     {
-        public PlayerController Controller { get; private set; }
-
-        public BaseState(PlayerController controller)
-        {
-            this.Controller = controller;
-        }
-
         public abstract void OnEnterState();
         public abstract void OnUpdateState();
         public abstract void OnFixedUpdateState();

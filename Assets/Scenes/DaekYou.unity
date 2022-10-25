@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44262767, g: 0.49174094, b: 0.57155156, a: 1}
+  m_IndirectSpecularColor: {r: 0.45143056, g: 0.50071424, b: 0.5712086, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -509,22 +509,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 429436971, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: dashCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 429436971, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: moveSpeed
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 3045839633378489666, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 01e98d0dbaf9bb348ab9975fecceb597, type: 2}
-    - target: {fileID: 3045839633378489679, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     - target: {fileID: 3947188125931925636, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
       propertyPath: m_Name
       value: Sondol
@@ -572,10 +556,6 @@ PrefabInstance:
     - target: {fileID: 4435177033294654014, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7740780490088673348, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
@@ -922,14 +902,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.8611762, y: -0.009161743, z: 0.015497403, w: 0.5079877}
+  m_LocalRotation: {x: 0.96908516, y: -0.0044475473, z: 0.01744497, w: 0.24606906}
   m_LocalPosition: {x: 0.63, y: 18.24, z: -8.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 118.929, y: -2.059021, z: 0.0039978027}
+  m_LocalEulerAnglesHint: {x: 151.505, y: -2.0620117, z: 0.0019989014}
 --- !u!1 &770277826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1702,6 +1682,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 48.205, y: 0, z: 0}
+--- !u!1 &1881929731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1881929733}
+  - component: {fileID: 1881929732}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1881929732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881929731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcaf828a808ef914c966eda6a42042ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1881929733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881929731}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1903088359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4982471314200708662, guid: 66bce15fd0ab895418236b7b1d004161, type: 3}

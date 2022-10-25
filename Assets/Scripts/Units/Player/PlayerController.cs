@@ -99,28 +99,31 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            DashState dashState = player.stateMachine.GetState(StateName.DASH) as DashState;
-            DashAttackState dashAttackState = player.stateMachine.GetState(StateName.DASH_ATTACK) as DashAttackState;
-            AttackState attackState = player.stateMachine.GetState(StateName.ATTACK) as AttackState;
-
-            if (dashAttackState.IsDashAttack || attackState.IsAttack)
-                return;
-
-            if (dashState.CurrentDashCount >= player.DashCount)
-                return;
-
-            if (dashState.CanAddInputBuffer && isGrounded)
+            if(context.interaction is PressInteraction)
             {
-                dashState.CurrentDashCount++;
-                dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
-                return;
-            }
+                DashState dashState = player.stateMachine.GetState(StateName.DASH) as DashState;
+                DashAttackState dashAttackState = player.stateMachine.GetState(StateName.DASH_ATTACK) as DashAttackState;
+                AttackState attackState = player.stateMachine.GetState(StateName.ATTACK) as AttackState;
 
-            if (!dashState.IsDash)
-            {
-                dashState.CurrentDashCount++;
-                dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
-                player.stateMachine.ChangeState(StateName.DASH);
+                if (dashAttackState.IsDashAttack || attackState.IsAttack)
+                    return;
+
+                if (dashState.CurrentDashCount >= player.DashCount)
+                    return;
+
+                if (dashState.CanAddInputBuffer && isGrounded)
+                {
+                    dashState.CurrentDashCount++;
+                    dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
+                    return;
+                }
+
+                if (!dashState.IsDash)
+                {
+                    dashState.CurrentDashCount++;
+                    dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
+                    player.stateMachine.ChangeState(StateName.DASH);
+                }
             }
         }
     }

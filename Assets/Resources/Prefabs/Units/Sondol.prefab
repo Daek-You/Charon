@@ -94,6 +94,37 @@ Transform:
   m_Father: {fileID: 4435177033294654014}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1806013220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1806013221}
+  m_Layer: 7
+  m_Name: EffectGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1806013221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806013220}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4435177033294654014}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &43339150443521951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1363,7 @@ Transform:
   - {fileID: 8204635824029026986}
   - {fileID: 1553289450}
   - {fileID: 619208587}
+  - {fileID: 1806013221}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1490,12 +1522,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0e4bcec3b9a95f4aae2953c1f373e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectGenerator: {fileID: 1806013221}
   rightHand: {fileID: 189787438}
   maxHP: 1000
   currentHP: 1000
   armor: 50
-  moveSpeed: 500
-  dashCount: 3
+  moveSpeed: 300
+  dashCount: 2
 --- !u!114 &7655446729700376020
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
     public static Player Instance { get { return instance; } }
     public WeaponManager weaponManager { get; private set; }
     public StateMachine stateMachine { get; private set; }
-
+    public PlayerController Controller { get; private set; }
     public Rigidbody rigidBody { get; private set; }
     public Animator animator { get; private set; }
     public CapsuleCollider capsuleCollider { get; private set; }
+
+    public Transform effectGenerator;
 
     [SerializeField]
     private Transform rightHand;
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour
             weaponManager.unRegisterWeapon = (weapon) => { Destroy(weapon); };
             rigidBody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
+            Controller = GetComponent<PlayerController>();
             capsuleCollider = GetComponent<CapsuleCollider>();
             InitStateMachine();
             DontDestroyOnLoad(gameObject);
@@ -73,10 +76,9 @@ public class Player : MonoBehaviour
 
     private void InitStateMachine()
     {
-        PlayerController controller = GetComponent<PlayerController>();
-        stateMachine = new StateMachine(StateName.MOVE, new MoveState(controller));
-        stateMachine.AddState(StateName.DASH, new DashState(controller, dashPower: 2f, dashTetanyTime: 0.5f, dashCoolTime: 0.5f));
-        stateMachine.AddState(StateName.ATTACK, new AttackState(controller));
-        stateMachine.AddState(StateName.DASH_ATTACK, new DashAttackState(controller));
+        stateMachine = new StateMachine(StateName.MOVE, new MoveState());
+        stateMachine.AddState(StateName.DASH, new DashState(dashPower: 2f, dashTetanyTime: 0.5f, dashCoolTime: 0.5f));
+        stateMachine.AddState(StateName.ATTACK, new AttackState());
+        stateMachine.AddState(StateName.DASH_ATTACK, new DashAttackState());
     }
 }
