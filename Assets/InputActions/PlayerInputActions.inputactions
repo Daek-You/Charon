@@ -24,13 +24,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftMouse",
-                    "type": "Value",
+                    "name": "Charging",
+                    "type": "Button",
                     "id": "7db87e98-90fe-4778-b935-6776c9372b82",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "cbd4ac1d-8387-458b-8d6e-ab69c193c8f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -93,7 +102,7 @@
                     "name": "",
                     "id": "2a6c7ced-37fc-43a7-ab4e-6b8e29f85172",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Press(pressPoint=0.7)",
                     "processors": "",
                     "groups": "PC",
                     "action": "Dash",
@@ -104,10 +113,21 @@
                     "name": "",
                     "id": "cffe9e02-c823-45c0-b99e-47d9f45dcecf",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "PC",
-                    "action": "LeftMouse",
+                    "action": "Charging",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1949d0c9-1fe5-442d-9d26-d1e45ff98874",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

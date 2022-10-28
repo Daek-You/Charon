@@ -1,25 +1,71 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class WeaponManager : MonoBehaviour
+public class WeaponManager
 {
+    public BaseWeapon Weapon { get; private set; }
+    public Action<GameObject> unRegisterWeapon { get; set; }
+    private Transform handPosition;
+    private GameObject weaponObject;
+    private List<GameObject> weapons = new List<GameObject>();
 
-    public BaseWeapon myWeapon;
-    public Vector3 mousePosition { get; private set; }
-
-
-    public void ChangeWeapon(BaseWeapon otherWeapon)
+    public WeaponManager(Transform hand)
     {
-        myWeapon = otherWeapon;
+        handPosition = hand;
     }
 
-    void Update()
+    public void RegisterWeapon(GameObject weapon)
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)  // 이번 프레임에 좌클릭을 했다면
+        if (!weapons.Contains(weapon))
         {
+            BaseWeapon weaponInfo = weapon.GetComponent<BaseWeapon>();
+            weapon.transform.SetParent(handPosition);
+            weapon.transform.localPosition = weaponInfo.HandleData.localPosition;
+            weapon.transform.localEulerAngles = weaponInfo.HandleData.localRotation;
+            weapon.transform.localScale = weaponInfo.HandleData.localScale;
+            weapons.Add(weapon);
+            weapon.SetActive(false);
+            
+            if (!Player.Instance._AnimationEventHandler.myWeaponEffects.ContainsKey(weaponInfo.Name))
+            {
+                Player.Instance._AnimationEventHandler.myWeaponEffects.Add(weaponInfo.Name, weapon.GetComponent<IEffect>());
+            }
+        }
+    }
 
+    public void UnRegisterWeapon(GameObject weapon)
+    {
+        if (weapons.Contains(weapon))
+        {
+            weapons.Remove(weapon);
+            unRegisterWeapon.Invoke(weapon);
+        }
+    }
+
+    public void SetWeapon(GameObject weapon)
+    {
+        if (Weapon == null)
+        {
+            weaponObject = weapon;
+            Weapon = weapon.GetComponent<BaseWeapon>();
+            weaponObject.SetActive(true);
+            Player.Instance.animator.runtimeAnimatorController = Weapon.WeaponAnimator;
+            return;
+        }
+
+        for(int i = 0; i < weapons.Count; i++)
+        {
+            if (weapons[i].Equals(Weapon))
+            {
+                weaponObject = weapon;
+                weaponObject.SetActive(true);
+                Weapon = weapon.GetComponent<BaseWeapon>();
+                Player.Instance.animator.runtimeAnimatorController = Weapon.WeaponAnimator;
+                continue;
+            }
+            weapons[i].SetActive(false);
         }
     }
 }
