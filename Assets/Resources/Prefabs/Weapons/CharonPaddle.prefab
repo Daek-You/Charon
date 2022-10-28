@@ -128,14 +128,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710691d41d0c9744180c088e3fee9b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultAttackEffs:
-  - {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
-  - {fileID: 1645009922904612, guid: 5e3170c6ef0f014409bd7423e3bb805a, type: 3}
-  - {fileID: 1610259402245616, guid: 09a2baab97fbf474f9499bf610686e4d, type: 3}
-  dashAttackEffs: {fileID: 1610259402245616, guid: 449469f2e00ed4d45bcd436d017fe8c5, type: 3}
   weaponhandleData: {fileID: 11400000, guid: 438e76a12ab65c444aede5a50a71d88b, type: 2}
   weaponAnimator: {fileID: 22100000, guid: 5c5910d3f7d70aa41aae162009a0d3d4, type: 2}
   _name: "\uCE74\uB860\uC758 \uB178"
   attackDamage: 150
   attackSpeed: 2
   attackRange: 3
+  defaultAttackEffs:
+  - {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
+  - {fileID: 1645009922904612, guid: 5e3170c6ef0f014409bd7423e3bb805a, type: 3}
+  - {fileID: 1610259402245616, guid: 09a2baab97fbf474f9499bf610686e4d, type: 3}
+  dashAttackEffs: {fileID: 1610259402245616, guid: 449469f2e00ed4d45bcd436d017fe8c5, type: 3}
+  chargingEffs: {fileID: 7681650723213477462, guid: 2aa279d11030f0043a7879873cbcac67, type: 3}
+  chargingAttackEffs: {fileID: 1919708242137258, guid: 4b58db14067c09a4cbda2193a2d49c98, type: 3}

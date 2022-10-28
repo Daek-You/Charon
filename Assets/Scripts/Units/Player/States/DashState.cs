@@ -71,12 +71,5 @@ namespace CharacterController
             Player.Instance.animator.applyRootMotion = true;
             Player.Instance.animator.SetBool(Hash_IsDashBool, false);
         }
-
-        public void Reset()
-        {
-            IsDash = false;
-            CanAddInputBuffer = false;
-            CurrentDashCount = 0;
-        }
     }
 }

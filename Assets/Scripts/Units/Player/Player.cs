@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public Animator animator { get; private set; }
     public CapsuleCollider capsuleCollider { get; private set; }
 
+    public AnimationEventHandler _AnimationEventHandler { get; private set; }
+
+
     public Transform effectGenerator;
 
     [SerializeField]
@@ -47,11 +50,19 @@ public class Player : MonoBehaviour
             animator = GetComponent<Animator>();
             Controller = GetComponent<PlayerController>();
             capsuleCollider = GetComponent<CapsuleCollider>();
+            _AnimationEventHandler = GetComponent<AnimationEventHandler>();
             InitStateMachine();
             DontDestroyOnLoad(gameObject);
             return;
         }
         DestroyImmediate(gameObject);
+    }
+
+
+    void Start()
+    {
+        animator.SetFloat("AttackSpeed", weaponManager.Weapon.AttackSpeed);
+        
     }
 
     void Update()
@@ -80,5 +91,7 @@ public class Player : MonoBehaviour
         stateMachine.AddState(StateName.DASH, new DashState(dashPower: 2f, dashTetanyTime: 0.5f, dashCoolTime: 0.5f));
         stateMachine.AddState(StateName.ATTACK, new AttackState());
         stateMachine.AddState(StateName.DASH_ATTACK, new DashAttackState());
+        stateMachine.AddState(StateName.CHARGING, new ChargingState());
+        stateMachine.AddState(StateName.CHARGING_ATTACK, new ChargingAttackState());
     }
 }

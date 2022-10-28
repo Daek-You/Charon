@@ -16,7 +16,9 @@ namespace CharacterController
         {
             IsDashAttack = true;
             DashState dashState = Player.Instance.stateMachine.GetState(StateName.DASH) as DashState;
-            dashState.Reset();
+            dashState.IsDash = false;
+            dashState.CanAddInputBuffer = false;
+            dashState.CurrentDashCount = 0;
 
             Player.Instance.Controller.LookAt(direction);
             Player.Instance.rigidBody.velocity = Vector3.zero;

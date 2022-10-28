@@ -7,9 +7,6 @@ using UnityEngine;
 public abstract class BaseWeapon : MonoBehaviour
 {
     public int ComboCount { get; set; }
-    public GameObject[] defaultAttackEffs;     // 추후에 수정하자. 일단 여기서 참조하는 걸로
-    public GameObject dashAttackEffs;          // 얘도
-
     public WeaponHandleData HandleData { get { return weaponhandleData; } }
     public RuntimeAnimatorController WeaponAnimator { get { return weaponAnimator; } }
     public string Name { get { return _name; } }
@@ -17,8 +14,6 @@ public abstract class BaseWeapon : MonoBehaviour
     public float AttackSpeed { get { return attackSpeed; } }
     public float AttackRange { get { return attackRange; } }
     private Coroutine checkAttackReInputCor;
-
-
 
 
     #region #무기 정보
@@ -40,7 +35,6 @@ public abstract class BaseWeapon : MonoBehaviour
         this.attackSpeed = attackSpeed;
         this.attackRange = attackRange;
     }
-
     public abstract void Attack(BaseState state);
     public abstract void DashAttack(BaseState state);
     public abstract void ChargingAttack(BaseState state);

@@ -10,7 +10,7 @@ public class WeaponManager
     private Transform handPosition;
     private GameObject weaponObject;
     private List<GameObject> weapons = new List<GameObject>();
-  
+
     public WeaponManager(Transform hand)
     {
         handPosition = hand;
@@ -27,6 +27,11 @@ public class WeaponManager
             weapon.transform.localScale = weaponInfo.HandleData.localScale;
             weapons.Add(weapon);
             weapon.SetActive(false);
+            
+            if (!Player.Instance._AnimationEventHandler.myWeaponEffects.ContainsKey(weaponInfo.Name))
+            {
+                Player.Instance._AnimationEventHandler.myWeaponEffects.Add(weaponInfo.Name, weapon.GetComponent<IEffect>());
+            }
         }
     }
 
