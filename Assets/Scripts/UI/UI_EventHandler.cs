@@ -12,6 +12,7 @@ public class UI_EventHandler
         ChangeST,
         ChangeGoods,
         ChangeScene,
+        ChangeSceneByLoad,
         NextDialogue,
         ChangeStat,
         ChangeSuccess,

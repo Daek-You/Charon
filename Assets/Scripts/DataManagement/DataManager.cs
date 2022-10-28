@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -62,7 +63,7 @@ public class DataManager : MonoBehaviour
     // Data Manager가 Index를 가지고 있는데, 인자로 받을 필요가 있나?
     public void SaveGameData(int index)
     {
-        SaveCurrentState();
+        SetSaveData();
 
         string fileName = $"/CharonData{index}.json";
         string filePath = Application.persistentDataPath + fileName;
@@ -122,11 +123,21 @@ public class DataManager : MonoBehaviour
         return OptData;
     }
 
-    public void SaveCurrentState()
+    public void SetSaveData()
     {
-        // 저장해야할 데이터를 Save Data에 세팅
+        if (!SaveData.IsSaved)
+            _saveData.IsSaved = true;
 
-        if (!SaveData.isSaved)
-            _saveData.isSaved = true;
+        // 플레이어 스탯 및 무기 정보
+
+        _saveData.CurrentPosition = GameObject.Find("Sondol").transform.position;
+
+        _saveData.CurrentStage = StageManager.Instance.CurrentStage;
+        _saveData.IsCleared = StageManager.Instance.IsCleared;
+    }
+
+    public void StartGameData()
+    {
+        _saveData = null;
     }
 }

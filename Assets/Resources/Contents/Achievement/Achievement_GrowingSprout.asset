@@ -19,6 +19,7 @@ MonoBehaviour:
     \uC815\uC2E0."
   useAutoComplete: 1
   isCancelable: 0
+  isSavable: 1
   taskGroups:
   - tasks:
     - {fileID: 11400000, guid: b1cec8b5885e57f41aa2ced90f912117, type: 2}

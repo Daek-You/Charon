@@ -6,6 +6,27 @@ using UnityEngine;
 [Serializable]
 public class GameData
 {
-    public bool isSaved = false;
-    public int gold = 0;
+    [SerializeField]
+    private bool isSaved = false;
+    public bool IsSaved { get { return isSaved; } set { isSaved = value; } }
+
+    #region User
+    [SerializeField]
+    private Vector3 currentPosition = Vector3.zero;
+    [SerializeField]
+    private int gold = 0;
+
+    public Vector3 CurrentPosition { get { return currentPosition; } set { currentPosition = value; } }
+    public int Gold { get { return gold; } set { gold = value; } }
+    #endregion
+
+    #region Stage
+    [SerializeField]
+    private StageType currentStage = StageType.Unknown;
+    [SerializeField]
+    private bool isCleared = false;
+
+    public StageType CurrentStage { get { return currentStage; } set { currentStage = value; } }
+    public bool IsCleared { get { return isCleared; } set { isCleared = value; } }
+    #endregion
 }

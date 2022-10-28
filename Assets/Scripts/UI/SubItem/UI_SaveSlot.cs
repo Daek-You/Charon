@@ -18,7 +18,9 @@ public class UI_SaveSlot : UI_Base
 
     enum Texts
     {
-        TxtIndex
+        TxtIndex,
+        TxtReinforecInfo,
+        TxtStageInfo
     }
 
     void Start()
@@ -53,16 +55,49 @@ public class UI_SaveSlot : UI_Base
     public void RefreshUI()
     {
         GameData slotData = DataManager.Instance.LoadGameData(SlotIndex);
-        isExist = slotData.isSaved ? true : false;
+        isExist = slotData.IsSaved ? true : false;
 
         if (isExist)
         {
-            GetText((int)Texts.TxtIndex).text = $"{SlotIndex}번 데이터";
+            GetText((int)Texts.TxtIndex).text = $"{SlotIndex + 1}번 데이터";
+            // GetText((int)Texts.TxtReinforecInfo).text = MakeReinforceText();
+            GetText((int)Texts.TxtStageInfo).text = MakeStageText();
         }
         else
         {
             GetText((int)Texts.TxtIndex).text = "데이터 없음";
+            GetText((int)Texts.TxtReinforecInfo).text = "";
+            GetText((int)Texts.TxtStageInfo).text = "";
         }
+    }
+
+
+    public string MakeReinforceText()
+    {
+        string text = "";
+
+        // 강화 정보를 불러와서 짜집기
+
+        return text;
+    }
+
+    public string MakeStageText()
+    {
+        string text = "";
+        StageType type = DataManager.Instance.SaveData.CurrentStage;
+
+        if (type == StageType.Lobby)
+        {
+            text = "로비";
+        }
+        else if (type != StageType.Unknown && type != StageType.Ending)
+        {
+            text = DataManager.Instance.SaveData.CurrentStage.ToString();
+            text = text.Substring(text.Length - 2);
+            text = $"스테이지\n{text[0]}-{text[1]}";
+        }
+
+        return text;
     }
 
     public void OnStartNewGame(PointerEventData data)
@@ -72,7 +107,11 @@ public class UI_SaveSlot : UI_Base
         if (isExist)
             UIManager.Instance.ShowPopupUI<UI_CheckMessage>();
         else
+        {
+            DataManager.Instance.StartGameData();
             UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
+            GameObject.Find("Sondol").transform.position = DataManager.Instance.SaveData.CurrentPosition;
+        }
     }
 
     public void OnContinueGame(PointerEventData data)
@@ -84,7 +123,15 @@ public class UI_SaveSlot : UI_Base
         {
             DataManager.Instance.LoadGameData(SlotIndex);
 
-            // 불러온 데이터의 스테이지 정보를 확인하여 이동시킬 씬을 결정
+            StageManager.Instance.CurrentStage = DataManager.Instance.SaveData.CurrentStage;
+            StageManager.Instance.IsClearedByLoad = DataManager.Instance.SaveData.IsCleared;
+
+            if (DataManager.Instance.SaveData.CurrentStage == StageType.Lobby)
+                UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
+            else
+                UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
+
+            GameObject.Find("Sondol").transform.position = DataManager.Instance.SaveData.CurrentPosition;
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -53,7 +54,7 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        if (!UI_Pause.IsPause)
+        if (!UI_Pause.IsPause && StageManager.Instance.CurrentStage != StageType.Unknown)
         {
             if (Input.GetKeyDown(KeyCode.B))
             {
@@ -71,10 +72,6 @@ public class UIManager : MonoBehaviour
                     ShowPopupUI<UI_SkillCooldown>();
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.L))
-                ShowPopupUI<UI_Dialogue>();
-
             if (Input.GetKeyDown(KeyCode.P))
             {
                 if (!UI_AchievementView.IsAchievementOpen)
@@ -82,6 +79,9 @@ public class UIManager : MonoBehaviour
                 else
                     ClosePopupUI();
             }
+
+            if (Input.GetKeyDown(KeyCode.L))
+                ShowPopupUI<UI_Dialogue>();
         }
 
         /* if (Input.GetKeyDown(KeyCode.A))

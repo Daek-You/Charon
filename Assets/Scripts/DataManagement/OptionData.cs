@@ -6,6 +6,11 @@ using UnityEngine;
 [Serializable]
 public class OptionData
 {
-    public int bgmValue = 100;
-    public int seValue = 100;
+    [SerializeField]
+    private int bgmValue = 100;
+    [SerializeField]
+    private int seValue = 100;
+
+    public int BgmValue { get { return bgmValue; } set { bgmValue = value; } }
+    public int SeValue { get { return seValue; } set { seValue = value; } }
 }

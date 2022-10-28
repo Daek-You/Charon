@@ -43,6 +43,8 @@ public class Quest : ScriptableObject
     private bool useAutoComplete;
     [SerializeField]
     private bool isCancelable;
+    [SerializeField]
+    private bool isSavable;
 
     [Header("Task")]
     [SerializeField]
@@ -67,6 +69,7 @@ public class Quest : ScriptableObject
     public bool IsCompleted => State == QuestState.Complete;
     public bool IsCanceled => State == QuestState.Cancel;
     public virtual bool IsCancelable => isCancelable;
+    public virtual bool IsSavable => isSavable;
 
     public bool IsAcceptable => acceptionConditions.All(x => x.IsPass(this));
 
@@ -147,12 +150,12 @@ public class Quest : ScriptableObject
     private void OnSuccessChanged(Task task, int curSuccess, int preSuccess)
         => onTaskSuccessChanged?.Invoke(this, task, curSuccess, preSuccess);
 
-    public QuestData SaveQuestData()
+    public QuestData SaveData()
     {
         return new QuestData(codeName, State, currentTaskGroupIndex, CurrentTaskGroup.Tasks.Select(x => x.CurrentSuccess).ToArray());
     }
 
-    public void LoadQuestData(QuestData saveData)
+    public void LoadData(QuestData saveData)
     {
         State = saveData.state;
         currentTaskGroupIndex = saveData.taskGroupIndex;

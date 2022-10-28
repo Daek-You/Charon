@@ -70,8 +70,8 @@ public class UI_Setting : UI_Popup
         TMP_Dropdown dropdown = InitDropdown();
 
         DataManager.Instance.LoadOptionData();
-        bgmSlider.value = DataManager.Instance.OptData.bgmValue;
-        effectSlider.value = DataManager.Instance.OptData.seValue;
+        bgmSlider.value = DataManager.Instance.OptData.BgmValue;
+        effectSlider.value = DataManager.Instance.OptData.SeValue;
     }
 
     public void InitSlider(Slider slider, UnityEngine.Events.UnityAction<float> action)
@@ -115,13 +115,13 @@ public class UI_Setting : UI_Popup
     public void OnChangeBGMSlider(float sound)
     {
         GetText((int)Texts.TxtBGMSlider).text = sound.ToString();
-        DataManager.Instance.OptData.bgmValue = (int)sound;
+        DataManager.Instance.OptData.BgmValue = (int)sound;
     }
 
     public void OnChangeEffectSlider(float sound)
     {
         GetText((int)Texts.TxtEffectSlider).text = sound.ToString();
-        DataManager.Instance.OptData.seValue = (int)sound;
+        DataManager.Instance.OptData.SeValue = (int)sound;
     }
 
     public void OnChangeDropdown(TMP_Dropdown box)

@@ -5,17 +5,18 @@ using UnityEngine;
 public class QuestGiver : MonoBehaviour
 {
     [SerializeField]
-    private Quest quest;
+    private Quest giverQuest;
+    public Quest GiverQuest { get { return giverQuest; }}
 
-    public void SetQuest(Quest quest)
-    {
-        this.quest = quest;
-        Register();
-    }
-
-    public void Register()
+    public void Register(Quest quest)
     {
         if (!QuestManager.Instance.ContainsInCompletedQuests(quest) && !QuestManager.Instance.ContainsInActiveQuests(quest))
-            QuestManager.Instance.Register(quest);
+            giverQuest = QuestManager.Instance.Register(quest);
+    }
+
+    public void Complete()
+    {
+        if (giverQuest != null)
+            giverQuest.Complete();
     }
 }

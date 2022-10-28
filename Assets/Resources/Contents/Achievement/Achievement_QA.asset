@@ -19,6 +19,7 @@ MonoBehaviour:
     \uC54A\uB294 \uBAAC\uC2A4\uD130\uB97C \uC4F0\uB7EC\uB728\uB838\uB2E4."
   useAutoComplete: 1
   isCancelable: 0
+  isSavable: 1
   taskGroups:
   - tasks:
     - {fileID: 11400000, guid: 669db6595908bd54096812363d1c5db4, type: 2}
