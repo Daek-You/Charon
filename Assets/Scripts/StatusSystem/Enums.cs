@@ -1,4 +1,4 @@
-public enum StatType
+public enum StatType_
 {
     MAX_HP = 1000,
     MOVE_SPEED = 1001,
@@ -7,7 +7,7 @@ public enum StatType
     DASH_COUNT = 1004,
 }
 
-public enum UnitState
+public enum UnitState_
 {
     IDLE = 10000,
     WALK = 10001,
