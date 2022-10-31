@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class AnimationEventHandler : MonoBehaviour
 {
+    public float CurrentCoolTime { get; private set; } = 0f;
     public Dictionary<string, IEffect> myWeaponEffects { get; private set; }
     private Color originColor;                           /// 쿨타임 시각용 테스트 변수
     private DashState dashState;
     private DashAttackState dashAttackState;
     private ChargingAttackState chargingAttackState;
     private AttackState attackState;
+    private SkillState skillState;
+    
     private Coroutine dashCoolTimeCoroutine;
+    private Coroutine skillCoolTimeCoroutine;
     private SkinnedMeshRenderer skinnedMeshRenderer;     /// 쿨타임 시각용 테스트 변수
 
 
@@ -27,6 +31,7 @@ public class AnimationEventHandler : MonoBehaviour
         dashAttackState = Player.Instance.stateMachine.GetState(StateName.DASH_ATTACK) as DashAttackState;
         attackState = Player.Instance.stateMachine.GetState(StateName.ATTACK) as AttackState;
         chargingAttackState = Player.Instance.stateMachine.GetState(StateName.CHARGING_ATTACK) as ChargingAttackState;
+        skillState = Player.Instance.stateMachine.GetState(StateName.SKILL) as SkillState;
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         originColor = skinnedMeshRenderer.material.color;
     }
@@ -40,7 +45,25 @@ public class AnimationEventHandler : MonoBehaviour
         }
     }
     #endregion
-    
+
+    public void OnStartSkill()
+    {
+        if (myWeaponEffects.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out IEffect weapon))
+        {
+            weapon.PlaySkillEffect();
+        }
+    }
+
+    public void OnFinishedSkill()
+    {
+        skillState.IsSkillActive = false;
+        Player.Instance.animator.SetBool("IsSkill", false);
+        Player.Instance.stateMachine.ChangeState(StateName.MOVE);
+
+        if (skillCoolTimeCoroutine != null)
+            StopCoroutine(skillCoolTimeCoroutine);
+        skillCoolTimeCoroutine = StartCoroutine(CheckSkillCoolTime(CharonPaddle.SkillCoolTime));
+    }
 
     public void OnDestroyEffect()
     {
@@ -166,6 +189,25 @@ public class AnimationEventHandler : MonoBehaviour
                 skinnedMeshRenderer.material.color = originColor;
                 break;
             }
+            yield return null;
+        }
+    }
+
+    private IEnumerator CheckSkillCoolTime(float coolTime)
+    {
+        CurrentCoolTime = coolTime;
+        skinnedMeshRenderer.material.color = Color.blue;
+
+        while (true)
+        {
+            CurrentCoolTime = Mathf.Clamp(CurrentCoolTime - Time.deltaTime, 0f, coolTime);
+
+            if(Mathf.Approximately(CurrentCoolTime, 0f))
+            {
+                skinnedMeshRenderer.material.color = originColor;
+                break;
+            }
+
             yield return null;
         }
     }

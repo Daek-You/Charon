@@ -9,17 +9,20 @@ public class CharonPaddle : BaseWeapon, IEffect
     public GameObject dashAttackEffs;
     public GameObject chargingEffs;
     public GameObject chargingAttackEffs;
-    public GameObject deleteChargingEffs;       // 차징 중 다른 상태로 넘어갈 때 제거
+    public GameObject skillEffs;
+    public GameObject deleteChargingEffs { get; set; }      // 차징 중 다른 상태로 넘어갈 때 제거
 
     public readonly int hashIsAttackAnimation = Animator.StringToHash("IsAttack");
     public readonly int hashAttackAnimation = Animator.StringToHash("AttackCombo");
     public readonly int hashAttackSpeedAnimation = Animator.StringToHash("AttackSpeed");
     public readonly int hashDashAttackAnimation = Animator.StringToHash("IsDashAttack");
     public readonly int hashCharingAttackAnimation = Animator.StringToHash("IsCharingAttack");
+    public readonly int hashSkillAnimation = Animator.StringToHash("IsSkill");
     public const float dashAttackPower = 4f;
     private Coroutine dashAttackCoroutine;
     private WaitForSeconds dashAttackSecond = new WaitForSeconds(0.2f);
 
+    public const float SkillCoolTime = 5f;
 
     public override void Attack(BaseState state)
     {
@@ -45,14 +48,15 @@ public class CharonPaddle : BaseWeapon, IEffect
 
     public override void Skill(BaseState state)
     {
-
+        Player.Instance.animator.SetBool(hashSkillAnimation, true);
     }
 
     public override void UltimateSkill(BaseState state)
     {
-
+        /*
+         *   시간 관계 상 구현 범위에서 제외하도록 하였음
+         */
     }
-
 
     private IEnumerator ProcessDashAttackPhysics(BaseState state)
     {
@@ -110,7 +114,9 @@ public class CharonPaddle : BaseWeapon, IEffect
 
     public void PlaySkillEffect()
     {
-        // 아직 미구현
-
+        GameObject effect = Instantiate(skillEffs);
+        effect.transform.position = Player.Instance.effectGenerator.position;
+        effect.transform.rotation = Quaternion.LookRotation(Player.Instance.transform.forward);
+        effect.GetComponent<ParticleSystem>().Play();
     }
 }
