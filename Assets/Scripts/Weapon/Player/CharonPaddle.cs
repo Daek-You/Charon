@@ -64,7 +64,8 @@ public class CharonPaddle : BaseWeapon, IEffect
 
     public void PlayComboAttackEffects()
     {
-        GameObject effect = Instantiate(defaultAttackEffs[ComboCount - 1]);
+        int comboCount = Mathf.Clamp(ComboCount - 1, 0, 3);
+        GameObject effect = Instantiate(defaultAttackEffs[comboCount]);
         Vector3 targetDirection = Player.Instance.Controller.MouseDirection;
 
         effect.transform.position = Player.Instance.effectGenerator.position;

@@ -129,6 +129,7 @@ public class DataManager : MonoBehaviour
             _saveData.IsSaved = true;
 
         // 플레이어 스탯 및 무기 정보
+        _saveData.WeaponName = Player.Instance.weaponManager.GetWeaponName();
 
         _saveData.CurrentPosition = GameObject.Find("Sondol").transform.position;
 

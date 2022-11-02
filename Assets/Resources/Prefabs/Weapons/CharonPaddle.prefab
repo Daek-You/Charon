@@ -141,3 +141,4 @@ MonoBehaviour:
   dashAttackEffs: {fileID: 1610259402245616, guid: 449469f2e00ed4d45bcd436d017fe8c5, type: 3}
   chargingEffs: {fileID: 7681650723213477462, guid: 2aa279d11030f0043a7879873cbcac67, type: 3}
   chargingAttackEffs: {fileID: 1919708242137258, guid: 4b58db14067c09a4cbda2193a2d49c98, type: 3}
+  deleteChargingEffs: {fileID: 0}

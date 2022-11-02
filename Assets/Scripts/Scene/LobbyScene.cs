@@ -15,7 +15,24 @@ public class LobbyScene : BaseScene
         UIManager.Instance.ShowSceneUI<UI_AchievementCompletionNotifier>();
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeScene, OnChangeScene);
         StageManager.Instance.CurrentStage = StageType.Lobby;
-        DataManager.Instance.SaveGameData(DataManager.Instance.DataIndex);
+
+        GameData saveData = DataManager.Instance.SaveData;
+        GameObject weapon = null;
+
+        Player.Instance.transform.position = saveData.CurrentPosition;
+
+        if (!saveData.IsSaved)
+        {
+            weapon = Utils.Instantiate($"Weapons/CharonPaddle");
+            Player.Instance.weaponManager.RegisterWeapon(weapon);
+            Player.Instance.weaponManager.SetWeapon(weapon);
+            DataManager.Instance.SaveGameData(DataManager.Instance.DataIndex);
+            return;
+        }
+
+        weapon = Utils.Instantiate($"Weapons/{saveData.WeaponName}");
+        Player.Instance.weaponManager.RegisterWeapon(weapon);
+        Player.Instance.weaponManager.SetWeapon(weapon);
     }
 
     public override void Clear()

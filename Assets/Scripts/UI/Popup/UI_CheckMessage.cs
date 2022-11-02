@@ -50,7 +50,6 @@ public class UI_CheckMessage : UI_Popup
         // 후자의 경우 여기서 코드를 수정할 필요는 없음
         DataManager.Instance.StartGameData();
         UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
-        GameObject.Find("Sondol").transform.position = DataManager.Instance.SaveData.CurrentPosition;
     }
 
     public void OnDeleteCancle(PointerEventData data)

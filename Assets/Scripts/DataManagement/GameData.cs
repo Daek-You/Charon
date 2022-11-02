@@ -14,9 +14,12 @@ public class GameData
     [SerializeField]
     private Vector3 currentPosition = Vector3.zero;
     [SerializeField]
+    private string weaponName;
+    [SerializeField]
     private int gold = 0;
 
     public Vector3 CurrentPosition { get { return currentPosition; } set { currentPosition = value; } }
+    public string WeaponName { get { return weaponName; } set { weaponName = value;} }
     public int Gold { get { return gold; } set { gold = value; } }
     #endregion
 

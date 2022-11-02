@@ -16,6 +16,17 @@ public class UIManager : MonoBehaviour
     int order = 10;
     Stack<UI_Popup> popupStack = new Stack<UI_Popup>();
 
+    public bool IsPopupOpened
+    {
+        get
+        {
+            if (popupStack.Count > 0)
+                return true;
+            else
+                return false;
+        }
+    }
+
     // UI Object들을 자식으로 가지는 부모 Object
     public GameObject Root
     {
@@ -63,15 +74,6 @@ public class UIManager : MonoBehaviour
                 else
                     ClosePopupUI();
             }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (!UI_SkillCooldown.IsCooldown)
-                {
-                    // 쿨타임 스택을 따로 사용하도록 만듦
-                    // 이런 식으로 따로 관리해야하는 UI는 Scene UI로 만들고 비활성화하는 쪽이 좋을 듯
-                    ShowPopupUI<UI_SkillCooldown>();
-                }
-            }
             if (Input.GetKeyDown(KeyCode.P))
             {
                 if (!UI_AchievementView.IsAchievementOpen)
@@ -79,6 +81,16 @@ public class UIManager : MonoBehaviour
                 else
                     ClosePopupUI();
             }
+
+            //if (Input.GetKeyDown(KeyCode.Q))
+            //{
+            //    if (!UI_SkillCooldown.IsCooldown)
+            //    {
+            //        // 쿨타임 스택을 따로 사용하도록 만듦
+            //        // 이런 식으로 따로 관리해야하는 UI는 Scene UI로 만들고 비활성화하는 쪽이 좋을 듯
+            //        ShowPopupUI<UI_SkillCooldown>();
+            //    }
+            //}
 
             if (Input.GetKeyDown(KeyCode.L))
                 ShowPopupUI<UI_Dialogue>();

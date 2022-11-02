@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f);
 
-        if (Physics.Raycast(ray, out RaycastHit HitInfo, Mathf.Infinity))
+        if (Physics.Raycast(ray, out RaycastHit HitInfo, Mathf.Infinity, groundLayer))
         {
             Vector3 target = HitInfo.point;
             Vector3 myPosition = new Vector3(transform.position.x, 0f, transform.position.z);

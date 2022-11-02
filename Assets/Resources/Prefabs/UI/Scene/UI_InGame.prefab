@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 1783344197610170164}
   - component: {fileID: 1783344197610170165}
   m_Layer: 5
-  m_Name: ImgWeapon
+  m_Name: ImgPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dee74fad89db8cd41923711a0340966e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2698860b6876c9c4b9d096fe8957d28b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 6358787795172765149}
   - component: {fileID: 1444654046303272579}
   m_Layer: 5
-  m_Name: ImgWeaponFrame
+  m_Name: ImgFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1009,8 +1009,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 2c06c944b0b393449b9d882657f30c1b, type: 2}
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_Material: {fileID: 2100000, guid: 81ce45ec7d68af34da5c9e98d3eb95c5, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

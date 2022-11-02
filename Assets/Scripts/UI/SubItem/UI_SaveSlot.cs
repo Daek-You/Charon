@@ -60,7 +60,7 @@ public class UI_SaveSlot : UI_Base
         if (isExist)
         {
             GetText((int)Texts.TxtIndex).text = $"{SlotIndex + 1}번 데이터";
-            // GetText((int)Texts.TxtReinforecInfo).text = MakeReinforceText();
+            GetText((int)Texts.TxtReinforecInfo).text = MakeReinforceText();
             GetText((int)Texts.TxtStageInfo).text = MakeStageText();
         }
         else
@@ -74,10 +74,10 @@ public class UI_SaveSlot : UI_Base
 
     public string MakeReinforceText()
     {
-        string text = "";
+        GameObject go = Utils.Instantiate($"Weapons/{DataManager.Instance.SaveData.WeaponName}");
+        string weaponName = go.GetComponent<CharonPaddle>().Name;
 
-        // 강화 정보를 불러와서 짜집기
-
+        string text = $"{weaponName} +0";
         return text;
     }
 
@@ -122,16 +122,15 @@ public class UI_SaveSlot : UI_Base
         if (isExist)
         {
             DataManager.Instance.LoadGameData(SlotIndex);
+            GameData saveData = DataManager.Instance.SaveData;
 
-            StageManager.Instance.CurrentStage = DataManager.Instance.SaveData.CurrentStage;
-            StageManager.Instance.IsClearedByLoad = DataManager.Instance.SaveData.IsCleared;
+            StageManager.Instance.CurrentStage = saveData.CurrentStage;
+            StageManager.Instance.IsClearedByLoad = saveData.IsCleared;
 
-            if (DataManager.Instance.SaveData.CurrentStage == StageType.Lobby)
+            if (saveData.CurrentStage == StageType.Lobby)
                 UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
             else
                 UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
-
-            GameObject.Find("Sondol").transform.position = DataManager.Instance.SaveData.CurrentPosition;
         }
     }
 
