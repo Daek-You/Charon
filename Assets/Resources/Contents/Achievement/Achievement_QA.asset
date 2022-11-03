@@ -15,12 +15,13 @@ MonoBehaviour:
   category: {fileID: 11400000, guid: 6953854e3d652ac4cb61f93de6406505, type: 2}
   codeName: QA
   displayName: QA
-  description: "\uC815\uC2DD \uBC84\uC804\uC5D0\uC11C\uB294 \uC874\uC7AC\uD558\uC9C0
-    \uC54A\uB294 \uBAAC\uC2A4\uD130\uB97C \uC4F0\uB7EC\uB728\uB838\uB2E4."
+  description: "\uC815\uC2DD \uBC84\uC804\uC5D0\uC11C\uB294 \uBD88\uAC00\uB2A5\uD55C
+    \uBAA9\uD45C\uB97C \uB2EC\uC131\uD55C \uC790."
   useAutoComplete: 1
   isCancelable: 0
   isSavable: 1
   taskGroups:
   - tasks:
+    - {fileID: 11400000, guid: 496c9b796a2a89f45919cb0fc3731fca, type: 2}
     - {fileID: 11400000, guid: 669db6595908bd54096812363d1c5db4, type: 2}
   acceptionConditions: []

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633141a9a17d6de4bbe897dae9f1f336, type: 3}
+  m_Name: Achievement_NormalBoatman
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 6953854e3d652ac4cb61f93de6406505, type: 2}
+  codeName: NORMAL_BOATMAN
+  displayName: "\uD3C9\uBC94\uD55C \uBC43\uC0AC\uACF5"
+  description: "\uBC43\uC0AC\uACF5\uC774\uB77C\uBA74 \uC2A4\uD0AC \uC815\uB3C4\uB294
+    \uC4F8 \uC904 \uC54C\uC544\uC57C\uC9C0."
+  useAutoComplete: 1
+  isCancelable: 0
+  isSavable: 1
+  taskGroups:
+  - tasks:
+    - {fileID: 11400000, guid: b1cec8b5885e57f41aa2ced90f912117, type: 2}
+  acceptionConditions: []

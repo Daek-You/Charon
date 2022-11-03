@@ -115,7 +115,7 @@ public class UI_AchievementView : UI_Popup
     }
 
     private string BuildTaskDescription(Task task)
-        => $"{task.Description} {task.CurrentSuccess}/{task.NeedSuccessToComplete}";
+        => $"{task.Description} ({task.CurrentSuccess}/{task.NeedSuccessToComplete})";
 
     private void UpdateDescription(Quest achievement, Task task, int curSuccess, int preSuccess)
     {

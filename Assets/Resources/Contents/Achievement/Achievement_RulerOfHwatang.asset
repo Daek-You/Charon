@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633141a9a17d6de4bbe897dae9f1f336, type: 3}
+  m_Name: Achievement_RulerOfHwatang
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 6953854e3d652ac4cb61f93de6406505, type: 2}
+  codeName: RULER_OF_HWATANG
+  displayName: "\uD654\uD0D5\uC758 \uC9C0\uBC30\uC790"
+  description: "\uC9C4\uAD11\uC744 \uC4F0\uB7EC\uB728\uB9AC\uACE0 \uD654\uD0D5\uC9C0\uC625\uC744
+    \uC815\uBCF5\uD55C \uC790."
+  useAutoComplete: 1
+  isCancelable: 0
+  isSavable: 1
+  taskGroups:
+  - tasks:
+    - {fileID: 11400000, guid: e88aa9e24325f0f428f0812843729087, type: 2}
+  acceptionConditions: []

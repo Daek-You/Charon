@@ -96,22 +96,25 @@ public class UIManager : MonoBehaviour
                 ShowPopupUI<UI_Dialogue>();
         }
 
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            float maxHP = 1000;
+            float curHP = Random.Range(0, maxHP);
+            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, (curHP / maxHP));
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            int maxST = 10;
+            int curST = Random.Range(0, maxST + 1);
+            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeST, this, ((float)curST / maxST));
+        }
+
         /* if (Input.GetKeyDown(KeyCode.A))
         {
             // 무기가 변경될 경우 리스너를 호출
             // 무기 아이콘이 확정될 경우 수정이 필요
             int weapon = Random.Range(0, 3);
             EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeWeapon, this, weapon);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            float curHP = Random.Range(0, 500);
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, (curHP / 500));
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            float curST = Random.Range(0, 5);
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeST, this, (curST / 4));
         }
         if (Input.GetKeyDown(KeyCode.F))
         {

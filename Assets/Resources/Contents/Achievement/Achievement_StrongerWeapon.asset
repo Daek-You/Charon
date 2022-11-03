@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633141a9a17d6de4bbe897dae9f1f336, type: 3}
+  m_Name: Achievement_StrongerWeapon
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 6953854e3d652ac4cb61f93de6406505, type: 2}
+  codeName: STRONGER_WEAPON
+  displayName: "\uB354 \uAC15\uD55C \uBB34\uAE30"
+  description: "\uBB34\uAE30\uB97C \uAC15\uD654\uD558\uB294 \uBC29\uBC95\uC744 \uBC30\uC6E0\uB2E4."
+  useAutoComplete: 1
+  isCancelable: 0
+  isSavable: 1
+  taskGroups:
+  - tasks:
+    - {fileID: 11400000, guid: 5f40802d88ee4b946aefd8966cf38198, type: 2}
+  acceptionConditions: []
