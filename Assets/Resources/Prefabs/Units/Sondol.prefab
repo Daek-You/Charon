@@ -43,13 +43,13 @@ GameObject:
   m_Component:
   - component: {fileID: 583272978}
   - component: {fileID: 583272977}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: AttackBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &583272978
 Transform:
   m_ObjectHideFlags: 0
@@ -57,14 +57,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583272976}
-  m_LocalRotation: {x: -0.6193028, y: 0.16633908, z: 0.6117983, w: 0.4631397}
-  m_LocalPosition: {x: -0.58902735, y: 0.17350693, z: 0.4405724}
-  m_LocalScale: {x: 2.1623998, y: 1, z: 0.9598989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 189787438}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 23, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &583272977
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73,11 +73,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583272976}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 2.7692914}
-  m_Center: {x: 3.0242586e-10, y: 0, z: 0.50755113}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &619208586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectGenerator: {fileID: 1806013221}
+  hitBox: {fileID: 0}
   rightHand: {fileID: 189787438}
   maxHP: 1000
   currentHP: 1000
