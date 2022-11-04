@@ -11,7 +11,10 @@ public class ShowStatus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        status[0].text = StatManager.Instance.currentMaxHP.ToString();
+        status[1].text = StatManager.Instance.currentArmor.ToString();
+        status[2].text = StatManager.Instance.currentMoveSpeed.ToString();
+        status[3].text = StatManager.Instance.currentDashCount.ToString();
     }
 
     // Update is called once per frame
