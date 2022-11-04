@@ -6,4 +6,7 @@ public enum StatType
     ATTACK_DAMAGE,
     ARMOR,
     GOLD,
+    PADDLE_DAMAGE,
+    SICKLE_DAMAGE,
+    GOURD_DAMAGE,
 }
