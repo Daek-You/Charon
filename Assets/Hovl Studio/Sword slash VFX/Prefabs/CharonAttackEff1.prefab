@@ -34243,7 +34243,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.6004361, g: 0.7715852, b: 0.9716981, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 1
   m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -34285,7 +34285,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
+  m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 6e-43, y: 1.107585e+23, z: 6e-43, w: 0}

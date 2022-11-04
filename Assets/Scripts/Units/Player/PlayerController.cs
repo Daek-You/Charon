@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     DashAttackState dashAttackState;
     ChargingState chargingState;
     ChargingAttackState chargingAttackState;
-
+    SkillState skillState;
 
     #region #소리
     public bool IsFirstStep { get; set; } = false;
@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
         dashAttackState = player.stateMachine.GetState(StateName.DASH_ATTACK) as DashAttackState;
         chargingState = player.stateMachine.GetState(StateName.CHARGING) as ChargingState;
         chargingAttackState = player.stateMachine.GetState(StateName.CHARGING_ATTACK) as ChargingAttackState;
+        skillState = player.stateMachine.GetState(StateName.SKILL) as SkillState;
     }
 
     void Update()
@@ -73,91 +74,97 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
+    public void OnSkillButton(InputAction.CallbackContext context)
+    {
+        if (context.performed && !skillState.IsSkillActive)
+        {
+            if (chargingState.IsCharging || attackState.IsAttack || dashAttackState.IsDashAttack || dashState.IsDash || chargingAttackState.IsChargingAttack)
+                return;
+
+            if (player._AnimationEventHandler.CurrentCoolTime > 0f)
+                return;
+
+            player.stateMachine.ChangeState(StateName.SKILL);
+        }
+    }
+
+
     public void OnClickLeftMouse(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && context.interaction is PressInteraction)
         {
+            BaseState currentState = player.stateMachine.CurrentState;
+
+            if ((currentState is DashAttackState) || (currentState is ChargingAttackState) || (currentState is SkillState))
+                return;
+
             MouseDirection = GetMouseWorldPosition();
             MouseDirection = isOnSlope ? AdjustDirectionToSlope(MouseDirection) : MouseDirection;
 
-            if (context.interaction is PressInteraction)
+            /*-------------------------------------차징 공격--------------------------------------- */
+            if (IsChargingAction)
             {
-                if (dashAttackState.IsDashAttack || chargingAttackState.IsChargingAttack)
-                    return;
+                IsChargingAction = false;
+                player.stateMachine.ChangeState(StateName.CHARGING_ATTACK);
+                return;
+            }
 
+            /*-------------------------------------대시 공격--------------------------------------- */
+            if (dashState.CanDashAttack)
+            {
+                MouseDirection = isOnSlope ? AdjustDirectionToSlope(MouseDirection) : MouseDirection;
+                dashAttackState.IsPressDashAttack = true;
+                dashAttackState.direction = MouseDirection;
+                return;
+            }
 
-                /*-------------------------------------차징 공격--------------------------------------- */
-                if (IsChargingAction)               
-                {
-                    IsChargingAction = false;
-                    player.stateMachine.ChangeState(StateName.CHARGING_ATTACK);
-                    return;
-                }
+            /*-------------------------------------일반 공격--------------------------------------- */
+            bool isAvailableAttack = (!dashState.IsDash && !attackState.IsAttack) && (player.weaponManager.Weapon.ComboCount < 3);
 
-
-                /*-------------------------------------대시 공격--------------------------------------- */
-                DashState dashState = player.stateMachine.GetState(StateName.DASH) as DashState;
-
-                if (dashState.CanDashAttack)
-                {
-                    MouseDirection = isOnSlope ? AdjustDirectionToSlope(MouseDirection) : MouseDirection;
-                    dashAttackState.IsPressDashAttack = true;
-                    dashAttackState.direction = MouseDirection;
-                    return;
-                }
-
-                /*-------------------------------------일반 공격--------------------------------------- */
-                AttackState attackState = player.stateMachine.GetState(StateName.ATTACK) as AttackState;
-                bool isAvailableAttack = (!dashState.IsDash && !attackState.IsAttack) && (player.weaponManager.Weapon.ComboCount < 3);
-                
-                if (isAvailableAttack && isGrounded)
-                {
-                    LookAt(MouseDirection);
-                    player.stateMachine.ChangeState(StateName.ATTACK);
-                }
+            if (isAvailableAttack && isGrounded)
+            {
+                LookAt(MouseDirection);
+                player.stateMachine.ChangeState(StateName.ATTACK);
             }
         }
     }
 
     public void OnClickCharging(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && context.interaction is HoldInteraction)
         {
-            if (context.interaction is HoldInteraction)
-            {
-                IsChargingAction = true;
-                MouseDirection = GetMouseWorldPosition();
-                LookAt(MouseDirection);
-                player.stateMachine.ChangeState(StateName.CHARGING);
-            }
+            if (attackState.IsAttack || dashAttackState.IsDashAttack || dashState.IsDash || chargingAttackState.IsChargingAttack || skillState.IsSkillActive)
+                return;
+
+            IsChargingAction = true;
+            MouseDirection = GetMouseWorldPosition();
+            LookAt(MouseDirection);
+            player.stateMachine.ChangeState(StateName.CHARGING);
         }
     }
 
     public void OnDashInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && context.interaction is PressInteraction)
         {
-            if (context.interaction is PressInteraction)
+            if (dashAttackState.IsDashAttack || attackState.IsAttack || chargingState.IsCharging || chargingAttackState.IsChargingAttack || skillState.IsSkillActive)
+                return;
+
+            if (dashState.CurrentDashCount >= player.DashCount)
+                return;
+
+            if (dashState.CanAddInputBuffer && isGrounded)
             {
-                if (dashAttackState.IsDashAttack || attackState.IsAttack || chargingState.IsCharging || chargingAttackState.IsChargingAttack)
-                    return;
+                dashState.CurrentDashCount++;
+                dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
+                return;
+            }
 
-                if (dashState.CurrentDashCount >= player.DashCount)
-                    return;
-
-                if (dashState.CanAddInputBuffer && isGrounded)
-                {
-                    dashState.CurrentDashCount++;
-                    dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
-                    return;
-                }
-
-                if (!dashState.IsDash && isGrounded)
-                {
-                    dashState.CurrentDashCount++;
-                    dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
-                    player.stateMachine.ChangeState(StateName.DASH);
-                }
+            if (!dashState.IsDash && isGrounded)
+            {
+                dashState.CurrentDashCount++;
+                dashState.inputDirectionBuffer.Enqueue(calculatedDirection);
+                player.stateMachine.ChangeState(StateName.DASH);
             }
         }
     }
@@ -229,17 +236,6 @@ public class PlayerController : MonoBehaviour
         }
         return false;
     }
-
-    //public void OnDrawGizmos()
-    //{
-    //    Vector3 boxSize = new Vector3(transform.lossyScale.x, 0.4f, transform.lossyScale.z);
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireCube(groundCheck.position, boxSize);
-
-    //    Gizmos.color = Color.blue;
-    //    Ray ray = new Ray(transform.position, Vector3.down);
-    //    Gizmos.DrawRay(transform.position, Vector3.down * RAY_DISTANCE);
-    //}
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {

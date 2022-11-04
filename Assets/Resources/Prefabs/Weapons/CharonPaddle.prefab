@@ -142,3 +142,4 @@ MonoBehaviour:
   chargingEffs: {fileID: 7681650723213477462, guid: 2aa279d11030f0043a7879873cbcac67, type: 3}
   chargingAttackEffs: {fileID: 1919708242137258, guid: 4b58db14067c09a4cbda2193a2d49c98, type: 3}
   deleteChargingEffs: {fileID: 0}
+  skillEffs: {fileID: 1644958980890870, guid: 5e841c48be9318145af9204a7658cc2e, type: 3}

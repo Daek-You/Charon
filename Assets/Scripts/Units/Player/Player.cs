@@ -93,5 +93,6 @@ public class Player : MonoBehaviour
         stateMachine.AddState(StateName.DASH_ATTACK, new DashAttackState());
         stateMachine.AddState(StateName.CHARGING, new ChargingState());
         stateMachine.AddState(StateName.CHARGING_ATTACK, new ChargingAttackState());
+        stateMachine.AddState(StateName.SKILL, new SkillState());
     }
 }

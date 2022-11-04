@@ -44,7 +44,8 @@
                 {
                     "name": "Skill",
                     "type": "Button",
-                    "id": "4753e5b5-083a-4c9c-a4fb-732a6dbf1d24",
+
+                    "id": "90f3965c-fadf-4f29-b8e7-636a505ac5d2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -142,7 +143,11 @@
                 },
                 {
                     "name": "",
+<<<<<<< HEAD
                     "id": "f9857218-c38f-4244-a9cc-fb2a6d620b01",
+=======
+                    "id": "260bf1cd-e0b4-47f2-a785-e679fb29d6ab",
+>>>>>>> Prototype_
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
