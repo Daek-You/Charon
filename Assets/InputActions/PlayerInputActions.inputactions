@@ -143,11 +143,7 @@
                 },
                 {
                     "name": "",
-<<<<<<< HEAD
-                    "id": "f9857218-c38f-4244-a9cc-fb2a6d620b01",
-=======
                     "id": "260bf1cd-e0b4-47f2-a785-e679fb29d6ab",
->>>>>>> Prototype_
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
