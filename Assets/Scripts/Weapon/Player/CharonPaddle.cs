@@ -22,8 +22,6 @@ public class CharonPaddle : BaseWeapon, IEffect
     private Coroutine dashAttackCoroutine;
     private WaitForSeconds dashAttackSecond = new WaitForSeconds(0.2f);
 
-    public const float SkillCoolTime = 5f;
-
     public override void Attack(BaseState state)
     {
         ComboCount++;

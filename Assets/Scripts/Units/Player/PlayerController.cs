@@ -81,10 +81,8 @@ public class PlayerController : MonoBehaviour
             if (chargingState.IsCharging || attackState.IsAttack || dashAttackState.IsDashAttack || dashState.IsDash || chargingAttackState.IsChargingAttack)
                 return;
 
-            if (player._AnimationEventHandler.CurrentCoolTime > 0f)
-                return;
-
-            player.stateMachine.ChangeState(StateName.SKILL);
+            if (player.weaponManager.Weapon.CurrentSkillGauge == BaseWeapon.MAX_SKILL_GAUGE)
+                player.stateMachine.ChangeState(StateName.SKILL);
         }
     }
 
@@ -124,6 +122,9 @@ public class PlayerController : MonoBehaviour
             if (isAvailableAttack && isGrounded)
             {
                 LookAt(MouseDirection);
+                var currentSkillGauge = player.weaponManager.Weapon.CurrentSkillGauge;
+                player.weaponManager.Weapon.CurrentSkillGauge = Mathf.Clamp(++currentSkillGauge, 0, BaseWeapon.MAX_SKILL_GAUGE);
+                Debug.Log(player.weaponManager.Weapon.CurrentSkillGauge);
                 player.stateMachine.ChangeState(StateName.ATTACK);
             }
         }

@@ -849,9 +849,8 @@ GameObject:
   - component: {fileID: 3201290215067249736}
   - component: {fileID: 8830829522782369330}
   - component: {fileID: 3163775440492726515}
-  - component: {fileID: 3163775440492726507}
   - component: {fileID: 3163775440492726514}
-  - component: {fileID: 3163775440492726506}
+  - component: {fileID: 91103919012423422}
   m_Layer: 8
   m_Name: Char_private_K
   m_TagString: Untagged
@@ -866,8 +865,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2821105845565404914}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -875,7 +874,7 @@ Transform:
   - {fileID: 1311350968140857753}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8830829522782369330
 Animator:
   serializedVersion: 4
@@ -912,20 +911,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &3163775440492726507
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2821105845565404914}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &3163775440492726514
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -935,20 +920,20 @@ NavMeshAgent:
   m_GameObject: {fileID: 2821105845565404914}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 120
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.7
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3163775440492726506
+--- !u!114 &91103919012423422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -957,19 +942,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2821105845565404914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 140bf324b37e1c341ac167c12afae145, type: 3}
+  m_Script: {fileID: 11500000, guid: 65a82c290f9f0c34fa78c9b922cfd2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
-  moveSpeed: 0
-  armor: 0
-  MonsterType: 0
+  _name: "\uC77C\uBC18 \uBCF4\uBCD1"
+  maxHP: 450
+  currentHP: 450
+  moveSpeed: 300
+  armor: 10
+  attackDamage: 100
   target: {fileID: 0}
-  HitArea: {fileID: 3163775439716634099}
-  isChase: 0
-  isAttack: 0
-  arrowPos: {fileID: 0}
-  arrow: {fileID: 0}
+  rotationSpeed: 15
 --- !u!1 &2850919270074677809
 GameObject:
   m_ObjectHideFlags: 0

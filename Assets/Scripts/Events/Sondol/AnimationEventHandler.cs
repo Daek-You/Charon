@@ -15,7 +15,6 @@ public class AnimationEventHandler : MonoBehaviour
     private SkillState skillState;
     
     private Coroutine dashCoolTimeCoroutine;
-    private Coroutine skillCoolTimeCoroutine;
     private SkinnedMeshRenderer skinnedMeshRenderer;     /// 쿨타임 시각용 테스트 변수
 
 
@@ -58,11 +57,8 @@ public class AnimationEventHandler : MonoBehaviour
     {
         skillState.IsSkillActive = false;
         Player.Instance.animator.SetBool("IsSkill", false);
+        Player.Instance.weaponManager.Weapon.CurrentSkillGauge = 0;
         Player.Instance.stateMachine.ChangeState(StateName.MOVE);
-
-        if (skillCoolTimeCoroutine != null)
-            StopCoroutine(skillCoolTimeCoroutine);
-        skillCoolTimeCoroutine = StartCoroutine(CheckSkillCoolTime(CharonPaddle.SkillCoolTime));
     }
 
     public void OnDestroyEffect()
@@ -160,7 +156,7 @@ public class AnimationEventHandler : MonoBehaviour
             }
 
             dashState.CanAddInputBuffer = false;
-            Player.Instance.stateMachine.ChangeState(StateName.MOVE);
+            dashState.OnExitState();
 
             if (dashCoolTimeCoroutine != null)
                 StopCoroutine(dashCoolTimeCoroutine);
@@ -187,27 +183,9 @@ public class AnimationEventHandler : MonoBehaviour
                 dashState.IsDash = false;
                 dashState.CurrentDashCount = 0;
                 skinnedMeshRenderer.material.color = originColor;
+                Player.Instance.stateMachine.ChangeState(StateName.MOVE);
                 break;
             }
-            yield return null;
-        }
-    }
-
-    private IEnumerator CheckSkillCoolTime(float coolTime)
-    {
-        CurrentCoolTime = coolTime;
-        skinnedMeshRenderer.material.color = Color.blue;
-
-        while (true)
-        {
-            CurrentCoolTime = Mathf.Clamp(CurrentCoolTime - Time.deltaTime, 0f, coolTime);
-
-            if(Mathf.Approximately(CurrentCoolTime, 0f))
-            {
-                skinnedMeshRenderer.material.color = originColor;
-                break;
-            }
-
             yield return null;
         }
     }

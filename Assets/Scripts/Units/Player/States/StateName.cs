@@ -8,17 +8,10 @@ namespace CharacterController
         DASH_ATTACK,
         CHARGING,
         CHARGING_ATTACK,
-        SKILL
+        SKILL,
+
+        ENEMY_MOVE = 10000,
+        ENEMY_ATTACK,
+
     }
-}
-
-
-public interface IEffect
-{
-    public void PlayComboAttackEffects();
-    public void PlayDashAttackEffect();
-    public void PlayCharingEffect();
-    public void DestroyEffect();
-    public void PlayChargingAttackEffect();
-    public void PlaySkillEffect();
 }

@@ -7,6 +7,8 @@ using UnityEngine;
 public abstract class BaseWeapon : MonoBehaviour
 {
     public int ComboCount { get; set; }
+    public int CurrentSkillGauge { get; set; } = 0;
+    public const int MAX_SKILL_GAUGE = 10;
     public WeaponHandleData HandleData { get { return weaponhandleData; } }
     public RuntimeAnimatorController WeaponAnimator { get { return weaponAnimator; } }
     public string Name { get { return _name; } }

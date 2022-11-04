@@ -532,33 +532,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
-      value: 4753e5b5-083a-4c9c-a4fb-732a6dbf1d24
-      objectReference: {fileID: 0}
-    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
-      value: Player/Skill[/Keyboard/q]
-      objectReference: {fileID: 0}
-    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2068846587}
-    - target: {fileID: 429436969, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+    - target: {fileID: 1806013221, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.483
       objectReference: {fileID: 0}
     - target: {fileID: 3947188125931925636, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
       propertyPath: m_Name
@@ -739,8 +715,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2068846587 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3947188125931925636, guid: 9897d2e164e84274c95f056e6fd202e8, type: 3}
-  m_PrefabInstance: {fileID: 1428287031}
-  m_PrefabAsset: {fileID: 0}
