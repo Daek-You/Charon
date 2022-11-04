@@ -14,9 +14,12 @@ public class Player : MonoBehaviour
     public CapsuleCollider capsuleCollider { get; private set; }
 
     public AnimationEventHandler _AnimationEventHandler { get; private set; }
-
+    public AudioSource audioSource { get; private set; }
 
     public Transform effectGenerator;
+
+    public GameObject hitBox;
+    
 
     [SerializeField]
     private Transform rightHand;
@@ -51,18 +54,12 @@ public class Player : MonoBehaviour
             Controller = GetComponent<PlayerController>();
             capsuleCollider = GetComponent<CapsuleCollider>();
             _AnimationEventHandler = GetComponent<AnimationEventHandler>();
+            audioSource = GetComponent<AudioSource>();
             InitStateMachine();
             DontDestroyOnLoad(gameObject);
             return;
         }
         DestroyImmediate(gameObject);
-    }
-
-
-    void Start()
-    {
-        //animator.SetFloat("AttackSpeed", weaponManager.Weapon.AttackSpeed);
-        
     }
 
     void Update()
@@ -74,6 +71,20 @@ public class Player : MonoBehaviour
     {
         stateMachine?.FixedUpdateState();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            EnemyHitState hitState = enemy.stateMachine.GetState(StateName.ENEMY_HIT) as EnemyHitState;
+
+            if (enemy.stateMachine.CurrentState == enemy.stateMachine.GetState(StateName.ENEMY_DIE) || hitState.IsHit)
+                return;
+            enemy?.Damaged(weaponManager.Weapon.AttackDamage);
+        }
+    }
+
     #endregion
 
     public void OnUpdateStat(float maxHP, float currentHP, float armor, float moveSpeed, int dashCount)

@@ -50,6 +50,7 @@ public class WeaponManager
         if (!Player.Instance._AnimationEventHandler.myWeaponEffects.ContainsKey(weaponInfo.Name))
         {
             Player.Instance._AnimationEventHandler.myWeaponEffects.Add(weaponInfo.Name, weapon.GetComponent<IEffect>());
+            Player.Instance._AnimationEventHandler.mySounds.Add(weaponInfo.Name, weapon.GetComponent<ISound>());
         }
 
         if (Weapon == null)

@@ -27,8 +27,6 @@ public class PlayerController : MonoBehaviour
     #region #소리
     public bool IsFirstStep { get; set; } = false;
     public AudioClip[] footstepSounds;
-    [HideInInspector]
-    public AudioSource audioSource;
     #endregion
 
     #region #경사 체크 변수
@@ -55,7 +53,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-        audioSource = GetComponent<AudioSource>();
         groundLayer = 1 << LayerMask.NameToLayer("Ground");
 
         attackState = player.stateMachine.GetState(StateName.ATTACK) as AttackState;

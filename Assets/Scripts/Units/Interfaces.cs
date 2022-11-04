@@ -14,4 +14,13 @@ namespace CharacterController
     {
         void Damaged(float damage);
     }
+
+    public interface ISound
+    {
+        public void PlayComboAttackSound();
+        public void PlayDashAttackSound();
+        public void PlayChargingSound();
+        public void PlayChargingAttackSound();
+        public void PlaySkillSound();
+    }
 }

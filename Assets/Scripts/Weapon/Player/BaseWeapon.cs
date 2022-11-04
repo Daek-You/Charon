@@ -7,6 +7,8 @@ using UnityEngine;
 public abstract class BaseWeapon : MonoBehaviour
 {
     public int ComboCount { get; set; }
+    public const float DEFAULT_KNOCKBACK_POWER = 3f;
+    public float KnockBackPower { get; set; } = DEFAULT_KNOCKBACK_POWER;
     public int CurrentSkillGauge { get; set; } = 0;
     public const int MAX_SKILL_GAUGE = 10;
     public WeaponHandleData HandleData { get { return weaponhandleData; } }

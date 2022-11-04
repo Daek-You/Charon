@@ -21,6 +21,7 @@ public class EnemyAttackState : CharacterController.BaseState
 
     public override void OnExitState()
     {
+        enemy.animator.SetBool(attackAnimation, false);
     }
 
     public override void OnFixedUpdateState()

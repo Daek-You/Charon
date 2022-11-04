@@ -21,6 +21,7 @@ public class EnemyMoveState : CharacterController.BaseState
     public override void OnEnterState()
     {
         enemy.agent.isStopped = false;
+        enemy.rigidBody.isKinematic = true;
     }
 
     public override void OnExitState()

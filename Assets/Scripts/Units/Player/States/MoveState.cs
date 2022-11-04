@@ -29,6 +29,7 @@ namespace CharacterController
 
         public override void OnEnterState()
         {
+            Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER;
             /// 아직까진 필요 X
         }
 

@@ -12,6 +12,7 @@ namespace CharacterController
 
         ENEMY_MOVE = 10000,
         ENEMY_ATTACK,
-
+        ENEMY_HIT,
+        ENEMY_DIE,
     }
 }

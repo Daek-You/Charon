@@ -32,6 +32,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     [SerializeField] protected float rotationSpeed;   // 15f가 적당
     #endregion
 
+    public const float HIT_TIME = 1f;
     public NavMeshAgent agent { get; private set; }
     public Animator animator { get; private set; }
     public Rigidbody rigidBody { get; private set; }
@@ -65,6 +66,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
         stateMachine = new StateMachine(StateName.ENEMY_MOVE, new EnemyMoveState(this));
         stateMachine.AddState(StateName.ENEMY_ATTACK, new EnemyAttackState(this));
+        stateMachine.AddState(StateName.ENEMY_HIT, new EnemyHitState(this));
     }
 
     /// <summary>
@@ -73,7 +75,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     /// <param name="enable">활성화/비활성화 여부</param>
     public void SetRigidAndNavMeshAgent(bool enable)
     {
-        agent.enabled = enable;
+        agent.isStopped = enable;
         rigidBody.isKinematic = enable;
     }
 
@@ -86,17 +88,19 @@ public abstract class Enemy : MonoBehaviour, IHittable
         this.attackDamage = attackDamage;
     }
 
+
+
     public void Damaged(float damage)
     {
-        currentHP = Mathf.Clamp(currentHP - damage, 0, maxHP);
+        currentHP = Mathf.Clamp((currentHP - damage), 0, maxHP);
 
-        if(!Mathf.Approximately(currentHP, 0f))
+        if (Mathf.Approximately(currentHP, 0f))
         {
-            ///죽음 상태 전환
-            ///return;
+            gameObject.SetActive(false);
+            return;
         }
-        // 피격 상태 전환
 
+        stateMachine.ChangeState(StateName.ENEMY_HIT);
     }
 
     protected void CalculateAliveOrMoving()

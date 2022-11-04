@@ -7,6 +7,7 @@ public class AnimationEventHandler : MonoBehaviour
 {
     public float CurrentCoolTime { get; private set; } = 0f;
     public Dictionary<string, IEffect> myWeaponEffects { get; private set; }
+    public Dictionary<string, ISound> mySounds { get; private set; }
     private Color originColor;                           /// 쿨타임 시각용 테스트 변수
     private DashState dashState;
     private DashAttackState dashAttackState;
@@ -22,6 +23,7 @@ public class AnimationEventHandler : MonoBehaviour
     void Awake()
     {
         myWeaponEffects = new Dictionary<string, IEffect>();
+        mySounds = new Dictionary<string, ISound>();
     }
 
     void Start()
@@ -35,6 +37,10 @@ public class AnimationEventHandler : MonoBehaviour
         originColor = skinnedMeshRenderer.material.color;
     }
 
+    public void OnParticleCollision(GameObject other)
+    {
+        
+    }
     void Update()
     {
         if (attackState.IsAttack)
@@ -50,6 +56,11 @@ public class AnimationEventHandler : MonoBehaviour
         if (myWeaponEffects.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out IEffect weapon))
         {
             weapon.PlaySkillEffect();
+        }
+
+        if (mySounds.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out ISound weaponSound))
+        {
+            weaponSound.PlaySkillSound();
         }
     }
 
@@ -75,6 +86,11 @@ public class AnimationEventHandler : MonoBehaviour
         {
             weapon.PlayChargingAttackEffect();
         }
+
+        if (mySounds.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out ISound weaponSound))
+        {
+            weaponSound.PlayChargingAttackSound();
+        }
     }
 
     public void OnFinishedChargingAttack()
@@ -93,15 +109,21 @@ public class AnimationEventHandler : MonoBehaviour
 
             int clipIndex = !currentStep ? 0 : 1;
             AudioClip clip = Player.Instance.Controller.footstepSounds[clipIndex];
-            Player.Instance.Controller.audioSource.PlayOneShot(clip);
+            Player.Instance.audioSource.PlayOneShot(clip);
         }
     }
 
     public void OnStartAttack()
     {
+
         if(myWeaponEffects.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out IEffect weapon))
         {
             weapon.PlayComboAttackEffects();
+        }
+        
+        if(mySounds.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out ISound weaponSound))
+        {
+            weaponSound.PlayComboAttackSound();
         }
     }
 
@@ -110,6 +132,11 @@ public class AnimationEventHandler : MonoBehaviour
         if (myWeaponEffects.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out IEffect weapon))
         {
             weapon.PlayDashAttackEffect();
+        }
+
+        if (mySounds.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out ISound weaponSound))
+        {
+            weaponSound.PlayDashAttackSound();
         }
     }
 

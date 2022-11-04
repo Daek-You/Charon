@@ -99,7 +99,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2128336307196403982
 Transform:
   m_ObjectHideFlags: 0
@@ -113,6 +113,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2128336307196403980}
+  - {fileID: 8203722935719470856}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -142,3 +143,54 @@ MonoBehaviour:
   chargingEffs: {fileID: 7681650723213477462, guid: 2aa279d11030f0043a7879873cbcac67, type: 3}
   chargingAttackEffs: {fileID: 1919708242137258, guid: 4b58db14067c09a4cbda2193a2d49c98, type: 3}
   skillEffs: {fileID: 1210069404974878, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: dabdf8f3d0f7cd349a33dc3decdde25a, type: 3}
+  - {fileID: 8300000, guid: ed72c53e3b0606e419991cbdc1bf2855, type: 3}
+  - {fileID: 8300000, guid: d1d257a889bc1944bb9c698d0e16a756, type: 3}
+  chargingAttackSound: {fileID: 8300000, guid: 34b6b3e53ecab434492807c19c98f011, type: 3}
+  skillSound: {fileID: 8300000, guid: f3e1e4c95eb885049a26f55e5b5c4783, type: 3}
+--- !u!1 &5192814636839389429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8203722935719470856}
+  - component: {fileID: 8168518011272412837}
+  m_Layer: 10
+  m_Name: HitArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8203722935719470856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192814636839389429}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2128336307196403982}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8168518011272412837
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192814636839389429}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.05, z: 1.25}
+  m_Center: {x: 0, y: 0, z: 0.4}
