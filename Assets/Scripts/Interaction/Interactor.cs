@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interactor : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask interactableLayermask = 11;
+    private LayerMask interactableLayermask = 12;
     private RaycastHit[] hits;
 
     [SerializeField]

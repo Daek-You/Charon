@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableLayermask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 4096
   interactRadius: 2
 --- !u!1 &131654459
 GameObject:
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 131654461}
   - component: {fileID: 131654460}
   - component: {fileID: 131654464}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 1028028747}
   - component: {fileID: 1028028746}
   - component: {fileID: 1028028745}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Cube 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
