@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class LogoFadeInAndOut : MonoBehaviour
 {
@@ -18,5 +19,7 @@ public class LogoFadeInAndOut : MonoBehaviour
             yield return new WaitForSeconds(0.005f);
             logo.color = new Color(255, 255, 255, fadeCount);
         }
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("TitleScene");
     }
 }

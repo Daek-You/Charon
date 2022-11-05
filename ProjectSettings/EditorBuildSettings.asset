@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SuYong/LogoScene.unity
-    guid: cb4a5c324ffd3b04f8b3d54f1c74754d
+    path: Assets/Scenes/Jisoo/LogoScene.unity
+    guid: 03c8c5763618932438a7d4d48749660e
   - enabled: 1
-    path: Assets/Scenes/SuYong/TitleScene.unity
-    guid: 3b1a482b73b065448b04124410362cf0
+    path: Assets/Scenes/Jisoo/TitleScene.unity
+    guid: 5098c489f23626d4ab34ba48151a9099
+  - enabled: 1
+    path: Assets/Scenes/Jisoo/OpeningScene.unity
+    guid: d45d78815df3c604b99c38ce1bc96b1f
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: a8b6fae033f58a043b2882e2c61bf457
   - enabled: 1
     path: Assets/Scenes/SuYong/LobbyScene.unity
     guid: bcd63702780b1ec43a365df14dcf12f8

@@ -109,7 +109,8 @@ public class UI_SaveSlot : UI_Base
         else
         {
             DataManager.Instance.StartGameData();
-            UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
+            //¼öÁ¤ÇÔ.
+            UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "OpeningScene");
             GameObject.Find("Sondol").transform.position = DataManager.Instance.SaveData.CurrentPosition;
         }
     }

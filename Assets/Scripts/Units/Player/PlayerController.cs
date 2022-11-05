@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
             if (chargingState.IsCharging || attackState.IsAttack || dashAttackState.IsDashAttack || dashState.IsDash || chargingAttackState.IsChargingAttack || hitState.IsHit)
                 return;
 
-            if (player.weaponManager.Weapon.CurrentSkillGauge == BaseWeapon.MAX_SKILL_GAUGE)
+            if (player.weaponManager.Weapon.CurrentSkillGauge >= BaseWeapon.MAX_SKILL_GAUGE)
                 player.stateMachine.ChangeState(StateName.SKILL);
         }
     }

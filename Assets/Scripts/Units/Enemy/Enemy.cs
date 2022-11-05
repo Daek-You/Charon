@@ -111,6 +111,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
         var skillGauge = Player.Instance.weaponManager.Weapon.CurrentSkillGauge;
         Player.Instance.weaponManager.Weapon.CurrentSkillGauge = Mathf.Clamp(++skillGauge, 0, BaseWeapon.MAX_SKILL_GAUGE);
+        Debug.Log(Player.Instance.weaponManager.Weapon.CurrentSkillGauge);
     }
 
     protected void CalculateAliveOrMoving()

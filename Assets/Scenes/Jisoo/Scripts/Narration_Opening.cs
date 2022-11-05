@@ -21,6 +21,7 @@ public class Narration_Opening : MonoBehaviour
     private string jsonDialogLine;
     private string jsonNameLine;
     public GameObject removableBackground;
+    public Image img;
     void Awake()
     {
         _jsonDialogData = ReadNarrationFile();
@@ -128,6 +129,23 @@ public class Narration_Opening : MonoBehaviour
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene("LobbyScene");
+        SceneManager.LoadScene("LoadingScene");
+    }
+
+    public void StartOpeningCoroutine()
+    {
+        StartCoroutine("OpeningSceneFadeOut");
+    }
+    private IEnumerator OpeningSceneFadeOut()
+    {
+       img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a);
+
+        while (img.color.a < 1f)
+        {
+            float alphaValue = img.color.a + (Time.deltaTime);
+            img.color = new Color(img.color.r, img.color.g, img.color.b, alphaValue);
+            
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }
