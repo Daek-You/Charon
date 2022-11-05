@@ -28,7 +28,8 @@ public class Interactor : MonoBehaviour
             order = CalculateDistance();
 
         interObj = hits[order].collider.GetComponent<Interactable>();
-        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ShowUI, this, interObj.InteractionText);
+        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.HideUI, this, interObj.name);
+        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ShowUI, this, interObj.name);
 
         // 상호작용 버튼을 눌러서 기능 실행
         if (Input.GetKeyDown(KeyCode.F))

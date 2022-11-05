@@ -12,7 +12,6 @@ public class LobbyScene : BaseScene
     public override void Init()
     {
         UIManager.Instance.ShowSceneUI<UI_InGame>();
-        UIManager.Instance.ShowSceneUI<UI_Interaction>();
         UIManager.Instance.ShowSceneUI<UI_AchievementCompletionNotifier>();
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeScene, OnChangeScene);
         StageManager.Instance.CurrentStage = StageType.Lobby;

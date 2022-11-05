@@ -12,7 +12,7 @@ public class InteractTest : BaseScene
     public override void Init()
     {
         UIManager.Instance.ShowSceneUI<UI_InGame>();
-        UIManager.Instance.ShowSceneUI<UI_Interaction>();
+        // UIManager.Instance.ShowSceneUI<UI_Interaction>();
         StageManager.Instance.CurrentStage = StageType.Unknown;
 
         Player.Instance.transform.position = new Vector3(0, 0, 0);

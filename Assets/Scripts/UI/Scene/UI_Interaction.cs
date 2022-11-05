@@ -12,8 +12,7 @@ public class UI_Interaction : UI_Scene
 
     enum Texts
     {
-        TxtInteraction,
-        TxtInteractionButton
+        TxtInteraction
     }
 
     private void Start()
@@ -35,8 +34,7 @@ public class UI_Interaction : UI_Scene
 
     public void OnShowUI(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
     {
-        GetText((int)Texts.TxtInteraction).text = (string)param;
-        GetObject((int)Objects.BackgroundPanel).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(GetText((int)Texts.TxtInteraction).text.Length * 80 + 220, 150);
+        GetText((int)Texts.TxtInteraction).text = $"[F] {(string)param}";
 
         if (!gameObject.activeSelf)
             gameObject.SetActive(true);
