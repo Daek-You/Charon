@@ -21,6 +21,15 @@ public class UI_Interaction3D : UI_Base
         transform.rotation = Camera.main.transform.rotation;
     }
 
+    private void OnDestroy()
+    {
+        if (UIManager.Instance != null)
+        {
+            UIManager.EventHandler.RemoveEvent(UI_EventHandler.UIEventType.ShowUI);
+            UIManager.EventHandler.RemoveEvent(UI_EventHandler.UIEventType.HideUI);
+        }
+    }
+
     public override void Init()
     {
         Bind<TextMeshProUGUI>(typeof(Texts));

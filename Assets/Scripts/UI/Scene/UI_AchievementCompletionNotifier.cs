@@ -26,18 +26,17 @@ public class UI_AchievementCompletionNotifier : UI_Scene
         Bind<TextMeshProUGUI>(typeof(Texts));
 
         var achieveManager = QuestManager.Instance;
-        achieveManager.onAchievementCompleted -= Notify;
         achieveManager.onAchievementCompleted += Notify;
 
         gameObject.SetActive(false);
     }
 
-    //private void OnDestroy()
-    //{
-    //    var achieveManager = QuestManager.Instance;
-    //    if (achieveManager != null)
-    //        achieveManager.onAchievementCompleted -= Notify;
-    //}
+    private void OnDestroy()
+    {
+        var achieveManager = QuestManager.Instance;
+        if (achieveManager != null)
+            achieveManager.onAchievementCompleted -= Notify;
+    }
 
     private void Notify(Quest achievement)
     {

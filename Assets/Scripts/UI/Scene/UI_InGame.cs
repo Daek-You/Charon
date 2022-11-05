@@ -29,6 +29,16 @@ public class UI_InGame : UI_Scene
         Init();
     }
 
+    private void OnDestroy()
+    {
+        if (UIManager.Instance != null)
+        {
+            UIManager.EventHandler.RemoveEvent(UI_EventHandler.UIEventType.ChangeHP);
+            UIManager.EventHandler.RemoveEvent(UI_EventHandler.UIEventType.ChangeST);
+            UIManager.EventHandler.RemoveEvent(UI_EventHandler.UIEventType.ChangeGoods);
+        }
+    }
+
     public override void Init()
     {
         base.Init();
@@ -37,10 +47,12 @@ public class UI_InGame : UI_Scene
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(Texts));
 
-        // UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeWeapon, OnChangeWaepon);
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeHP, OnChangeHP);
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeST, OnChangeST);
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeGoods, OnChangeGoods);
+
+        Slider stBar = GetObject((int)GameObjects.SliST).GetComponent<Slider>();
+        stBar.value = 0;
     }
 
     //public void OnChangeWaepon(UI_EventHandler.UIEventType eventType, Component sender, object param = null)

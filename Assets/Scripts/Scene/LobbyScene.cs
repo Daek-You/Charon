@@ -33,6 +33,9 @@ public class LobbyScene : BaseScene
         weapon = Utils.Instantiate($"Weapons/{saveData.WeaponName}");
         Player.Instance.weaponManager.RegisterWeapon(weapon);
         Player.Instance.weaponManager.SetWeapon(weapon);
+
+        // 체력도 반영되어야 함
+        Player.Instance.weaponManager.Weapon.CurrentSkillGauge = saveData.CurrentST;
     }
 
     public override void Clear()

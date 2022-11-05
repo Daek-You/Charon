@@ -81,33 +81,17 @@ public class UIManager : MonoBehaviour
                 else
                     ClosePopupUI();
             }
-
-            //if (Input.GetKeyDown(KeyCode.Q))
-            //{
-            //    if (!UI_SkillCooldown.IsCooldown)
-            //    {
-            //        // 쿨타임 스택을 따로 사용하도록 만듦
-            //        // 이런 식으로 따로 관리해야하는 UI는 Scene UI로 만들고 비활성화하는 쪽이 좋을 듯
-            //        ShowPopupUI<UI_SkillCooldown>();
-            //    }
-            //}
-
-            if (Input.GetKeyDown(KeyCode.L))
-                ShowPopupUI<UI_Dialogue>();
         }
 
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            float maxHP = 1000;
-            float curHP = Random.Range(0, maxHP);
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, (curHP / maxHP));
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            int maxST = 10;
-            int curST = Random.Range(0, maxST + 1);
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeST, this, ((float)curST / maxST));
-        }
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    float maxHP = 1000;
+        //    float curHP = Random.Range(0, maxHP);
+        //    EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, (curHP / maxHP));
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.L))
+        //    ShowPopupUI<UI_Dialogue>();
 
         /* if (Input.GetKeyDown(KeyCode.A))
         {

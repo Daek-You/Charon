@@ -30,7 +30,15 @@ public class Player : MonoBehaviour, IHittable
 
     #region #Ä³¸¯ÅÍ ½ºÅÈ
     public float MaxHP     { get { return maxHP; } }
-    public float CurrentHP { get { return currentHP; } }
+    public float CurrentHP
+    {
+        get { return currentHP; }
+        protected set
+        {
+            currentHP = value;
+            UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, currentHP / maxHP);
+        }
+    }
     public float Armor     { get { return armor; } }
     public float MoveSpeed { get { return moveSpeed; } }
     public int DashCount { get { return dashCount; } }
@@ -92,7 +100,7 @@ public class Player : MonoBehaviour, IHittable
     public void OnUpdateStat(float maxHP, float currentHP, float armor, float moveSpeed, int dashCount)
     {
         this.maxHP = maxHP;
-        this.currentHP = currentHP;
+        CurrentHP = currentHP;
         this.armor = armor;
         this.moveSpeed = moveSpeed;
         this.dashCount = dashCount;
@@ -116,7 +124,7 @@ public class Player : MonoBehaviour, IHittable
             return;
 
         float resultDamage = damage - (armor * 0.01f);
-        currentHP = Mathf.Clamp((currentHP - resultDamage), 0, maxHP);
+        CurrentHP = Mathf.Clamp((currentHP - resultDamage), 0, maxHP);
 
         if(Mathf.Approximately(currentHP, 0))
         {
