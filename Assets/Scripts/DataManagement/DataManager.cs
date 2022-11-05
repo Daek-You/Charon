@@ -61,8 +61,10 @@ public class DataManager : MonoBehaviour
     }
 
     // Data Manager가 Index를 가지고 있는데, 인자로 받을 필요가 있나?
-    public void SaveGameData(int index)
+    public void SaveGameData(int index, bool saveValue = true)
     {
+        if (!SaveData.IsSaved && saveValue)
+            _saveData.IsSaved = true;
         SetSaveData();
 
         string fileName = $"/CharonData{index}.json";
@@ -125,9 +127,6 @@ public class DataManager : MonoBehaviour
 
     public void SetSaveData()
     {
-        if (!SaveData.IsSaved)
-            _saveData.IsSaved = true;
-
         // 플레이어 스탯 및 무기 정보
         _saveData.WeaponName = Player.Instance.weaponManager.GetWeaponName();
 

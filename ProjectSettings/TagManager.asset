@@ -18,6 +18,7 @@ TagManager:
   - Enemy
   - PlayerWeapon
   - EnemyWeapon
+  - Interactable
   - 
   - 
   - 

@@ -74,8 +74,11 @@ public class UI_SaveSlot : UI_Base
 
     public string MakeReinforceText()
     {
+        // 게임 중 같은 씬에서 저장할 경우 그 때마다 호출 (빈도 높을 수 있음)
+        // 무기를 Poolable로 만든다면 2번째 호출부터는 부하가 줄어들 것
         GameObject go = Utils.Instantiate($"Weapons/{DataManager.Instance.SaveData.WeaponName}");
         string weaponName = go.GetComponent<CharonPaddle>().Name;
+        Utils.Destroy(go);
 
         string text = $"{weaponName} +0";
         return text;

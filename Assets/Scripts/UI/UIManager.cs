@@ -198,6 +198,23 @@ public class UIManager : MonoBehaviour
         return Utils.GetAddedComponent<T>(subItem);
     }
 
+    public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null) where T : UI_Base
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Utils.Instantiate($"UI/WorldSpace/{name}");
+        if (parent != null)
+            go.transform.SetParent(parent);
+
+        // 시네머신 사용할 경우 Camera 수정해야 함
+        Canvas canvas = Utils.GetAddedComponent<Canvas>(go);
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.worldCamera = Camera.main;
+
+        return Utils.GetAddedComponent<T>(go);
+    }
+
     public void ClosePopupUI()
     {
         if (popupStack.Count == 0)

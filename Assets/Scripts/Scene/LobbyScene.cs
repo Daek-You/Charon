@@ -26,7 +26,7 @@ public class LobbyScene : BaseScene
             weapon = Utils.Instantiate($"Weapons/CharonPaddle");
             Player.Instance.weaponManager.RegisterWeapon(weapon);
             Player.Instance.weaponManager.SetWeapon(weapon);
-            DataManager.Instance.SaveGameData(DataManager.Instance.DataIndex);
+            DataManager.Instance.SaveGameData(DataManager.Instance.DataIndex, false);
             return;
         }
 

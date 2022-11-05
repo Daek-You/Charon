@@ -20,7 +20,9 @@ public class UI_EventHandler
         AccessStage,
         CheckAchievement,
         ChangeBGM,
-        ChangeSE
+        ChangeSE,
+        ShowUI,
+        HideUI
     }
 
     public Action<UIEventType, Component, object> OnUIEvent = null;
