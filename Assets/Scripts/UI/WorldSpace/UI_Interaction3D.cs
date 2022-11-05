@@ -28,7 +28,8 @@ public class UI_Interaction3D : UI_Base
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.HideUI, OnHideUI);
 
         Transform parent = transform.parent;
-        transform.position = parent.position + Vector3.up * (parent.GetComponent<Collider>().bounds.size.y);
+        GetText((int)Texts.TextInteraction).text = parent.GetComponent<Interactable>().TargetText;
+        transform.position = parent.position + Vector3.up * (parent.GetComponent<Collider>().bounds.size.y) + new Vector3(0, 0.5f, 0);
 
         gameObject.SetActive(false);
     }

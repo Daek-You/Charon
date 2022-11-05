@@ -20,6 +20,6 @@ public class LogoFadeInAndOut : MonoBehaviour
             logo.color = new Color(255, 255, 255, fadeCount);
         }
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("TitleScene");
+        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "TitleScene");
     }
 }

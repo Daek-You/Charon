@@ -129,7 +129,7 @@ public class Narration_Opening : MonoBehaviour
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene("LoadingScene");
+        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LoadingScene");
     }
 
     public void StartOpeningCoroutine()

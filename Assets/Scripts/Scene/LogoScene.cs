@@ -12,7 +12,7 @@ public class LogoScene : BaseScene
 
     public override void Init()
     {
-        UIManager.Instance.ShowPopupUI<UI_Logo>();
+        // UIManager.Instance.ShowPopupUI<UI_Logo>();
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeScene, OnChangeScene);
         StageManager.Instance.CurrentStage = StageType.Unknown;
     }

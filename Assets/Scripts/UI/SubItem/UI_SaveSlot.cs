@@ -80,7 +80,11 @@ public class UI_SaveSlot : UI_Base
         string weaponName = go.GetComponent<CharonPaddle>().Name;
         Utils.Destroy(go);
 
-        string text = $"{weaponName} +0";
+        string text = $"{weaponName} +0\n"
+            + $"체력 +0\n"
+            + $"방어력 +0\n"
+            + $"이동속도 +0\n"
+            + $"대시 +0";
         return text;
     }
 
@@ -112,9 +116,8 @@ public class UI_SaveSlot : UI_Base
         else
         {
             DataManager.Instance.StartGameData();
-            //수정함.
             UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "OpeningScene");
-            GameObject.Find("Sondol").transform.position = DataManager.Instance.SaveData.CurrentPosition;
+            // GameObject.Find("Sondol").transform.position = DataManager.Instance.SaveData.CurrentPosition;
         }
     }
 
