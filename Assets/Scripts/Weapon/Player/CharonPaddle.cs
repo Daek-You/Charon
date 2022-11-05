@@ -1,28 +1,39 @@
 using CharacterController;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharonPaddle : BaseWeapon, IEffect
+public class CharonPaddle : BaseWeapon, IEffect, ISound
 {
-    public GameObject[] defaultAttackEffs;
-    public GameObject dashAttackEffs;
-    public GameObject chargingEffs;
-    public GameObject chargingAttackEffs;
-    public GameObject skillEffs;
-    public GameObject deleteChargingEffs { get; set; }      // 차징 중 다른 상태로 넘어갈 때 제거
+    #region #이펙트
+    [SerializeField] private GameObject[] defaultAttackEffs;
+    [SerializeField] private GameObject dashAttackEffs;
+    [SerializeField] private GameObject chargingEffs;
+    [SerializeField] private GameObject chargingAttackEffs;
+    [SerializeField] private GameObject skillEffs;
+    [SerializeField] private GameObject deleteChargingEffs { get; set; }      // 차징 중 다른 상태로 넘어갈 때 제거
+    #endregion
 
+    #region #애니메이션
     public readonly int hashIsAttackAnimation = Animator.StringToHash("IsAttack");
     public readonly int hashAttackAnimation = Animator.StringToHash("AttackCombo");
     public readonly int hashAttackSpeedAnimation = Animator.StringToHash("AttackSpeed");
     public readonly int hashDashAttackAnimation = Animator.StringToHash("IsDashAttack");
     public readonly int hashCharingAttackAnimation = Animator.StringToHash("IsCharingAttack");
     public readonly int hashSkillAnimation = Animator.StringToHash("IsSkill");
+    #endregion
+
+    #region
+    [SerializeField] private AudioClip[] attackSounds;
+    [SerializeField] private AudioClip chargingSound;
+    [SerializeField] private AudioClip chargingAttackSound;
+    [SerializeField] private AudioClip skillSound;
+    #endregion
+
     public const float dashAttackPower = 4f;
     private Coroutine dashAttackCoroutine;
     private WaitForSeconds dashAttackSecond = new WaitForSeconds(0.2f);
-
-    public const float SkillCoolTime = 5f;
 
     public override void Attack(BaseState state)
     {
@@ -31,10 +42,25 @@ public class CharonPaddle : BaseWeapon, IEffect
         Player.Instance.animator.SetBool(hashIsAttackAnimation, true);
         Player.Instance.animator.SetInteger(hashAttackAnimation, ComboCount);
         CheckAttackReInput(AttackState.CanReInputTime);
+
+        float knockBackGauge = BaseWeapon.DEFAULT_KNOCKBACK_POWER;
+        switch (ComboCount)
+        {
+            case 2:
+                knockBackGauge = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 3;
+                break;
+            case 3:
+                knockBackGauge = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 4;
+                break;
+        }
+
+        Player.Instance.weaponManager.Weapon.KnockBackPower = knockBackGauge;
     }
 
     public override void DashAttack(BaseState state)
     {
+        Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 4;
+
         Player.Instance.animator.SetBool(hashDashAttackAnimation, true);
         if (dashAttackCoroutine != null)
             StopCoroutine(dashAttackCoroutine);
@@ -43,11 +69,13 @@ public class CharonPaddle : BaseWeapon, IEffect
 
     public override void ChargingAttack(BaseState state)
     {
+        Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 4;
         Player.Instance.animator.SetBool(hashCharingAttackAnimation, true);
     }
 
     public override void Skill(BaseState state)
     {
+        Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 7;
         Player.Instance.animator.SetBool(hashSkillAnimation, true);
     }
 
@@ -119,5 +147,31 @@ public class CharonPaddle : BaseWeapon, IEffect
         effect.transform.position = Player.Instance.effectGenerator.position;
         effect.transform.rotation = Quaternion.LookRotation(Player.Instance.transform.forward);
         effect.GetComponent<ParticleSystem>().Play();
+    }
+
+    public void PlayComboAttackSound()
+    {
+        var index = Mathf.Clamp(ComboCount - 1, 0, 3);
+        Player.Instance.audioSource.PlayOneShot(attackSounds[index]);
+    }
+
+    public void PlayDashAttackSound()
+    {
+        Player.Instance.audioSource.PlayOneShot(attackSounds[2]);
+    }
+
+    public void PlayChargingSound()
+    {
+        Player.Instance.audioSource.PlayOneShot(chargingSound);
+    }
+
+    public void PlayChargingAttackSound()
+    {
+        Player.Instance.audioSource.PlayOneShot(chargingAttackSound);
+    }
+
+    public void PlaySkillSound()
+    {
+        Player.Instance.audioSource.PlayOneShot(skillSound);
     }
 }

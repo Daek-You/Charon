@@ -2,79 +2,149 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using CharacterController;
+using Unity.XR.Oculus.Input;
 
-public abstract class Enemy : Unit, IHittable
+public abstract class Enemy : MonoBehaviour, IHittable
 {
-    //public int attackDamage;
-    protected float rotationSpeed = 15f;
-    protected Vector3 destination;
-    protected NavMeshAgent agent;
-    protected Animator animator;
-    protected Rigidbody rigidBody;
-    protected int moveAnimation = Animator.StringToHash("Move");
+    public string Name { get { return _name; } }
+    public float MaxHP { get { return maxHP; } }
+    public float CurrentHP { get { return currentHP; } }
+    public float MoveSpeed { get { return moveSpeed; } }
+    public float Armor { get { return armor; } }
+    public EnemyWeapon Weapon { get { return weapon; } }
+    public float RotationSpeed { get { return rotationSpeed; } }
+    public Transform Target { get { return target; } }
+    public float AttackDelay { get { return attackDelay; } }
 
-    /// <summary>
-    /// Enemy 클래스의 NavMeshAgent, Animator, Rigidbody 초기화 함수입니다.
-    /// 자식 클래스의 Start() 함수에서 호출해주세요.
-    /// </summary>
 
-    protected void InitEnemyComponent()
+    #region #몬스터 스탯
+    [Header("몬스터 스탯")]
+    [SerializeField] protected string _name;
+    [SerializeField] protected float maxHP;
+    [SerializeField] protected float currentHP;
+    [SerializeField] protected float moveSpeed;
+    [SerializeField] protected float armor;
+    [SerializeField] protected EnemyWeapon weapon;
+    [SerializeField] protected float attackDelay;
+
+    [Header("옵션")]
+    [SerializeField] protected Transform target;
+    [SerializeField] protected float rotationSpeed;   // 15f가 적당
+    #endregion
+
+    public const float HIT_TIME = 0.75f;
+    public NavMeshAgent agent { get; private set; }
+    public Animator animator { get; private set; }
+    public Rigidbody rigidBody { get; private set; }
+    public StateMachine stateMachine { get; private set; }
+    public AudioSource audioSource { get; private set; }
+    public AudioClip hitSound;
+
+    public SkinnedMeshRenderer skinnedMeshRenderer { get; private set; }
+    public Material originMaterial { get; private set; }
+
+
+    private Coroutine attackDelayCoroutine;
+    private Coroutine hitDelayCoroutine;
+    public bool isAlived { get; private set; }
+    public bool isMoving { get; private set; }
+
+
+    #region# Unity Functions
+    void Update()
+    {
+        CalculateAliveOrMoving();
+        stateMachine?.UpdateState();
+    }
+
+    void FixedUpdate()
+    {
+        stateMachine?.FixedUpdateState();
+    }
+    #endregion
+
+
+    protected void InitSettings()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        rigidBody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+        skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        originMaterial = skinnedMeshRenderer.material;
+
         agent.updateRotation = false;
         agent.isStopped = true;
 
-        animator = GetComponent<Animator>();
-        rigidBody = GetComponent<Rigidbody>();
+        stateMachine = new StateMachine(StateName.ENEMY_MOVE, new EnemyMoveState(this));
+        stateMachine.AddState(StateName.ENEMY_ATTACK, new EnemyAttackState(this));
+        stateMachine.AddState(StateName.ENEMY_HIT, new EnemyHitState(this));
+        stateMachine.AddState(StateName.ENEMY_DIE, new EnemyDieState(this));
     }
 
-    public override void Move(Vector3 destination)
-    {
-        agent.isStopped = false;
-        this.destination = destination;
-        animator.SetBool(moveAnimation, true);
-        agent.SetDestination(destination);
-    }
 
-    /// <summary>
-    /// Rigidbody의 isKinematic, NavMeshAgent를 활성화/비활성화합니다.
-    /// </summary>
-    /// <param name="enable">활성화/비활성화 여부</param>
-    public void SetRigidAndNavMeshAgent(bool enable)
+    public void SetStats(float maxHP, float currentHP, float moveSpeed, float armor)
     {
-        agent.enabled = enable;
-        rigidBody.isKinematic = enable;
-    }
-
-    public void SetStats(int currentHP, int maxHP, int moveSpeed, int armor/*, int attackDamage*/)
-    {
-        this.currentHP = currentHP;
         this.maxHP = maxHP;
+        this.currentHP = currentHP;
         this.moveSpeed = moveSpeed;
         this.armor = armor;
-        //this.attackDamage = attackDamage;
     }
 
-    protected virtual void LookAtMovingDirection()
+    public void SetWeapon(EnemyWeapon otherWeapon)
     {
-        if (!agent.isStopped)
+        this.weapon = otherWeapon;
+    }
+
+    public void Damaged(float damage)
+    {
+        currentHP = Mathf.Clamp(currentHP - (damage - armor * 0.01f), 0, maxHP);
+
+        if (Mathf.Approximately(currentHP, 0f))
         {
-            bool isAlived = agent.velocity.sqrMagnitude >= 0.1f * 0.1f && agent.remainingDistance <= 0.1f;
-            bool isMoving = agent.desiredVelocity.sqrMagnitude >= 0.1f * 0.1f;
+            stateMachine.ChangeState(StateName.ENEMY_DIE);
+            return;
+        }
+        audioSource.PlayOneShot(hitSound);
+        stateMachine.ChangeState(StateName.ENEMY_HIT);
 
-            if (isAlived)
+        var skillGauge = Player.Instance.weaponManager.Weapon.CurrentSkillGauge;
+        Player.Instance.weaponManager.Weapon.CurrentSkillGauge = Mathf.Clamp(++skillGauge, 0, BaseWeapon.MAX_SKILL_GAUGE);
+    }
+
+    protected void CalculateAliveOrMoving()
+    {
+        if (agent.enabled)
+        {
+            isAlived = agent.velocity.sqrMagnitude >= 0.1f * 0.1f && agent.remainingDistance <= agent.stoppingDistance + 0.1f;
+            isMoving = agent.desiredVelocity.sqrMagnitude >= 0.1f * 0.1f;
+        }
+    }
+
+    public void CheckAttackDelay()
+    {
+        if (attackDelayCoroutine != null)
+            StopCoroutine(attackDelayCoroutine);
+        attackDelayCoroutine = StartCoroutine(AttackDelayCoroutine());
+    }
+
+    private IEnumerator AttackDelayCoroutine()
+    {
+        float timer = 0f;
+
+        while (true)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= attackDelay)
             {
-                agent.isStopped = true;
-                animator.SetBool(moveAnimation, false);
+                EnemyAttackState attackState = stateMachine.GetState(StateName.ENEMY_ATTACK) as EnemyAttackState;
+                attackState.isAttack = false;
+                break;
             }
 
-            else if (isMoving)
-            {
-                Vector3 direction = agent.desiredVelocity;
-                direction.Set(direction.x, 0f, direction.z);
-                Quaternion targetAngle = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetAngle, rotationSpeed * Time.deltaTime);
-            }
+            yield return null;
         }
     }
 }

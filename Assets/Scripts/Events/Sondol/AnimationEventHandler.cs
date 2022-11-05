@@ -7,6 +7,7 @@ public class AnimationEventHandler : MonoBehaviour
 {
     public float CurrentCoolTime { get; private set; } = 0f;
     public Dictionary<string, IEffect> myWeaponEffects { get; private set; }
+    public Dictionary<string, ISound> mySounds { get; private set; }
     private Color originColor;                           /// 쿨타임 시각용 테스트 변수
     private DashState dashState;
     private DashAttackState dashAttackState;
@@ -15,7 +16,6 @@ public class AnimationEventHandler : MonoBehaviour
     private SkillState skillState;
     
     private Coroutine dashCoolTimeCoroutine;
-    private Coroutine skillCoolTimeCoroutine;
     private SkinnedMeshRenderer skinnedMeshRenderer;     /// 쿨타임 시각용 테스트 변수
 
 
@@ -23,6 +23,7 @@ public class AnimationEventHandler : MonoBehaviour
     void Awake()
     {
         myWeaponEffects = new Dictionary<string, IEffect>();
+        mySounds = new Dictionary<string, ISound>();
     }
 
     void Start()
@@ -36,6 +37,10 @@ public class AnimationEventHandler : MonoBehaviour
         originColor = skinnedMeshRenderer.material.color;
     }
 
+    public void OnParticleCollision(GameObject other)
+    {
+        
+    }
     void Update()
     {
         if (attackState.IsAttack)
@@ -52,17 +57,19 @@ public class AnimationEventHandler : MonoBehaviour
         {
             weapon.PlaySkillEffect();
         }
+
+        if (mySounds.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out ISound weaponSound))
+        {
+            weaponSound.PlaySkillSound();
+        }
     }
 
     public void OnFinishedSkill()
     {
         skillState.IsSkillActive = false;
         Player.Instance.animator.SetBool("IsSkill", false);
+        Player.Instance.weaponManager.Weapon.CurrentSkillGauge = 0;
         Player.Instance.stateMachine.ChangeState(StateName.MOVE);
-
-        if (skillCoolTimeCoroutine != null)
-            StopCoroutine(skillCoolTimeCoroutine);
-        skillCoolTimeCoroutine = StartCoroutine(CheckSkillCoolTime(CharonPaddle.SkillCoolTime));
     }
 
     public void OnDestroyEffect()
@@ -78,6 +85,11 @@ public class AnimationEventHandler : MonoBehaviour
         if (myWeaponEffects.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out IEffect weapon))
         {
             weapon.PlayChargingAttackEffect();
+        }
+
+        if (mySounds.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out ISound weaponSound))
+        {
+            weaponSound.PlayChargingAttackSound();
         }
     }
 
@@ -97,15 +109,21 @@ public class AnimationEventHandler : MonoBehaviour
 
             int clipIndex = !currentStep ? 0 : 1;
             AudioClip clip = Player.Instance.Controller.footstepSounds[clipIndex];
-            Player.Instance.Controller.audioSource.PlayOneShot(clip);
+            Player.Instance.audioSource.PlayOneShot(clip);
         }
     }
 
     public void OnStartAttack()
     {
+
         if(myWeaponEffects.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out IEffect weapon))
         {
             weapon.PlayComboAttackEffects();
+        }
+        
+        if(mySounds.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out ISound weaponSound))
+        {
+            weaponSound.PlayComboAttackSound();
         }
     }
 
@@ -114,6 +132,11 @@ public class AnimationEventHandler : MonoBehaviour
         if (myWeaponEffects.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out IEffect weapon))
         {
             weapon.PlayDashAttackEffect();
+        }
+
+        if (mySounds.TryGetValue(Player.Instance.weaponManager.Weapon.Name, out ISound weaponSound))
+        {
+            weaponSound.PlayDashAttackSound();
         }
     }
 
@@ -160,7 +183,7 @@ public class AnimationEventHandler : MonoBehaviour
             }
 
             dashState.CanAddInputBuffer = false;
-            Player.Instance.stateMachine.ChangeState(StateName.MOVE);
+            dashState.OnExitState();
 
             if (dashCoolTimeCoroutine != null)
                 StopCoroutine(dashCoolTimeCoroutine);
@@ -187,27 +210,9 @@ public class AnimationEventHandler : MonoBehaviour
                 dashState.IsDash = false;
                 dashState.CurrentDashCount = 0;
                 skinnedMeshRenderer.material.color = originColor;
+                Player.Instance.stateMachine.ChangeState(StateName.MOVE);
                 break;
             }
-            yield return null;
-        }
-    }
-
-    private IEnumerator CheckSkillCoolTime(float coolTime)
-    {
-        CurrentCoolTime = coolTime;
-        skinnedMeshRenderer.material.color = Color.blue;
-
-        while (true)
-        {
-            CurrentCoolTime = Mathf.Clamp(CurrentCoolTime - Time.deltaTime, 0f, coolTime);
-
-            if(Mathf.Approximately(CurrentCoolTime, 0f))
-            {
-                skinnedMeshRenderer.material.color = originColor;
-                break;
-            }
-
             yield return null;
         }
     }

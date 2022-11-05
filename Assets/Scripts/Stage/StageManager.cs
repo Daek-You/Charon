@@ -129,6 +129,7 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    /* 여기 수정해줘 수용이 */
     private static void LoadEnemyData()
     {
         EnemyData[] temp = new EnemyData[2];
@@ -139,8 +140,8 @@ public class StageManager : MonoBehaviour
         secondPosition[0] = new Vector3(1, 0, 1);
         secondPosition[1] = new Vector3(-1, 0, -1);
 
-        temp[0] = new EnemyData(MonsterType.private_k, 1, firstPosition);
-        temp[1] = new EnemyData(MonsterType.private_a, 2, secondPosition);
+        //temp[0] = new EnemyData(MonsterType.private_k, 1, firstPosition);
+        //temp[1] = new EnemyData(MonsterType.private_a, 2, secondPosition);
 
         enemyDictionary.Clear();
         enemyDictionary.Add(StageType.Stage11, temp);

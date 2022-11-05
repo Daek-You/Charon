@@ -1865,9 +1865,9 @@ GameObject:
   - component: {fileID: 7133618709403066931}
   - component: {fileID: 3755888561236293705}
   - component: {fileID: 7310763962507707863}
-  - component: {fileID: 7310763962507707860}
   - component: {fileID: 7310763962507707880}
-  - component: {fileID: 7310763962507707883}
+  - component: {fileID: 1379017728}
+  - component: {fileID: 5238327221017163513}
   m_Layer: 0
   m_Name: Char_private_A
   m_TagString: Untagged
@@ -1929,19 +1929,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &7310763962507707860
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7616823676385409161}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5917722, y: 1.7771797, z: 0.83117735}
-  m_Center: {x: 0.3827135, y: 0.15977764, z: -0.007868469}
 --- !u!195 &7310763962507707880
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1964,7 +1951,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7310763962507707883
+--- !u!114 &1379017728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1973,19 +1960,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 7616823676385409161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 140bf324b37e1c341ac167c12afae145, type: 3}
+  m_Script: {fileID: 11500000, guid: 65a82c290f9f0c34fa78c9b922cfd2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
-  moveSpeed: 0
-  armor: 0
-  MonsterType: 1
+  _name: "\uC77C\uBC18 \uAD81\uBCD1"
+  maxHP: 400
+  currentHP: 400
+  moveSpeed: 300
+  armor: 5
+  attackDamage: 150
+  attackDelay: 0
   target: {fileID: 0}
-  HitArea: {fileID: 0}
-  isChase: 0
-  isAttack: 0
-  arrowPos: {fileID: 7310763962023004023}
-  arrow: {fileID: 2288699422525344532, guid: 7b4f5af0c602edc4a988fe65a0812c14, type: 3}
+  rotationSpeed: 0
+--- !u!136 &5238327221017163513
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7616823676385409161}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7640738816360472522
 GameObject:
   m_ObjectHideFlags: 0

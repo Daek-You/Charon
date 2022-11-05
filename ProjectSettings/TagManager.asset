@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - CameraTrigger
   - Enemy
   - PlayerWeapon
-  - wall13
-  - wall14
-  - wall15
+  - EnemyWeapon
+  - 
+  - 
   - 
   - 
   - 
