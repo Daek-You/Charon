@@ -1606,8 +1606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectGenerator: {fileID: 1806013221}
-  hitBox: {fileID: 0}
+  hitBox: {fileID: 583272976}
   rightHand: {fileID: 189787438}
+  hitSound: {fileID: 8300000, guid: 1c2d2d3636462004ca2fdd8ed898c707, type: 3}
   maxHP: 1000
   currentHP: 1000
   armor: 50

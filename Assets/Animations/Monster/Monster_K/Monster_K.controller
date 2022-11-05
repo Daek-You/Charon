@@ -93,7 +93,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 4df7f2480e9832041855eb4b5fd4aa85, type: 3}
+  m_Motion: {fileID: 7400000, guid: 4242bd9de1dc8b94cac8e0a6da4e3d54, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -171,7 +171,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 1d54cf22923a2544e9d801f72e6e0a73, type: 3}
+  m_Motion: {fileID: 7400000, guid: 104df4880dca6e54bbdc3b1c67941727, type: 2}
   m_Tag: 
   m_SpeedParameter: MoveSpeed
   m_MirrorParameter: 
@@ -216,31 +216,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsAttack
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: doDie
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Damaged
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: MoveSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -322,10 +322,10 @@ AnimatorStateMachine:
     m_Position: {x: -260, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 102050843378705701}
-    m_Position: {x: 280, y: 90, z: 0}
+    m_Position: {x: 200, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4363261505940759788}
-    m_Position: {x: 250, y: -20, z: 0}
+    m_Position: {x: 170, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8763618947872039833}
     m_Position: {x: 10, y: 280, z: 0}
@@ -336,9 +336,9 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 40, z: 0}
+  m_AnyStatePosition: {x: -30, y: 120, z: 0}
   m_EntryPosition: {x: -240, y: 210, z: 0}
-  m_ExitPosition: {x: 40, y: -50, z: 0}
+  m_ExitPosition: {x: -40, y: 30, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 5338791662543246740}
 --- !u!1101 &3973971173745684416

@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class EnemyAttackState : CharacterController.BaseState
 {
-
     public bool isAttack { get; set; }
-    public readonly int attackAnimation = Animator.StringToHash("IsAttack");
     private Enemy enemy;
 
     public EnemyAttackState(Enemy enemy)
@@ -16,12 +14,13 @@ public class EnemyAttackState : CharacterController.BaseState
 
     public override void OnEnterState()
     {
-        isAttack = false;
+        isAttack = true;
+        enemy.Weapon?.Attack();
     }
 
     public override void OnExitState()
     {
-        enemy.animator.SetBool(attackAnimation, false);
+        enemy.Weapon?.StopAttack();
     }
 
     public override void OnFixedUpdateState()
@@ -30,17 +29,17 @@ public class EnemyAttackState : CharacterController.BaseState
 
     public override void OnUpdateState()
     {
-        if (!enemy.isAlived && !isAttack)
+        bool isOverRange = Vector3.Distance(enemy.transform.position, Player.Instance.transform.position) > enemy.agent.stoppingDistance;
+        if (isOverRange && !isAttack)
         {
-            enemy.animator.SetBool(attackAnimation, false);
+            enemy.Weapon?.StopAttack();
             enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_MOVE);
-            return;
         }
 
         else if (!isAttack)
         {
             isAttack = true;
-            enemy.animator.SetBool(attackAnimation, true);
+            enemy.Weapon?.Attack();
         }
     }
 }

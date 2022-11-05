@@ -147,6 +147,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: dabdf8f3d0f7cd349a33dc3decdde25a, type: 3}
   - {fileID: 8300000, guid: ed72c53e3b0606e419991cbdc1bf2855, type: 3}
   - {fileID: 8300000, guid: d1d257a889bc1944bb9c698d0e16a756, type: 3}
+  chargingSound: {fileID: 8300000, guid: 5b571307fa131c54184f80463bbc0a97, type: 3}
   chargingAttackSound: {fileID: 8300000, guid: 34b6b3e53ecab434492807c19c98f011, type: 3}
   skillSound: {fileID: 8300000, guid: f3e1e4c95eb885049a26f55e5b5c4783, type: 3}
 --- !u!1 &5192814636839389429

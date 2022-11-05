@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     ChargingState chargingState;
     ChargingAttackState chargingAttackState;
     SkillState skillState;
+    HitState hitState;
 
     #region #¼Ò¸®
     public bool IsFirstStep { get; set; } = false;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
         chargingState = player.stateMachine.GetState(StateName.CHARGING) as ChargingState;
         chargingAttackState = player.stateMachine.GetState(StateName.CHARGING_ATTACK) as ChargingAttackState;
         skillState = player.stateMachine.GetState(StateName.SKILL) as SkillState;
+        hitState = player.stateMachine.GetState(StateName.HIT) as HitState;
     }
 
     void Update()
@@ -73,9 +75,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnSkillButton(InputAction.CallbackContext context)
     {
+        if (player.IsDied)
+            return;
+
         if (context.performed && !skillState.IsSkillActive)
         {
-            if (chargingState.IsCharging || attackState.IsAttack || dashAttackState.IsDashAttack || dashState.IsDash || chargingAttackState.IsChargingAttack)
+            if (chargingState.IsCharging || attackState.IsAttack || dashAttackState.IsDashAttack || dashState.IsDash || chargingAttackState.IsChargingAttack || hitState.IsHit)
                 return;
 
             if (player.weaponManager.Weapon.CurrentSkillGauge == BaseWeapon.MAX_SKILL_GAUGE)
@@ -86,11 +91,14 @@ public class PlayerController : MonoBehaviour
 
     public void OnClickLeftMouse(InputAction.CallbackContext context)
     {
+        if (player.IsDied)
+            return;
+
         if (context.performed && context.interaction is PressInteraction)
         {
             BaseState currentState = player.stateMachine.CurrentState;
 
-            if ((currentState is DashAttackState) || (currentState is ChargingAttackState) || (currentState is SkillState))
+            if ((currentState is DashAttackState) || (currentState is ChargingAttackState) || (currentState is SkillState) || (currentState is HitState))
                 return;
 
             MouseDirection = GetMouseWorldPosition();
@@ -119,9 +127,6 @@ public class PlayerController : MonoBehaviour
             if (isAvailableAttack && isGrounded)
             {
                 LookAt(MouseDirection);
-                var currentSkillGauge = player.weaponManager.Weapon.CurrentSkillGauge;
-                player.weaponManager.Weapon.CurrentSkillGauge = Mathf.Clamp(++currentSkillGauge, 0, BaseWeapon.MAX_SKILL_GAUGE);
-                Debug.Log(player.weaponManager.Weapon.CurrentSkillGauge);
                 player.stateMachine.ChangeState(StateName.ATTACK);
             }
         }
@@ -129,9 +134,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnClickCharging(InputAction.CallbackContext context)
     {
+        if (player.IsDied)
+            return;
+
         if (context.performed && context.interaction is HoldInteraction)
         {
-            if (attackState.IsAttack || dashAttackState.IsDashAttack || dashState.IsDash || chargingAttackState.IsChargingAttack || skillState.IsSkillActive)
+            if (attackState.IsAttack || dashAttackState.IsDashAttack || dashState.IsDash || chargingAttackState.IsChargingAttack || skillState.IsSkillActive || hitState.IsHit)
                 return;
 
             IsChargingAction = true;
@@ -143,9 +151,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnDashInput(InputAction.CallbackContext context)
     {
+        if (player.IsDied)
+            return;
+
         if (context.performed && context.interaction is PressInteraction)
         {
-            if (dashAttackState.IsDashAttack || attackState.IsAttack || chargingState.IsCharging || chargingAttackState.IsChargingAttack || skillState.IsSkillActive)
+            if (dashAttackState.IsDashAttack || attackState.IsAttack || chargingState.IsCharging || chargingAttackState.IsChargingAttack || skillState.IsSkillActive || hitState.IsHit)
                 return;
 
             if (dashState.CurrentDashCount >= player.DashCount)

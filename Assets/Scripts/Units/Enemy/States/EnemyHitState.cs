@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyHitState : CharacterController.BaseState
 {
     public bool IsHit { get; set; }
+    private readonly int damagedAnimation = Animator.StringToHash("Damaged");
     private SkinnedMeshRenderer renderer;
     private Color originalColor;
     private Enemy enemy;
@@ -21,6 +22,7 @@ public class EnemyHitState : CharacterController.BaseState
 
     public override void OnEnterState()
     {
+        enemy.animator.SetTrigger(damagedAnimation);
         IsHit = true;
         timer = 0f;
         enemy.rigidBody.isKinematic = false;
@@ -59,7 +61,5 @@ public class EnemyHitState : CharacterController.BaseState
         {
             enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_MOVE);
         }
-
-
     }
 }

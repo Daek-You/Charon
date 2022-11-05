@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using CharacterController;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHittable
 {
+    public bool IsDied { get; private set; } = false;
     public static Player Instance { get { return instance; } }
     public WeaponManager weaponManager { get; private set; }
     public StateMachine stateMachine { get; private set; }
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform rightHand;
     private static Player instance;
+    [SerializeField] AudioClip hitSound;
 
 
     #region #Ä³¸¯ÅÍ ½ºÅÈ
@@ -105,5 +107,25 @@ public class Player : MonoBehaviour
         stateMachine.AddState(StateName.CHARGING, new ChargingState());
         stateMachine.AddState(StateName.CHARGING_ATTACK, new ChargingAttackState());
         stateMachine.AddState(StateName.SKILL, new SkillState());
+        stateMachine.AddState(StateName.HIT, new HitState());
+    }
+
+    public void Damaged(float damage)
+    {
+        if (stateMachine.CurrentState is DashState || IsDied)
+            return;
+
+        float resultDamage = damage - (armor * 0.01f);
+        currentHP = Mathf.Clamp((currentHP - resultDamage), 0, maxHP);
+
+        if(Mathf.Approximately(currentHP, 0))
+        {
+            animator.SetTrigger("Die");
+            IsDied = true;
+            return;
+        }
+
+        audioSource.PlayOneShot(hitSound);
+        stateMachine.ChangeState(StateName.HIT);
     }
 }

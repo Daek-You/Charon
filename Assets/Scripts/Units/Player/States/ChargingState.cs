@@ -20,6 +20,11 @@ namespace CharacterController
             {
                 effect.PlayCharingEffect();
             }
+            
+            if(Player.Instance._AnimationEventHandler.mySounds.TryGetValue(name, out ISound sound))
+            {
+                sound.PlayChargingSound();
+            }
 
             chargingTime = 0f;
             ChargingGauge = 0f;
@@ -29,6 +34,8 @@ namespace CharacterController
         {
             Player.Instance.Controller.IsChargingAction = false;
             IsCharging = false;
+            Player.Instance.audioSource.Stop();
+            Player.Instance.weaponManager.Weapon.GetComponent<IEffect>().DestroyEffect();
         }
 
         public override void OnFixedUpdateState() { }

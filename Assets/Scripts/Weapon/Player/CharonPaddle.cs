@@ -26,6 +26,7 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
 
     #region
     [SerializeField] private AudioClip[] attackSounds;
+    [SerializeField] private AudioClip chargingSound;
     [SerializeField] private AudioClip chargingAttackSound;
     [SerializeField] private AudioClip skillSound;
     #endregion
@@ -161,6 +162,7 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
 
     public void PlayChargingSound()
     {
+        Player.Instance.audioSource.PlayOneShot(chargingSound);
     }
 
     public void PlayChargingAttackSound()
