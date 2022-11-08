@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,15 @@ public class StageWall : MonoBehaviour
     private void Start()
     {
         Init();
+    }
+
+    private void OnDestroy()
+    {
+        if (StageManager.Instance != null)
+        {
+            UIManager.EventHandler.RemoveEvent(UI_EventHandler.UIEventType.ChangeClear);
+            UIManager.EventHandler.RemoveEvent(UI_EventHandler.UIEventType.AccessStage);
+        }
     }
 
     private void Init()
@@ -43,7 +53,7 @@ public class StageWall : MonoBehaviour
 
     public void OnAccessNextStage(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
     {
-        if (StageManager.Instance.CurrentStage != wallType)
+        if ((StageType)param != wallType)
             return;
 
         foreach (var renderer in renderers)
@@ -51,7 +61,6 @@ public class StageWall : MonoBehaviour
         gameObject.GetComponent<Collider>().enabled = true;
 
         // 트리거 오브젝트가 이벤트를 호출할 경우 다음 스테이지를 실행
-        // Event로 해도 될 것 같은데, Manager를 사용하다보니 Singleton에 의존적인 코드가 만들어지는 것 같음
         StageManager.Instance.ActiveStage(wallType + 1);
     }
 }

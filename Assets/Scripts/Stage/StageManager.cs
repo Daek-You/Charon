@@ -17,9 +17,20 @@ public enum StageType
 public class StageManager : MonoBehaviour
 {
     private static StageManager instance;
-    public static StageManager Instance { get { Init(); return instance; } }
+    public static StageManager Instance
+    {
+        get
+        {
+            if (applicationQuitting)
+                return null;
 
-    QuestGiver giver;
+            Init();
+            return instance;
+        }
+    }
+
+    private static object _lock = new object();
+    private static bool applicationQuitting = false;
 
     // 현재 스테이지 타입을 확인하여 몬스터를 활성화할 때 사용
     // 메인 화면에서 일시정지 UI를 띄우지 못 하도록 하는 등 SceneType의 역할도 겸함
@@ -52,34 +63,54 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    private int clearCount = 3;
+    private int currentCount = 0;
+    public int CurrentCount
+    {
+        get { return currentCount; }
+        set
+        {
+            currentCount = value;
+            if (currentCount >= clearCount)
+                IsCleared = true;
+        }
+    }
+
     [SerializeField]
     private bool isClearedByLoad = false;
     public bool IsClearedByLoad { get { return isClearedByLoad; } set { isClearedByLoad = value; } }
 
     static Dictionary<StageType, EnemyData[]> enemyDictionary = new Dictionary<StageType, EnemyData[]>();
-    static Dictionary<StageType, Quest> questDictionary = new Dictionary<StageType, Quest>();
+    private Dictionary<StageType, Enemy[]> spawnDictionary = new Dictionary<StageType, Enemy[]>();
 
     private void Start()
     {
         Init();
     }
 
+    private void OnDestroy()
+    {
+        applicationQuitting = true;
+    }
+
     static void Init()
     {
-        if (instance == null)
+        lock (_lock)
         {
-            GameObject stageManager = GameObject.Find("@Stage_Manager");
-            if (stageManager == null)
+            if (instance == null)
             {
-                stageManager = new GameObject { name = "@Stage_Manager" };
-                stageManager.AddComponent<StageManager>();
+                GameObject stageManager = GameObject.Find("@Stage_Manager");
+                if (stageManager == null)
+                {
+                    stageManager = new GameObject { name = "@Stage_Manager" };
+                    stageManager.AddComponent<StageManager>();
+                }
+
+                DontDestroyOnLoad(stageManager);
+                instance = stageManager.GetComponent<StageManager>();
+
+                LoadEnemyData();
             }
-
-            DontDestroyOnLoad(stageManager);
-            instance = stageManager.GetComponent<StageManager>();
-
-            LoadEnemyData();
-            LoadQuestData();
         }
     }
 
@@ -87,11 +118,8 @@ public class StageManager : MonoBehaviour
     {
         if (currentStage == StageType.Unknown && currentStage == StageType.Lobby)
             return;
-        if (giver == null)
-            giver = Utils.GetAddedComponent<QuestGiver>(instance.gameObject);
 
-        // 스테이지 씬에 맞는 몬스터들을 배치 후 비활성화
-
+        SetEnemies();
         ActiveStage(currentStage);
     }
 
@@ -102,55 +130,38 @@ public class StageManager : MonoBehaviour
 
         CurrentStage = type;
         isCleared = false;
-
-        // 현재 스테이지에 맞는 몬스터를 활성화
-        Debug.Log($"{currentStage} Start!");
-
-        giver.Register(questDictionary[currentStage]);
-        QuestManager.Instance.onQuestCompleted += OnClearStage;
+        currentCount = 0;
 
         if (isClearedByLoad)
         {
-            giver.Complete();
-            // 현재 스테이지의 몬스터들을 비활성화
-            Debug.Log($"{currentStage} Loaded!");
-        }
-    }
-
-    private void OnClearStage(Quest quest)
-    {
-        Quest stageQuest;
-        questDictionary.TryGetValue(CurrentStage, out stageQuest);
-
-        if (stageQuest.CodeName == quest.CodeName)
-        {
             IsCleared = true;
-            Debug.Log($"{currentStage} Clear!");
+            isClearedByLoad = false;
+            return;
         }
+
+        ActiveEnemies();
     }
 
-    /* 여기 수정해줘 수용이 */
     private static void LoadEnemyData()
     {
-        EnemyData[] temp = new EnemyData[2];
-
-        Vector3[] firstPosition = new Vector3[1];
-        firstPosition[0] = Vector3.zero;
-        Vector3[] secondPosition = new Vector3[2];
-        secondPosition[0] = new Vector3(1, 0, 1);
-        secondPosition[1] = new Vector3(-1, 0, -1);
-
-        //temp[0] = new EnemyData(MonsterType.private_k, 1, firstPosition);
-        //temp[1] = new EnemyData(MonsterType.private_a, 2, secondPosition);
-
-        enemyDictionary.Clear();
-        enemyDictionary.Add(StageType.Stage11, temp);
-        enemyDictionary.Add(StageType.Stage12, temp);
+        // Json 파일로부터 데이터를 불러와 Dictionary에 저장
     }
 
-    private static void LoadQuestData()
+    private void SetEnemies()
     {
-        Quest quest = Resources.Load<Quest>("Contents/Achievement/Quest_Stage11");
-        questDictionary.Add(StageType.Stage11, quest);
+        // 메인 스테이지에 맞는 Dictionary의 몬스터를 생성
+        // 이를 관리할 수 있도록 spawnDictionary에 저장
+    }
+
+    private void ActiveEnemies()
+    {
+        // 현재 스테이지에 맞는 spawnDictionary의 몬스터를 활성화
+        // 활성화 한 수치 = ClearCount
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+            CurrentCount = clearCount;
     }
 }

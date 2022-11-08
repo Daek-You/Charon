@@ -9,7 +9,7 @@ public class StageTrigger : MonoBehaviour
         if (other.gameObject.layer != LayerMask.NameToLayer("Sondol"))
             return;
 
-        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.AccessStage, this);
+        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.AccessStage, this, StageManager.Instance.CurrentStage);
         Utils.Destroy(gameObject);
     }
 }

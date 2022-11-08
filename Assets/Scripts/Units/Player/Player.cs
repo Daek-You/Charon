@@ -136,4 +136,16 @@ public class Player : MonoBehaviour, IHittable
         audioSource.PlayOneShot(hitSound);
         stateMachine.ChangeState(StateName.HIT);
     }
+
+    public void LoadCurrentHp(float curHp)
+    {
+        CurrentHP = Mathf.Clamp(curHp, 0, maxHP);
+
+        // CurrentHP가 변경된 시점에 Property에서 호출되어도 괜찮을 듯
+        if (Mathf.Approximately(currentHP, 0))
+        {
+            animator.SetTrigger("Die");
+            IsDied = true;
+        }
+    }
 }

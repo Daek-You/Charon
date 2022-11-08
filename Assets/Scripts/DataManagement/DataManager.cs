@@ -7,7 +7,20 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     private static DataManager _instance;
-    public static DataManager Instance { get { Init(); return _instance; } }
+    public static DataManager Instance
+    {
+        get
+        {
+            if (applicationQuitting)
+                return null;
+
+            Init();
+            return _instance;
+        }
+    }
+
+    private static object _lock = new object();
+    private static bool applicationQuitting = false;
 
     private GameData _saveData;
     public GameData SaveData
@@ -44,19 +57,27 @@ public class DataManager : MonoBehaviour
         Init();
     }
 
+    private void OnDestroy()
+    {
+        applicationQuitting = true;
+    }
+
     public static void Init()
     {
-        if (_instance == null)
+        lock (_lock)
         {
-            GameObject dataManager = GameObject.Find("@Data_Manager");
-            if (dataManager == null)
+            if (_instance == null)
             {
-                dataManager = new GameObject { name = "@Data_Manager" };
-                dataManager.AddComponent<DataManager>();
-            }
+                GameObject dataManager = GameObject.Find("@Data_Manager");
+                if (dataManager == null)
+                {
+                    dataManager = new GameObject { name = "@Data_Manager" };
+                    dataManager.AddComponent<DataManager>();
+                }
 
-            DontDestroyOnLoad(dataManager);
-            _instance = dataManager.GetComponent<DataManager>();
+                DontDestroyOnLoad(dataManager);
+                _instance = dataManager.GetComponent<DataManager>();
+            }
         }
     }
 

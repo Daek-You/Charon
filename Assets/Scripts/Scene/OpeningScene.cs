@@ -13,6 +13,8 @@ public class OpeningScene : BaseScene
     {
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeScene, OnChangeScene);
         StageManager.Instance.CurrentStage = StageType.Unknown;
+
+        CreateEventSystem();
     }
 
     public override void Clear()

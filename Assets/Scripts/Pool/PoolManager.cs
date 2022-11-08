@@ -61,7 +61,20 @@ public class PoolManager : MonoBehaviour
     }
 
     static PoolManager instance;
-    public static PoolManager Instance { get { Init(); return instance; } }
+    public static PoolManager Instance
+    {
+        get
+        {
+            if (applicationQuitting)
+                return null;
+
+            Init();
+            return instance;
+        }
+    }
+
+    private static object _lock = new object();
+    private static bool applicationQuitting = false;
 
     public GameObject Root
     {
@@ -81,20 +94,28 @@ public class PoolManager : MonoBehaviour
         Init();
     }
 
+    private void OnDestroy()
+    {
+        applicationQuitting = true;
+    }
+
     static void Init()
     {
-        if (instance == null)
+        lock (_lock)
         {
-            GameObject poolManager = GameObject.Find("@Pool_Manager");
-
-            if (poolManager == null)
+            if (instance == null)
             {
-                poolManager = new GameObject("@Pool_Manager");
-                poolManager.AddComponent<PoolManager>();
-            }
+                GameObject poolManager = GameObject.Find("@Pool_Manager");
 
-            DontDestroyOnLoad(poolManager);
-            instance = poolManager.GetComponent<PoolManager>();
+                if (poolManager == null)
+                {
+                    poolManager = new GameObject("@Pool_Manager");
+                    poolManager.AddComponent<PoolManager>();
+                }
+
+                DontDestroyOnLoad(poolManager);
+                instance = poolManager.GetComponent<PoolManager>();
+            }
         }
     }
 

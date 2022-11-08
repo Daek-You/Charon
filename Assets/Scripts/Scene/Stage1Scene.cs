@@ -15,8 +15,25 @@ public class Stage1Scene : BaseScene
         UIManager.Instance.ShowSceneUI<UI_AchievementCompletionNotifier>();
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeScene, OnChangeScene);
 
-        // 불러오기인지 판단
-        StageManager.Instance.CurrentStage = StageType.Stage11;
+        CreateEventSystem();
+
+        if (StageManager.Instance.CurrentStage == StageType.Lobby)
+        {
+            StageManager.Instance.CurrentStage = StageType.Stage11;
+            StageManager.Instance.SetStage();
+            return;
+        }
+
+        GameData saveData = DataManager.Instance.SaveData;
+
+        Player.Instance.transform.position = saveData.CurrentPosition;
+        GameObject weapon = Utils.Instantiate($"Weapons/{saveData.WeaponName}");
+        Player.Instance.weaponManager.RegisterWeapon(weapon);
+        Player.Instance.weaponManager.SetWeapon(weapon);
+
+        Player.Instance.LoadCurrentHp(saveData.CurrentHP);
+        Player.Instance.weaponManager.Weapon.CurrentSkillGauge = saveData.CurrentST;
+
         StageManager.Instance.SetStage();
     }
 

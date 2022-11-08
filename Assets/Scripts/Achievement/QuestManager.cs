@@ -8,7 +8,20 @@ using Newtonsoft.Json.Linq;
 public class QuestManager : MonoBehaviour
 {
     static QuestManager instance;
-    public static QuestManager Instance { get { Init(); return instance; } }
+    public static QuestManager Instance
+    {
+        get
+        {
+            if (applicationQuitting)
+                return null;
+
+            Init();
+            return instance;
+        }
+    }
+
+    private static object _lock = new object();
+    private static bool applicationQuitting = false;
 
     #region Events
     public delegate void QuestRegisteredHandler(Quest newQuest);
@@ -60,23 +73,31 @@ public class QuestManager : MonoBehaviour
         SaveQuestData();
     }
 
+    private void OnDestroy()
+    {
+        applicationQuitting = true;
+    }
+
     static void Init()
     {
-        if (instance == null)
+        lock (_lock)
         {
-            GameObject questManager = GameObject.Find("@Quest_Manager");
-
-            if (questManager == null)
+            if (instance == null)
             {
-                questManager = new GameObject("@Quest_Manager");
-                questManager.AddComponent<QuestManager>();
+                GameObject questManager = GameObject.Find("@Quest_Manager");
+
+                if (questManager == null)
+                {
+                    questManager = new GameObject("@Quest_Manager");
+                    questManager.AddComponent<QuestManager>();
+                }
+
+                DontDestroyOnLoad(questManager);
+                instance = questManager.GetComponent<QuestManager>();
+
+                questDatabase = Resources.Load<QuestDatabase>("Achievement/QuestDatabase");
+                achievementDatabase = Resources.Load<QuestDatabase>("Achievement/AchievementDatabase");
             }
-
-            DontDestroyOnLoad(questManager);
-            instance = questManager.GetComponent<QuestManager>();
-
-            questDatabase = Resources.Load<QuestDatabase>("Achievement/QuestDatabase");
-            achievementDatabase = Resources.Load<QuestDatabase>("Achievement/AchievementDatabase");
         }
     }
 
