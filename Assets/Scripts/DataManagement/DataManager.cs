@@ -4,6 +4,11 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
+public interface ILoader<Key, Value>
+{
+    Dictionary<Key, Value> MakeDict();
+}
+
 public class DataManager : MonoBehaviour
 {
     private static DataManager _instance;
@@ -52,6 +57,8 @@ public class DataManager : MonoBehaviour
     private int _dataIndex;
     public int DataIndex { get { return _dataIndex; } set { _dataIndex = value; } }
 
+    public static Dictionary<MainStageType, List<EnemyData>> EnemyDict { get; private set; } = new Dictionary<MainStageType, List<EnemyData>>();
+
     public void Start()
     {
         Init();
@@ -77,6 +84,8 @@ public class DataManager : MonoBehaviour
 
                 DontDestroyOnLoad(dataManager);
                 _instance = dataManager.GetComponent<DataManager>();
+
+                EnemyDict = LoadJson<EnemyDataForLoad, MainStageType, List<EnemyData>>("EnemyData").MakeDict();
             }
         }
     }
@@ -161,5 +170,11 @@ public class DataManager : MonoBehaviour
     public void StartGameData()
     {
         _saveData = null;
+    }
+
+    static Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+    {
+        TextAsset textAsset = Utils.Load<TextAsset>($"Data/{path}");
+        return JsonUtility.FromJson<Loader>(textAsset.text);
     }
 }

@@ -75,4 +75,9 @@ public abstract class BaseWeapon : MonoBehaviour
         ComboCount = 0;
         Player.Instance.animator.SetInteger("AttackCombo", 0);
     }
+
+    public float InitStBar()
+    {
+        return (float)currentSkillGauge / MAX_SKILL_GAUGE;
+    }
 }

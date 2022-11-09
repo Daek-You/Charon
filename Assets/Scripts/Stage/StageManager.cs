@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,13 @@ public enum StageType
     Stage14,
     Stage15,
     Ending
+}
+
+public enum MainStageType
+{
+    Unknown = 0,
+    Stage1 = 1,
+    Stage2 = 2
 }
 
 public class StageManager : MonoBehaviour
@@ -42,8 +50,13 @@ public class StageManager : MonoBehaviour
         set
         {
             currentStage = value;
+            SetMainStage();
         }
     }
+
+    [SerializeField]
+    private MainStageType currentMainStage = MainStageType.Unknown;
+    public MainStageType CurrentMainStage { get { return currentMainStage; } }
 
     // 클리어 여부를 판단하기 위해 업적 시스템 활용
     // 클리어 여부가 변화할 경우 알림을 보내, UI를 표시하거나 스테이지 장벽을 제거하는 등의 요소로 활용
@@ -80,8 +93,17 @@ public class StageManager : MonoBehaviour
     private bool isClearedByLoad = false;
     public bool IsClearedByLoad { get { return isClearedByLoad; } set { isClearedByLoad = value; } }
 
-    static Dictionary<StageType, EnemyData[]> enemyDictionary = new Dictionary<StageType, EnemyData[]>();
-    private Dictionary<StageType, Enemy[]> spawnDictionary = new Dictionary<StageType, Enemy[]>();
+    // Enemy Object들을 자식으로 가지는 부모 Object
+    public GameObject Root
+    {
+        get
+        {
+            GameObject root = GameObject.Find("@Enemy_Root");
+            if (root == null)
+                root = new GameObject("@Enemy_Root");
+            return root;
+        }
+    }
 
     private void Start()
     {
@@ -108,15 +130,13 @@ public class StageManager : MonoBehaviour
 
                 DontDestroyOnLoad(stageManager);
                 instance = stageManager.GetComponent<StageManager>();
-
-                LoadEnemyData();
             }
         }
     }
 
     public void SetStage()
     {
-        if (currentStage == StageType.Unknown && currentStage == StageType.Lobby)
+        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending)
             return;
 
         SetEnemies();
@@ -142,21 +162,54 @@ public class StageManager : MonoBehaviour
         ActiveEnemies();
     }
 
-    private static void LoadEnemyData()
+    public void SetMainStage()
     {
-        // Json 파일로부터 데이터를 불러와 Dictionary에 저장
+        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending)
+            return;
+
+        string stage = currentStage.ToString();
+        stage = stage.Substring(stage.Length - 2, 1);
+        int stageInt = int.Parse(stage);
+        currentMainStage = (MainStageType)stageInt;
     }
 
     private void SetEnemies()
     {
         // 메인 스테이지에 맞는 Dictionary의 몬스터를 생성
         // 이를 관리할 수 있도록 spawnDictionary에 저장
+        List<EnemyData> enemyData;
+        DataManager.EnemyDict.TryGetValue(currentMainStage, out enemyData);
+
+        foreach (EnemyData enemy in enemyData)
+        {
+            GameObject root = Utils.FindChild(Root, enemy.sstage);
+            if (root == null)
+                root = new GameObject(enemy.sstage);
+            root.transform.SetParent(Root.transform);
+
+            GameObject go = Utils.Instantiate($"Units/{enemy.type}");
+            go.transform.position = new Vector3(enemy.position[0], enemy.position[1], enemy.position[2]);
+            go.SetActive(false);
+
+            go.transform.SetParent(root.transform);
+        }
     }
 
     private void ActiveEnemies()
     {
+        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending)
+            return;
+
         // 현재 스테이지에 맞는 spawnDictionary의 몬스터를 활성화
-        // 활성화 한 수치 = ClearCount
+        GameObject root = Utils.FindChild(Root, currentStage.ToString());
+        if (root == null)
+            return;
+
+        for (int i = 0; i < root.transform.childCount; i++)
+        {
+            root.transform.GetChild(i).gameObject.SetActive(true);
+            clearCount++;
+        }
     }
 
     public void Update()

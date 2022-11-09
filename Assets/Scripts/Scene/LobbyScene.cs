@@ -29,6 +29,7 @@ public class LobbyScene : BaseScene
             Player.Instance.weaponManager.RegisterWeapon(weapon);
             Player.Instance.weaponManager.SetWeapon(weapon);
             DataManager.Instance.SaveGameData(DataManager.Instance.DataIndex, false);
+            // UIManager.Instance.ShowPopupUI<UI_StageName>();
             return;
         }
 
@@ -38,6 +39,8 @@ public class LobbyScene : BaseScene
 
         Player.Instance.LoadCurrentHp(saveData.CurrentHP);
         Player.Instance.weaponManager.Weapon.CurrentSkillGauge = saveData.CurrentST;
+
+        // UIManager.Instance.ShowPopupUI<UI_StageName>();
     }
 
     public override void Clear()

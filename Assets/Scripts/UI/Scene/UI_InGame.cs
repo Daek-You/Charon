@@ -51,15 +51,12 @@ public class UI_InGame : UI_Scene
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeST, OnChangeST);
         UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeGoods, OnChangeGoods);
 
-        Slider stBar = GetObject((int)GameObjects.SliST).GetComponent<Slider>();
-        stBar.value = 0;
-    }
+        Slider hpBar = GetObject((int)GameObjects.SliHP).GetComponent<Slider>();
+        hpBar.value = Player.Instance.InitHpBar();
 
-    //public void OnChangeWaepon(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
-    //{
-    //    Sprite sprite = Utils.Load<Sprite>($"WeaponTest/{param}");
-    //    GetImage((int)Images.ImgWeapon).sprite = sprite;
-    //}
+        Slider stBar = GetObject((int)GameObjects.SliST).GetComponent<Slider>();
+        stBar.value = Player.Instance.weaponManager.Weapon.InitStBar();
+    }
 
     public void OnChangeHP(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
     {

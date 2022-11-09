@@ -148,4 +148,9 @@ public class Player : MonoBehaviour, IHittable
             IsDied = true;
         }
     }
+
+    public float InitHpBar()
+    {
+        return currentHP / maxHP;
+    }
 }

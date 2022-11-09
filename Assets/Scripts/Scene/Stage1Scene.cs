@@ -21,6 +21,8 @@ public class Stage1Scene : BaseScene
         {
             StageManager.Instance.CurrentStage = StageType.Stage11;
             StageManager.Instance.SetStage();
+
+            //UIManager.Instance.ShowPopupUI<UI_StageName>();
             return;
         }
 
