@@ -76,7 +76,9 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    private int clearCount = 3;
+    [SerializeField]
+    private int clearCount = 0;
+    [SerializeField]
     private int currentCount = 0;
     public int CurrentCount
     {
@@ -108,6 +110,7 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         Init();
+        UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.DieEnemy, OnCheckCount);
     }
 
     private void OnDestroy()
@@ -150,6 +153,7 @@ public class StageManager : MonoBehaviour
 
         CurrentStage = type;
         isCleared = false;
+        clearCount = 0;
         currentCount = 0;
 
         if (isClearedByLoad)
@@ -210,6 +214,12 @@ public class StageManager : MonoBehaviour
             root.transform.GetChild(i).gameObject.SetActive(true);
             clearCount++;
         }
+    }
+
+    public void OnCheckCount(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
+    {
+        // 특정 몬스터에 가중치를 주거나, 보스를 판별하는 용도로 param 사용 가능
+        CurrentCount++;
     }
 
     public void Update()

@@ -27,6 +27,7 @@ public class WeaponManager
         }
 
         BaseWeapon weaponInfo = weapon.GetComponent<BaseWeapon>();
+        weaponInfo.Reporter = Utils.GetAddedComponent<QuestReporter>(weapon);
         weapon.transform.SetParent(handPosition);
         weapon.transform.localPosition = weaponInfo.HandleData.localPosition;
         weapon.transform.localEulerAngles = weaponInfo.HandleData.localRotation;

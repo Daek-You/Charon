@@ -16,4 +16,11 @@ public class QuestReporter : MonoBehaviour
     {
         QuestManager.Instance.ReceiveReport(category, target, successCount);
     }
+
+    public void SetReporter(Category category, TaskTarget target, int successCount)
+    {
+        this.category = category;
+        this.target = target;
+        this.successCount = successCount;
+    }
 }

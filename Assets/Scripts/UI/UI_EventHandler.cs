@@ -22,7 +22,8 @@ public class UI_EventHandler
         ChangeBGM,
         ChangeSE,
         ShowUI,
-        HideUI
+        HideUI,
+        DieEnemy
     }
 
     public Action<UIEventType, Component, object> OnUIEvent = null;

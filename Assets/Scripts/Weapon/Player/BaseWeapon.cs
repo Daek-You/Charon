@@ -28,6 +28,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public float AttackRange { get { return attackRange; } }
     private Coroutine checkAttackReInputCor;
 
+    public QuestReporter Reporter { get; set; }
 
     #region #무기 정보
     [Header("생성 정보"), Tooltip("해당 무기를 쥐었을 때의 Local Transform 값 정보입니다.")]
