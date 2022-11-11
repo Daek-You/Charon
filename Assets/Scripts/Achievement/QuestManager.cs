@@ -127,7 +127,6 @@ public class QuestManager : MonoBehaviour
             LoadSaveDatas(root[activeAchievementsSavePath], achievementDatabase, LoadActiveQuest);
             LoadSaveDatas(root[completedAchievementsSavePath], achievementDatabase, LoadCompletedQuest);
 
-            Debug.Log("Quest Datas are loaded.");
             return true;
         }
 

@@ -77,6 +77,7 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
     {
         Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 7;
         Player.Instance.animator.SetBool(hashSkillAnimation, true);
+        Reporter.Report();
     }
 
     public override void UltimateSkill(BaseState state)

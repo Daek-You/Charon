@@ -19,6 +19,7 @@ public class EnemyDieState : CharacterController.BaseState
         enemy.skinnedMeshRenderer.material.color = Color.black;
         enemy.animator.SetTrigger(dieAnimation);
         timer = 0f;
+        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.DieEnemy, null);
     }
 
     public override void OnExitState()

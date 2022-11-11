@@ -35,7 +35,6 @@ public class DataManager : MonoBehaviour
             if (_saveData == null)
             {
                 _saveData = new GameData();
-                Debug.Log("Create New Data.");
             }
             return _saveData;
         }
@@ -101,7 +100,6 @@ public class DataManager : MonoBehaviour
         string filePath = Application.persistentDataPath + fileName;
         string ToJsonData = JsonUtility.ToJson(SaveData);
         File.WriteAllText(filePath, ToJsonData);
-        Debug.Log($"Success to Save Data.");
     }
 
     public GameData LoadGameData(int index)
@@ -113,12 +111,10 @@ public class DataManager : MonoBehaviour
         {
             string FromJsonData = File.ReadAllText(filePath);
             _saveData = JsonUtility.FromJson<GameData>(FromJsonData);
-            Debug.Log($"Success to Load Data.");
         }
         else
         {
             _saveData = new GameData();
-            Debug.Log("Create New Data.");
         }
 
         return SaveData;
@@ -132,7 +128,6 @@ public class DataManager : MonoBehaviour
         string filePath = Application.persistentDataPath + fileName;
         string ToJsonData = JsonUtility.ToJson(OptData);
         File.WriteAllText(filePath, ToJsonData);
-        Debug.Log($"Success to Save Option.");
     }
 
     public OptionData LoadOptionData()
@@ -144,12 +139,10 @@ public class DataManager : MonoBehaviour
         {
             string FromJsonData = File.ReadAllText(filePath);
             _optData = JsonUtility.FromJson<OptionData>(FromJsonData);
-            Debug.Log($"Success to Load Option.");
         }
         else
         {
             _optData = new OptionData();
-            Debug.Log("Create New Option Data.");
         }
 
         return OptData;

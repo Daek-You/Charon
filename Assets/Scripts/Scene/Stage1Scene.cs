@@ -19,6 +19,8 @@ public class Stage1Scene : BaseScene
 
         if (StageManager.Instance.CurrentStage == StageType.Lobby)
         {
+            Player.Instance.transform.position = new Vector3(0, 0, 0);
+
             StageManager.Instance.CurrentStage = StageType.Stage11;
             StageManager.Instance.SetStage();
 
