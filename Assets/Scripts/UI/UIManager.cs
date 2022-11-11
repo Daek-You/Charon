@@ -7,7 +7,20 @@ using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour
 {
     static UIManager instance;
-    public static UIManager Instance { get { Init(); return instance; } }
+    public static UIManager Instance
+    {
+        get
+        {
+            if (applicationQuitting)
+                return null;
+
+            Init();
+            return instance;
+        }
+    }
+
+    private static object _lock = new object();
+    private static bool applicationQuitting = false;
 
     UI_EventHandler eventHandler = new UI_EventHandler();
     public static UI_EventHandler EventHandler { get { return Instance.eventHandler; } }
@@ -108,26 +121,29 @@ public class UIManager : MonoBehaviour
         } */
     }
 
+    private void OnDestroy()
+    {
+        applicationQuitting = true;
+    }
+
     static void Init()
     {
-        if (instance == null)
+        lock (_lock)
         {
-            GameObject uiManager = GameObject.Find("@UI_Manager");
-
-            if (uiManager == null)
+            if (instance == null)
             {
-                uiManager = new GameObject("@UI_Manager");
-                uiManager.AddComponent<UIManager>();
+                GameObject uiManager = GameObject.Find("@UI_Manager");
+
+                if (uiManager == null)
+                {
+                    uiManager = new GameObject("@UI_Manager");
+                    uiManager.AddComponent<UIManager>();
+                }
+
+                DontDestroyOnLoad(uiManager);
+                instance = uiManager.GetComponent<UIManager>();
             }
-
-            DontDestroyOnLoad(uiManager);
-            instance = uiManager.GetComponent<UIManager>();
         }
-
-        // 씬이 시작될 때 이벤트 시스템을 생성해줘야 함
-        Object eventSystem = GameObject.FindObjectOfType(typeof(EventSystem));
-        if (eventSystem == null)
-            Utils.Instantiate("UI/EventSystem").name = "@EventSystem";
     }
 
     public void SetCanvas(GameObject uiObject, bool isPopup)

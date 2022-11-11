@@ -22,5 +22,6 @@ public class ChangeWeapon : Interactable
         weapon = Utils.Instantiate($"Weapons/{weaponName}");
         Player.Instance.weaponManager.RegisterWeapon(weapon);
         Player.Instance.weaponManager.SetWeapon(weapon);
+        Utils.Destroy(weapon);
     }
 }
