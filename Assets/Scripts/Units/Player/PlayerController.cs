@@ -248,6 +248,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
+        if (player.IsDied)
+            return;
+
         Vector2 input = context.ReadValue<Vector2>();
         inputDirection = new Vector3(input.x, 0f, input.y);
     }

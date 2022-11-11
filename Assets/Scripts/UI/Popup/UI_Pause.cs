@@ -79,6 +79,7 @@ public class UI_Pause : UI_Popup
 
     public void OnQuit(PointerEventData data)
     {
+        LoadingScene.nextSceneBGM = StageType.Title;
         UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "TitleScene");
     }
 }

@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 158381649}
   - component: {fileID: 158381650}
   m_Layer: 0
-  m_Name: BGM
+  m_Name: Water_Splash_Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -715,6 +715,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f5c3e71f82d12614bb59d624cbb5f77b, type: 2}
     - {fileID: 11400000, guid: 3222079438523d249947924c8e0160f9, type: 2}
     - {fileID: 11400000, guid: 41e95ad20a47e964dbc2bc3d1a326b3e, type: 2}
+    - {fileID: 11400000, guid: d68e6e90a2c150b47939ff82e7425e07, type: 2}
+    - {fileID: 11400000, guid: 8b0385e07166ec841aef68913055a4c1, type: 2}
+    - {fileID: 11400000, guid: 04face3dd9356e9498d558fe97bd908f, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -776,7 +779,49 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 2010726833}
           m_TargetAssemblyTypeName: Narration_Opening, Assembly-CSharp
-          m_MethodName: StartOpeningCoroutine
+          m_MethodName: FadeOutDisplay
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2010726833}
+          m_TargetAssemblyTypeName: Narration_Opening, Assembly-CSharp
+          m_MethodName: FadeInDisplay
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2010726833}
+          m_TargetAssemblyTypeName: Narration_Opening, Assembly-CSharp
+          m_MethodName: FadeOutSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2010726833}
+          m_TargetAssemblyTypeName: Narration_Opening, Assembly-CSharp
+          m_MethodName: FadeInSound
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -803,7 +848,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &523597319
 RectTransform:
   m_ObjectHideFlags: 0
@@ -837,7 +882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -921,9 +966,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-'
+  m_text: "\uC190\uB3CC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3be9b878d23d8f04b94a451ecd10ff6c, type: 2}
   m_sharedMaterial: {fileID: 8608343449412807369, guid: 3be9b878d23d8f04b94a451ecd10ff6c, type: 2}
@@ -950,8 +993,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1295,7 +1338,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0c9b2df7f1049e642aee1efeccc8bcfa, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.574
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1438,6 +1481,8 @@ PlayableDirector:
     value: {fileID: 158381648}
   - key: {fileID: 3430077425358249136, guid: 201e96a56f91b4e4eb3abf5ded7f357c, type: 2}
     value: {fileID: 1497840662}
+  - key: {fileID: 0}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1528961543
@@ -1745,6 +1790,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogText: {fileID: 404423059}
   nameText: {fileID: 682927814}
+  BGM_Source: {fileID: 1497840663}
+  Eff_SoundSource: {fileID: 158381650}
   removableBackground: {fileID: 124551373}
   img: {fileID: 523597320}
 --- !u!4 &2010726834

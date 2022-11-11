@@ -5,6 +5,9 @@ using UnityEngine;
 public enum StageType
 {
     Unknown,
+    Title,
+    Opening,
+    Loading,
     Lobby,
     Stage11,
     Stage12,

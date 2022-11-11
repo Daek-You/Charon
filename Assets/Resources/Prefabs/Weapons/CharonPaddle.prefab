@@ -144,7 +144,7 @@ MonoBehaviour:
   chargingAttackEffs: {fileID: 1919708242137258, guid: 4b58db14067c09a4cbda2193a2d49c98, type: 3}
   skillEffs: {fileID: 1210069404974878, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
   attackSounds:
-  - {fileID: 8300000, guid: dabdf8f3d0f7cd349a33dc3decdde25a, type: 3}
+  - {fileID: 8300000, guid: a0d3982c148e48b47bda48f4c9db1c26, type: 3}
   - {fileID: 8300000, guid: ed72c53e3b0606e419991cbdc1bf2855, type: 3}
   - {fileID: 8300000, guid: d1d257a889bc1944bb9c698d0e16a756, type: 3}
   chargingSound: {fileID: 8300000, guid: 5b571307fa131c54184f80463bbc0a97, type: 3}

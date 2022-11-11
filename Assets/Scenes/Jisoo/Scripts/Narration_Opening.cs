@@ -10,24 +10,39 @@ public class Narration_Opening : MonoBehaviour
 {
     public TMP_Text dialogText;
     public TMP_Text nameText;
+    public AudioSource BGM_Source;
+    public AudioSource Eff_SoundSource;
     private JsonData _jsonDialogData;
     private JsonData _jsonNameData;
     private int indexD; private int indexN;
     private StringBuilder _jsonDialogStringBD = new StringBuilder();
     private StringBuilder _jsonNameStringBD = new StringBuilder();
     private WaitForSeconds delayTime = new WaitForSeconds(0.08f);
-    private WaitForSeconds commaDelayTime = new WaitForSeconds(1.5f);
-    private WaitForSeconds loadingDelay = new WaitForSeconds(2f);
+    private WaitForSeconds displayFadeDelay = new WaitForSeconds(0.01f);
+    private WaitForSeconds soundFadeOutDelay = new WaitForSeconds(0.01f);
+
     private string jsonDialogLine;
     private string jsonNameLine;
+    private float speed = 0.3f;
     public GameObject removableBackground;
     public Image img;
+    private Coroutine fadeInCoroutine;
+    private Coroutine fadeOutCoroutine;
+
+
     void Awake()
     {
         _jsonDialogData = ReadNarrationFile();
         _jsonNameData = ReadNameFile();
         indexD = 0;
         indexN = 0;
+
+    }
+
+    void Start()
+    {
+        BGM_Source.volume = 0.1f;
+        Eff_SoundSource.volume = 0.1f;
     }
 
     public void ShowNarration()
@@ -129,13 +144,17 @@ public class Narration_Opening : MonoBehaviour
 
     public void ChangeScene()
     {
-        UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LoadingScene");
+        //UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
+        LoadingScene.LoadScene("LobbyScene", StageType.Lobby);
     }
 
-    public void StartOpeningCoroutine()
+    public void FadeOutDisplay()
     {
-        StartCoroutine("OpeningSceneFadeOut");
+        if (fadeInCoroutine != null)
+            StopCoroutine(fadeInCoroutine);
+        fadeOutCoroutine = StartCoroutine(OpeningSceneFadeOut());
     }
+
     private IEnumerator OpeningSceneFadeOut()
     {
        img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a);
@@ -145,7 +164,57 @@ public class Narration_Opening : MonoBehaviour
             float alphaValue = img.color.a + (Time.deltaTime);
             img.color = new Color(img.color.r, img.color.g, img.color.b, alphaValue);
             
-            yield return new WaitForSeconds(0.01f);
+            yield return displayFadeDelay;
+        }
+    }
+
+    public void FadeInDisplay()
+    {
+        if (fadeOutCoroutine != null)
+            StopCoroutine(fadeOutCoroutine);
+        fadeInCoroutine = StartCoroutine(OpeningSceneFadeIn());
+    }
+
+    private IEnumerator OpeningSceneFadeIn()
+    {
+        img.color = new Color(img.color.r, img.color.g, img.color.b, img.color.a);
+
+        while (img.color.a > 0f)
+        {
+            float alphaValue = img.color.a - (Time.deltaTime);
+            img.color = new Color(img.color.r, img.color.g, img.color.b, alphaValue);
+
+            yield return displayFadeDelay;
+        }
+    }
+
+    public void FadeOutSound()
+    {
+        StartCoroutine(FadeOutOpeningSounde());
+    }
+
+    public void FadeInSound()
+    {
+        StartCoroutine(FadeInOpeningSounde());
+    }
+
+    private IEnumerator FadeOutOpeningSounde()
+    {
+        while(BGM_Source.volume > 0.15f && Eff_SoundSource.volume > 0.15f)
+        {
+            BGM_Source.volume -= Time.deltaTime;
+            Eff_SoundSource.volume -= Time.deltaTime;
+            yield return soundFadeOutDelay;
+        }
+    }
+
+    private IEnumerator FadeInOpeningSounde()
+    {
+        while (BGM_Source.volume < 1f || Eff_SoundSource.volume < 1f)
+        {
+            BGM_Source.volume += Time.deltaTime * speed;
+            Eff_SoundSource.volume += Time.deltaTime * speed;
+            yield return soundFadeOutDelay;
         }
     }
 }

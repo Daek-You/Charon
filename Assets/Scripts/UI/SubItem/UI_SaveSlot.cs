@@ -116,7 +116,9 @@ public class UI_SaveSlot : UI_Base
         else
         {
             DataManager.Instance.StartGameData();
-            UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "OpeningScene");
+            FadeInOutController.Instance.FadeOutAndLoadScene("OpeningScene", StageType.Opening);
+            //LoadingScene.LoadScene("OpeningScene");
+            //UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "OpeningScene");
             // GameObject.Find("Sondol").transform.position = DataManager.Instance.SaveData.CurrentPosition;
         }
     }
@@ -135,9 +137,11 @@ public class UI_SaveSlot : UI_Base
             StageManager.Instance.IsClearedByLoad = saveData.IsCleared;
 
             if (saveData.CurrentStage == StageType.Lobby)
-                UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
+                FadeInOutController.Instance.FadeOutAndLoadScene("LobbyScene", StageType.Lobby);
+            //UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
             else
-                UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
+                FadeInOutController.Instance.FadeOutAndLoadScene("Stage1Scene", StageType.Stage11);
+            //UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
         }
     }
 

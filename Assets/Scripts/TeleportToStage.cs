@@ -8,6 +8,9 @@ public class TeleportToStage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Sondol"))
-            UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
+        {
+            FadeInOutController.Instance.FadeOutAndLoadScene("Stage1Scene", StageType.Stage11);
+        }
+            //UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
     }
 }
