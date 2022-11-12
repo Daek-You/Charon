@@ -13,7 +13,7 @@ public class LoadingScene : BaseScene
     public static StageType nextSceneBGM;
     [SerializeField] private Slider prograssBar;
     private float timer = 0f;
-    private float speed = 1.5f;
+    //private float speed = 1.5f;
 
     public static void LoadScene(string sceneName, StageType sceneBGM)
     {
@@ -46,7 +46,7 @@ public class LoadingScene : BaseScene
 
             if(operation.progress < 0.9f)
             {
-                prograssBar.value = Mathf.Lerp(prograssBar.value, 1f, Time.deltaTime * speed);
+                prograssBar.value = Mathf.Lerp(prograssBar.value, 1f, timer);
 
                 if (prograssBar.value >= operation.progress)
                     timer = 0f;
@@ -54,7 +54,8 @@ public class LoadingScene : BaseScene
             else
             {
 
-                prograssBar.value = prograssBar.value > 0.98f ? Mathf.Lerp(prograssBar.value, 1f, timer) : Mathf.Lerp(prograssBar.value, 1f, Time.deltaTime * speed);
+                prograssBar.value = Mathf.Lerp(prograssBar.value, 1f, timer);
+                //prograssBar.value > 0.9f ? Mathf.Lerp(prograssBar.value, 1f, timer) : Mathf.Lerp(prograssBar.value, 1f, Time.deltaTime * speed);
 
                 if (Mathf.Approximately(prograssBar.value, 1f))
                 {

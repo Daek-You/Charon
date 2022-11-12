@@ -18,6 +18,7 @@ public class EnemyDieState : CharacterController.BaseState
     {
         enemy.skinnedMeshRenderer.material.color = Color.black;
         enemy.animator.SetTrigger(dieAnimation);
+        enemy.audioSource.PlayOneShot(enemy.effectSounds[Enemy.SoundType.DIE]);
         timer = 0f;
         UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.DieEnemy, null);
     }

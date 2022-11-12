@@ -17,6 +17,7 @@ public class HitState : CharacterController.BaseState
     public override void OnEnterState()
     {
         IsHit = true;
+        Player.Instance.rigidBody.velocity = Vector3.zero;
         Player.Instance.animator.SetTrigger(hitAnimation);
         timer = 0;
     }

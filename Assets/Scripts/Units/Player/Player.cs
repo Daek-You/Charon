@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, IHittable
     public Transform effectGenerator;
 
     public GameObject hitBox;
-    
+
 
     [SerializeField]
     private Transform rightHand;
@@ -91,7 +91,11 @@ public class Player : MonoBehaviour, IHittable
 
             if (enemy.stateMachine.CurrentState == enemy.stateMachine.GetState(StateName.ENEMY_DIE) || hitState.IsHit)
                 return;
-            enemy?.Damaged(weaponManager.Weapon.AttackDamage);
+
+            ChargingState chargingState = stateMachine.GetState(StateName.CHARGING) as ChargingState;
+            var multiplier = weaponManager.Weapon.MultiplierDamage;
+
+            enemy?.Damaged(weaponManager.Weapon.AttackDamage * chargingState.ChargingGauge * multiplier);
         }
     }
 
@@ -129,6 +133,7 @@ public class Player : MonoBehaviour, IHittable
         if(Mathf.Approximately(currentHP, 0))
         {
             animator.SetTrigger("Die");
+            rigidBody.velocity = Vector3.zero;
             IsDied = true;
             return;
         }

@@ -9,7 +9,7 @@ public class TeleportToStage : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Sondol"))
         {
-            FadeInOutController.Instance.FadeOutAndLoadScene("Stage1Scene", StageType.Stage11);
+            FadeInOutController.Instance.FadeOutAndLoadScene("Stage1Scene_DaekYou", StageType.Stage11);
         }
             //UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
     }

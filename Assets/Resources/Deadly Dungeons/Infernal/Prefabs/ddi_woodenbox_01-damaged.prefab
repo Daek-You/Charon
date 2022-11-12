@@ -11,13 +11,12 @@ GameObject:
   - component: {fileID: 8445393146998913906}
   - component: {fileID: 6567865370939687588}
   - component: {fileID: 3267484743566901455}
-  - component: {fileID: 8760711012440387372}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ddi_box_lid_dmg-03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8445393146998913906
 Transform:
@@ -29,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0.008542679, y: 0.67975587, z: 0.7331574, w: 0.018421488}
   m_LocalPosition: {x: -0.35666794, y: 0.92244583, z: -0.19752914}
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7231853243361398973}
   m_RootOrder: 3
@@ -52,10 +52,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,20 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &8760711012440387372
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568255112735732538}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1539912334545985956, guid: 682d05cf2af3d2d45adb2d90577061f0, type: 3}
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &722414448959435547
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,13 +94,12 @@ GameObject:
   - component: {fileID: 748356229151402324}
   - component: {fileID: 6010468208535437491}
   - component: {fileID: 6358303291153058402}
-  - component: {fileID: 1230548964977619202}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ddi_box_lid_dmg-05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &748356229151402324
 Transform:
@@ -123,6 +111,7 @@ Transform:
   m_LocalRotation: {x: 0.015635, y: 0.7071164, z: 0.7066536, w: 0.01956}
   m_LocalPosition: {x: -0.52093387, y: 0.94144356, z: 0.27236706}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7231853243361398973}
   m_RootOrder: 5
@@ -146,10 +135,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -174,20 +165,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &1230548964977619202
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722414448959435547}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4695081864077838383, guid: 682d05cf2af3d2d45adb2d90577061f0, type: 3}
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &747414922471510464
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,13 +177,12 @@ GameObject:
   - component: {fileID: 793749872367226858}
   - component: {fileID: 4268018772381450256}
   - component: {fileID: 8707777504048942845}
-  - component: {fileID: 8623469152244520141}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ddi_box_base_broken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &793749872367226858
 Transform:
@@ -217,6 +194,7 @@ Transform:
   m_LocalRotation: {x: 8.659561e-17, y: 0.7071068, z: 0.7071068, w: -8.7157646e-33}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7231853243361398973}
   m_RootOrder: 0
@@ -240,10 +218,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -268,20 +248,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &8623469152244520141
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747414922471510464}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -8253119933092188956, guid: dbc6f2499abd91c4db1033a62a0291f6, type: 3}
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3591694029899746464
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,13 +260,12 @@ GameObject:
   - component: {fileID: 7326699103618476861}
   - component: {fileID: 7698390240550135655}
   - component: {fileID: 3759228307352169691}
-  - component: {fileID: 186457127300983048}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ddi_box_lid_dmg-01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7326699103618476861
 Transform:
@@ -311,6 +277,7 @@ Transform:
   m_LocalRotation: {x: -0.00778499, y: 0.72047234, z: 0.6932946, w: -0.014199832}
   m_LocalPosition: {x: 0.4470059, y: 0.92302483, z: -0.15861273}
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7231853243361398973}
   m_RootOrder: 1
@@ -334,10 +301,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -362,20 +331,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &186457127300983048
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3591694029899746464}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7155167815020112765, guid: 682d05cf2af3d2d45adb2d90577061f0, type: 3}
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4644692382627585052
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,13 +343,12 @@ GameObject:
   - component: {fileID: 5689848013631151688}
   - component: {fileID: 8267843906593596637}
   - component: {fileID: 8392994850961472427}
-  - component: {fileID: 2672200617662734525}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ddi_box_lid_dmg-02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5689848013631151688
 Transform:
@@ -405,6 +360,7 @@ Transform:
   m_LocalRotation: {x: 0.003627335, y: 0.6834626, z: 0.7297419, w: 0.018507747}
   m_LocalPosition: {x: 0.008583507, y: 0.92506355, z: 0.19732738}
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7231853243361398973}
   m_RootOrder: 2
@@ -428,10 +384,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -456,20 +414,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &2672200617662734525
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4644692382627585052}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5059103297892848978, guid: 682d05cf2af3d2d45adb2d90577061f0, type: 3}
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4769407662382949174
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,13 +426,12 @@ GameObject:
   - component: {fileID: 8849654697774746290}
   - component: {fileID: 3235870926475128980}
   - component: {fileID: 773554213999019802}
-  - component: {fileID: 4805228636837318538}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ddi_box_lid_dmg-part02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8849654697774746290
 Transform:
@@ -499,6 +443,7 @@ Transform:
   m_LocalRotation: {x: 8.656372e-17, y: 0.7260322, z: 0.6876607, w: -2.349577e-18}
   m_LocalPosition: {x: 0.0005659197, y: 0.90147114, z: 0.53355795}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7231853243361398973}
   m_RootOrder: 7
@@ -522,10 +467,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -550,20 +497,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4805228636837318538
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4769407662382949174}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1984567226056208695, guid: 682d05cf2af3d2d45adb2d90577061f0, type: 3}
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5679286036622496441
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,13 +509,12 @@ GameObject:
   - component: {fileID: 593823661762040958}
   - component: {fileID: 6138472482774208327}
   - component: {fileID: 4332002577085854910}
-  - component: {fileID: 7909125868884955423}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ddi_box_lid_dmg-04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &593823661762040958
 Transform:
@@ -593,6 +526,7 @@ Transform:
   m_LocalRotation: {x: 0.017776657, y: 0.69180995, z: 0.7214802, w: 0.0234398}
   m_LocalPosition: {x: 0.5273258, y: 0.9414919, z: 0.3220481}
   m_LocalScale: {x: 1, y: 1, z: 0.99999994}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7231853243361398973}
   m_RootOrder: 4
@@ -616,10 +550,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -644,20 +580,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &7909125868884955423
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5679286036622496441}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4550655462818888938, guid: 682d05cf2af3d2d45adb2d90577061f0, type: 3}
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7080335839148079867
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,13 +592,12 @@ GameObject:
   - component: {fileID: 6564953202707052733}
   - component: {fileID: 4902003567820645194}
   - component: {fileID: 2244395646256234768}
-  - component: {fileID: 7777238656766254161}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ddi_box_lid_dmg-part01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6564953202707052733
 Transform:
@@ -687,6 +609,7 @@ Transform:
   m_LocalRotation: {x: 8.659561e-17, y: 0.7071068, z: 0.7071068, w: -8.7157646e-33}
   m_LocalPosition: {x: 0.00017130151, y: 0.6848611, z: 0.48523146}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7231853243361398973}
   m_RootOrder: 6
@@ -710,10 +633,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -738,20 +663,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &7777238656766254161
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7080335839148079867}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 8616347944926018222, guid: 682d05cf2af3d2d45adb2d90577061f0, type: 3}
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8004977474941241863
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,12 +674,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7231853243361398973}
   - component: {fileID: 7193952057809532752}
-  m_Layer: 0
+  - component: {fileID: 6486892029126579167}
+  - component: {fileID: 311254907650178352}
+  m_Layer: 14
   m_Name: ddi_woodenbox_01-damaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7231853243361398973
 Transform:
@@ -778,7 +692,8 @@ Transform:
   m_GameObject: {fileID: 8004977474941241863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 793749872367226858}
   - {fileID: 7326699103618476861}
@@ -793,7 +708,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7193952057809532752
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -806,7 +721,33 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &6486892029126579167
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004977474941241863}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3906553, y: 0.9476538, z: 1}
+  m_Center: {x: -0.0040106773, y: 0.46219492, z: 2.5355612e-10}
+--- !u!114 &311254907650178352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004977474941241863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfe4d0c0eebb294da548e102ad93fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

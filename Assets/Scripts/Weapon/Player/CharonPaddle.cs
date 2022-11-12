@@ -38,6 +38,8 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
     public override void Attack(BaseState state)
     {
         ComboCount++;
+        MultiplierDamage = 1f;
+        VCam.Instance.SetImpulseOptions(gain: 0.25f, amplitude: 1f, frequency: 1, duration: 0.5f);
         Player.Instance.animator.SetFloat(hashAttackSpeedAnimation, attackSpeed);
         Player.Instance.animator.SetBool(hashIsAttackAnimation, true);
         Player.Instance.animator.SetInteger(hashAttackAnimation, ComboCount);
@@ -59,6 +61,8 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
 
     public override void DashAttack(BaseState state)
     {
+        MultiplierDamage = 1.5f;
+        VCam.Instance.SetImpulseOptions(gain: 0.75f, amplitude: 1f, frequency: 1, duration: 0.75f);
         Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 4;
 
         Player.Instance.animator.SetBool(hashDashAttackAnimation, true);
@@ -69,12 +73,16 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
 
     public override void ChargingAttack(BaseState state)
     {
+        MultiplierDamage = 1f;
+        VCam.Instance.SetImpulseOptions(gain: 0.5f, amplitude: 1f, frequency: 1, duration: 0.75f);
         Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 4;
         Player.Instance.animator.SetBool(hashCharingAttackAnimation, true);
     }
 
     public override void Skill(BaseState state)
     {
+        MultiplierDamage = 1f;
+        VCam.Instance.SetImpulseOptions(gain: 1.5f, amplitude: 1f, frequency: 2, duration: 3f);
         Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 7;
         Player.Instance.animator.SetBool(hashSkillAnimation, true);
         Reporter.Report();

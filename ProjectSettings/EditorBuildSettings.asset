@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SuYong/Stage1Scene.unity
     guid: f2958b0790a1a04449c181521931619f
+  - enabled: 1
+    path: Assets/Scenes/DaekYou_WorkSpace/Stage1Scene_DaekYou.unity
+    guid: def248a2763353c4eb2dc3d428ff3864
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

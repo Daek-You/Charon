@@ -29,9 +29,7 @@ public class EnemyHitState : CharacterController.BaseState
         enemy.agent.isStopped = true;
 
         Vector3 direction = (enemy.transform.position - Player.Instance.transform.position).normalized;
-
         var knockBackPower = Player.Instance.weaponManager.Weapon.KnockBackPower;
-
 
         enemy.rigidBody.AddForce(direction * knockBackPower, ForceMode.Impulse);
         renderer.material.color = Color.red;

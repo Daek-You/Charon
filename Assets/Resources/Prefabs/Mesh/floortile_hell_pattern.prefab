@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5537835408258962332}
   - component: {fileID: 3635268945540820265}
   - component: {fileID: 4811141983019082486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ddi_floortile_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4528673326210860987}
   - component: {fileID: 4211709694302484653}
   - component: {fileID: 1586430195882388081}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ddi_floortile_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 9080818883208105907}
   - component: {fileID: 6498397554081879575}
   - component: {fileID: 1990174158894029705}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ddi_floortile_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6376579731921477237}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -259,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8922533759292414066}
   - component: {fileID: 4434122069189373699}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: floortile_hell_pattern
   m_TagString: Untagged
   m_Icon: {fileID: 0}

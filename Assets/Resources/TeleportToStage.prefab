@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1674876487275603427}
   - component: {fileID: 1674876487275603424}
   - component: {fileID: 1674876487275603428}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TeleportToStage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

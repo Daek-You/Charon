@@ -46,14 +46,6 @@ public class FadeInOutController : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GameObject playerSpawnPosition = GameObject.Find("PlayerSpawnPosition");
-        Debug.Log(playerSpawnPosition);
-
-        if (playerSpawnPosition != null)
-        {
-            Player.Instance.gameObject.transform.position = playerSpawnPosition.transform.position;
-        }
-
         BGM_Manager.Instance.StopFadeOutBGM();
         BGM_Manager.Instance.ResetOriginalVolume();
 

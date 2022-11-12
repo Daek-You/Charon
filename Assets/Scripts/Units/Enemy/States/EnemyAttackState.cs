@@ -20,6 +20,7 @@ public class EnemyAttackState : CharacterController.BaseState
 
     public override void OnExitState()
     {
+        isAttack = false;
         enemy.Weapon?.StopAttack();
     }
 

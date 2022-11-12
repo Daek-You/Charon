@@ -9,6 +9,9 @@ public abstract class BaseWeapon : MonoBehaviour
     public int ComboCount { get; set; }
     public const float DEFAULT_KNOCKBACK_POWER = 3f;
     public float KnockBackPower { get; set; } = DEFAULT_KNOCKBACK_POWER;
+    public float MultiplierDamage { get; protected set; } = 1f;
+
+
     private int currentSkillGauge = 0;
     public int CurrentSkillGauge
     {

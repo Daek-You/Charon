@@ -7,6 +7,14 @@ using Unity.XR.Oculus.Input;
 
 public abstract class Enemy : MonoBehaviour, IHittable
 {
+    public enum SoundType
+    {
+        HIT = 300,
+        DIE,
+        
+    }
+
+
     public string Name { get { return _name; } }
     public float MaxHP { get { return maxHP; } }
     public float CurrentHP { get { return currentHP; } }
@@ -39,7 +47,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     public Rigidbody rigidBody { get; private set; }
     public StateMachine stateMachine { get; private set; }
     public AudioSource audioSource { get; private set; }
-    public AudioClip hitSound;
+    public Dictionary<SoundType, AudioClip> effectSounds { get; private set; }
 
     public SkinnedMeshRenderer skinnedMeshRenderer { get; private set; }
     public Material originMaterial { get; private set; }
@@ -72,6 +80,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        effectSounds = new Dictionary<SoundType, AudioClip>();
         originMaterial = skinnedMeshRenderer.material;
 
         agent.updateRotation = false;
@@ -99,6 +108,11 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
     public void Damaged(float damage)
     {
+        VCam.Instance.SetImpulseOptions(gain: 0.25f, amplitude: 1f, frequency: 1, duration: 0.5f);
+
+        if (stateMachine.CurrentState is EnemyAttackState)
+            weapon?.StopAttack();
+
         currentHP = Mathf.Clamp(currentHP - (damage - armor * 0.01f), 0, maxHP);
 
         if (Mathf.Approximately(currentHP, 0f))
@@ -106,12 +120,12 @@ public abstract class Enemy : MonoBehaviour, IHittable
             stateMachine.ChangeState(StateName.ENEMY_DIE);
             return;
         }
-        audioSource.PlayOneShot(hitSound);
+
+        audioSource.PlayOneShot(effectSounds[SoundType.HIT]);
         stateMachine.ChangeState(StateName.ENEMY_HIT);
 
         var skillGauge = Player.Instance.weaponManager.Weapon.CurrentSkillGauge;
         Player.Instance.weaponManager.Weapon.CurrentSkillGauge = Mathf.Clamp(++skillGauge, 0, BaseWeapon.MAX_SKILL_GAUGE);
-        Debug.Log(Player.Instance.weaponManager.Weapon.CurrentSkillGauge);
     }
 
     protected void CalculateAliveOrMoving()

@@ -8,7 +8,7 @@ namespace CharacterController
     public class ChargingState : BaseState
     {
         public bool IsCharging { get; set; }
-        public float ChargingGauge { get; private set; }
+        public float ChargingGauge { get; private set; } = 1f;
         public const float MAX_CHARGING_TIME = 3f;
         private float chargingTime;
 
@@ -27,7 +27,7 @@ namespace CharacterController
             }
 
             chargingTime = 0f;
-            ChargingGauge = 0f;
+            ChargingGauge = 1f;
         }
 
         public override void OnExitState()

@@ -970,7 +970,6 @@ MonoBehaviour:
   attackDelay: 1
   target: {fileID: 0}
   rotationSpeed: 15
-  hitSound: {fileID: 8300000, guid: fd46517bb80e9f142be1fe1e486c14b0, type: 3}
 --- !u!82 &443331432
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2486,9 +2485,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3102348437394901555}
     m_Modifications:
+    - target: {fileID: 100000, guid: e5d90c3f91a9b194881f6c07b72e5e3d, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: e5d90c3f91a9b194881f6c07b72e5e3d, type: 3}
       propertyPath: m_Name
       value: sword3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: e5d90c3f91a9b194881f6c07b72e5e3d, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e5d90c3f91a9b194881f6c07b72e5e3d, type: 3}
       propertyPath: m_RootOrder
