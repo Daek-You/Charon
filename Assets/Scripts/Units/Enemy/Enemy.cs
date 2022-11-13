@@ -49,7 +49,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     private Coroutine hitDelayCoroutine;
     public bool isAlived { get; private set; }
     public bool isMoving { get; private set; }
-
+    public bool IsBoss { get; protected set; } = false;
 
     #region# Unity Functions
     void Update()
@@ -73,6 +73,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
         audioSource = GetComponent<AudioSource>();
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         originMaterial = skinnedMeshRenderer.material;
+        target = Player.Instance.transform;
 
         agent.updateRotation = false;
         agent.isStopped = true;
@@ -107,11 +108,12 @@ public abstract class Enemy : MonoBehaviour, IHittable
             return;
         }
         audioSource.PlayOneShot(hitSound);
-        stateMachine.ChangeState(StateName.ENEMY_HIT);
+        
+        if (stateMachine.CurrentState != stateMachine.GetState(StateName.ENEMY_CHARGE))
+            stateMachine.ChangeState(StateName.ENEMY_HIT);
 
         var skillGauge = Player.Instance.weaponManager.Weapon.CurrentSkillGauge;
         Player.Instance.weaponManager.Weapon.CurrentSkillGauge = Mathf.Clamp(++skillGauge, 0, BaseWeapon.MAX_SKILL_GAUGE);
-        Debug.Log(Player.Instance.weaponManager.Weapon.CurrentSkillGauge);
     }
 
     protected void CalculateAliveOrMoving()

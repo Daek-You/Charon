@@ -20,9 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SuYong/LobbyScene.unity
     guid: bcd63702780b1ec43a365df14dcf12f8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SuYong/Stage1Scene.unity
     guid: f2958b0790a1a04449c181521931619f
+  - enabled: 1
+    path: Assets/Scenes/SuYong/StageTestScene.unity
+    guid: 59a061b6a5d6f884ea4dc40c2f763bda
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

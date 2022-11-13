@@ -47,7 +47,6 @@ public class FadeInOutController : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameObject playerSpawnPosition = GameObject.Find("PlayerSpawnPosition");
-        Debug.Log(playerSpawnPosition);
 
         if (playerSpawnPosition != null)
         {

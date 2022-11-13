@@ -47,6 +47,9 @@ public class BGM_Manager : MonoBehaviour
 
         clip = Resources.Load<AudioClip>(Path + "Sound_Bgm_Opening");
         BGM_list.Add(StageType.Opening, clip);
+
+        DataManager.Instance.LoadOptionData();
+        SetVolume((float)DataManager.Instance.OptData.BgmValue / 100);
     }
 
     public void Play(StageType BGM_Scene)
@@ -83,7 +86,7 @@ public class BGM_Manager : MonoBehaviour
 
     private IEnumerator ProcessFadeOutBGM()
     {
-        OriginalVolume = audioSource.volume;
+        // OriginalVolume = audioSource.volume;
 
         while (audioSource.volume > 0.15f)
         {
@@ -100,6 +103,7 @@ public class BGM_Manager : MonoBehaviour
     public void SetVolume(float value)
     {
         audioSource.volume = value;
+        OriginalVolume = audioSource.volume;
     }
 
     public void SetLoop(bool enable)

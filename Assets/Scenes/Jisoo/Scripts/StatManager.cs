@@ -13,14 +13,31 @@ public class StatManager : MonoBehaviour
     private Stat attackDamage;     //공겨력. 무기의 종류에 따라 달라짐.
     private Stat armor;            //방어력
     private Stat dashCount;        //대쉬 횟수
-
-
+    
     //다른 스크립트에서 참조할 현재 스탯
     public float currentMaxHP { get { return maxHP.currentValue; } }
     public float currentMoveSpeed { get { return moveSpeed.currentValue; } }
     public float currentAttackDamage { get { return attackDamage.currentValue; } }
     public float currentArmor { get { return armor.currentValue; } }
     public int currentDashCount { get { return (int)dashCount.currentValue; } }
+
+    public int CurHPLevel { get { return maxHP.currentReinforceLevel; } }
+    public int CurArmorLevel { get { return armor.currentReinforceLevel; } }
+    public int CurSpeedLevel { get { return moveSpeed.currentReinforceLevel; } }
+    public int CurDashLevel { get { return dashCount.currentReinforceLevel; } }
+
+    private int gold;
+    public int Gold
+    {
+        get { return gold; }
+        set
+        {
+            gold = value;
+            UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeGoods, this, gold);
+        }
+    }
+
+    QuestReporter[] reporters;
 
     //싱글톤 관련 구문.
     void Awake()
@@ -37,6 +54,7 @@ public class StatManager : MonoBehaviour
     void Start()
     {
         InitStatus();
+        reporters = GetComponents<QuestReporter>();
     }
     private void Update()
     {
@@ -47,11 +65,13 @@ public class StatManager : MonoBehaviour
     //초기 스탯 생성.
     public void InitStatus()
     {
-        maxHP = new Stat(StatType.MAX_HP, initValue: 1000, increasingAmount: 200, currentReinforceLevel: 0, maxReinforceLevel: 10);
-        moveSpeed = new Stat(StatType.MOVE_SPEED, initValue: 3, increasingAmount: 0.2f, currentReinforceLevel: 0, maxReinforceLevel: 10);
-        dashCount = new Stat(StatType.DASH_COUNT, initValue: 1, increasingAmount: 1, currentReinforceLevel: 0, maxReinforceLevel: 2);
+        maxHP = new Stat(StatType.MAX_HP, initValue: 1000, currentReinforceLevel: 0, maxReinforceLevel: 10);
+        moveSpeed = new Stat(StatType.MOVE_SPEED, initValue: 3, currentReinforceLevel: 0, maxReinforceLevel: 10);
+        dashCount = new Stat(StatType.DASH_COUNT, initValue: 1,  currentReinforceLevel: 0, maxReinforceLevel: 1);
         //attackDamage = new Stat(StatType.ATTACK_DAMAGE, initValue: 100, increasingAmount: 20, currentReinforceLevel: 0, maxReinforceLevel: 10);
-        armor = new Stat(StatType.ARMOR, initValue: 50, increasingAmount: 10f, currentReinforceLevel: 0, maxReinforceLevel: 10);
+        armor = new Stat(StatType.ARMOR, initValue: 50, currentReinforceLevel: 0, maxReinforceLevel: 10);
+
+        SetAllStatus();
     }
 
     //강화된 스탯을 현재 스탯에 적용시키는 함수.
@@ -60,20 +80,16 @@ public class StatManager : MonoBehaviour
         switch (statType)
         {
             case StatType.MAX_HP:
-                maxHP.currentValue = maxHP.initValue + maxHP.increasingAmount * maxHP.currentReinforceLevel;
-                Debug.Log(currentMaxHP);
+                maxHP.currentValue = maxHP.initValue + DataManager.MaxHpDict[maxHP.currentReinforceLevel].increasingAmount;
                 return;
             case StatType.MOVE_SPEED:
-                moveSpeed.currentValue = moveSpeed.initValue + moveSpeed.increasingAmount * moveSpeed.currentReinforceLevel;
-                Debug.Log(currentMoveSpeed);
+                moveSpeed.currentValue = moveSpeed.initValue + DataManager.MoveSpeedDict[moveSpeed.currentReinforceLevel].increasingAmount;
                 return;
             case StatType.DASH_COUNT:
-                dashCount.currentValue = dashCount.initValue + dashCount.increasingAmount * dashCount.currentReinforceLevel;
-                Debug.Log(currentDashCount);
+                dashCount.currentValue = dashCount.initValue + DataManager.DashCountDict[dashCount.currentReinforceLevel].increasingAmount;
                 return;
             case StatType.ARMOR:
-                armor.currentValue = armor.initValue + armor.increasingAmount * armor.currentReinforceLevel;
-                Debug.Log(currentArmor);
+                armor.currentValue = armor.initValue + DataManager.ArmorDict[armor.currentReinforceLevel].increasingAmount;
                 return;
             default:
                 Player.Instance.OnUpdateStat(currentMaxHP, currentMaxHP, currentArmor, currentMoveSpeed, currentDashCount); 
@@ -90,23 +106,39 @@ public class StatManager : MonoBehaviour
         {
             case StatType.MAX_HP:
                 if (maxHP.currentReinforceLevel < maxHP.maxReinforceLevel)
+                {
                     maxHP.currentReinforceLevel++;
-                SetStatus(statType);
+                    UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeUpgrade, this, statType);
+                    reporters[0].Report();
+                    SetStatus(statType);
+                }                
                 return;
             case StatType.ARMOR:
                 if (armor.currentReinforceLevel < armor.maxReinforceLevel)
+                {
                     armor.currentReinforceLevel++;
-                SetStatus(statType);
+                    UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeUpgrade, this, statType);
+                    reporters[2].Report();
+                    SetStatus(statType);
+                }
                 return;
             case StatType.MOVE_SPEED:
                 if (moveSpeed.currentReinforceLevel < moveSpeed.maxReinforceLevel)
+                {
                     moveSpeed.currentReinforceLevel++;
-                SetStatus(statType);
+                    UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeUpgrade, this, statType);
+                    reporters[3].Report();
+                    SetStatus(statType);
+                }
                 return;
             case StatType.DASH_COUNT:
                 if (dashCount.currentReinforceLevel < dashCount.maxReinforceLevel)
+                {
                     dashCount.currentReinforceLevel++;
-                SetStatus(statType);
+                    UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeUpgrade, this, statType);
+                    reporters[1].Report();
+                    SetStatus(statType);
+                }
                 return;
             case StatType.PADDLE_DAMAGE:
                 WeaponUpgradeFunction();
@@ -131,5 +163,52 @@ public class StatManager : MonoBehaviour
         float CurrentWeaponAttackRange = Player.Instance.weaponManager.Weapon.AttackRange;
 
         Player.Instance.weaponManager.Weapon.SetWeaponData(CurrentWeaponName, CurrentWeaponDamage, CurrentWeaponAttackSpeed, CurrentWeaponAttackRange);
+    }
+
+    public void SetReinforceLevel()
+    {
+        maxHP.currentReinforceLevel = 0;
+        armor.currentReinforceLevel = 0;
+        moveSpeed.currentReinforceLevel = 0;
+        dashCount.currentReinforceLevel = 0;
+
+        SetAllStatus();
+    }
+
+    public void SetReinforceLevel(GameData data)
+    {
+        if (data == null)
+        {
+            SetReinforceLevel();
+            return;
+        }
+
+        maxHP.currentReinforceLevel = data.CurrentHPReinforceLevel;
+        armor.currentReinforceLevel = data.CurrentArmorReinforceLevel;
+        moveSpeed.currentReinforceLevel = data.CurrentMoveSpeedReinforceLevel;
+        dashCount.currentReinforceLevel = data.CurrentDashCountReinforceLevel;
+
+        SetAllStatus();
+    }
+
+    public void SetAllStatus()
+    {
+        SetStatus(StatType.MAX_HP);
+        SetStatus(StatType.ARMOR);
+        SetStatus(StatType.MOVE_SPEED);
+        SetStatus(StatType.DASH_COUNT);
+    }
+
+    public List<StatType> GetStatList()
+    {
+        List<StatType> list = new List<StatType>();
+        // 현재 무기 기준으로 추가해야 함
+        list.Add(StatType.PADDLE_DAMAGE);
+        list.Add(StatType.MAX_HP);
+        list.Add(StatType.ARMOR);
+        list.Add(StatType.MOVE_SPEED);
+        list.Add(StatType.DASH_COUNT);
+
+        return list;
     }
 }

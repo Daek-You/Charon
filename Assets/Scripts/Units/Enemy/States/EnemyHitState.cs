@@ -59,7 +59,10 @@ public class EnemyHitState : CharacterController.BaseState
 
         else if (timer >= Enemy.HIT_TIME)
         {
-            enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_MOVE);
+            if (enemy.IsBoss)
+                enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_CHARGE);
+            else
+                enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_MOVE);
         }
     }
 }

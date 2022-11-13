@@ -23,7 +23,8 @@ public class UI_EventHandler
         ChangeSE,
         ShowUI,
         HideUI,
-        DieEnemy
+        DieEnemy,
+        ChangeUpgrade
     }
 
     public Action<UIEventType, Component, object> OnUIEvent = null;

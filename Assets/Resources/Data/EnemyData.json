@@ -3,7 +3,7 @@
     {
       "mstage": "Stage1",
       "sstage": "Stage11",
-      "type": "Char_private_K",
+      "type": "Char_Jinkwang",
       "position": [ "-8", "0.5f", "-1" ]
     },
     {
@@ -99,7 +99,7 @@
     {
       "mstage": "Stage1",
       "sstage": "Stage15",
-      "type": "Char_private_K",
+      "type": "Char_Jinkwang",
       "position": [ "58.5f", "9", "70.5f" ]
     }
   ]

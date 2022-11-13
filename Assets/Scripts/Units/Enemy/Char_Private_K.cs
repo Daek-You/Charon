@@ -14,6 +14,5 @@ public class Char_Private_K : Enemy
     void Start()
     {
         InitSettings();
-        target = GameObject.Find("Sondol").transform;
     }
 }

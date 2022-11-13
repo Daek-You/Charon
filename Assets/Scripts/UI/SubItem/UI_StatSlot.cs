@@ -16,14 +16,12 @@ public class UI_StatSlot : UI_Base
         TxtUpgradeCount
     }
 
-    private void Awake()
+    private StatType type;
+    public StatType Type { get { return type; } set { type = value; } }
+
+    private void Start()
     {
         Init();
-    }
-
-    void OnEnable()
-    {
-        // 각 스탯에 대한 초기화를 여기서 해 줄 것
     }
 
     public override void Init()
@@ -31,7 +29,52 @@ public class UI_StatSlot : UI_Base
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(Texts));
 
-        // 열린 상태에서 강화 수치가 변할 경우 이벤트를 실행하도록 추가
-        // 각 스탯별로 이벤트를 추가 -> 이벤트 개수가 많아짐 (이 쪽이 그나마 나은 거 같음)
+        UIManager.EventHandler.AddListener(UI_EventHandler.UIEventType.ChangeUpgrade, OnCheckUpgrade);
+
+        switch (type)
+        {
+            case StatType.MAX_HP:
+                GetImage((int)Images.ImgStat).sprite = Resources.Load<Sprite>("StatIcon/maxHp");
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurHPLevel}";
+                break;
+            case StatType.ARMOR:
+                GetImage((int)Images.ImgStat).sprite = Resources.Load<Sprite>("StatIcon/armor");
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurArmorLevel}";
+                break;
+            case StatType.MOVE_SPEED:
+                GetImage((int)Images.ImgStat).sprite = Resources.Load<Sprite>("StatIcon/moveSpeed");
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurSpeedLevel}";
+                break;
+            case StatType.DASH_COUNT:
+                GetImage((int)Images.ImgStat).sprite = Resources.Load<Sprite>("StatIcon/dashCount");
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurDashLevel}";
+                break;
+            case StatType.PADDLE_DAMAGE:
+                break;
+        }
+    }
+
+    public void OnCheckUpgrade(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
+    {
+        if (!type.Equals((StatType)param))
+            return;
+
+        switch (type)
+        {
+            case StatType.MAX_HP:
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurHPLevel}";
+                break;
+            case StatType.ARMOR:
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurArmorLevel}";
+                break;
+            case StatType.MOVE_SPEED:
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurSpeedLevel}";
+                break;
+            case StatType.DASH_COUNT:
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurDashLevel}";
+                break;
+            case StatType.PADDLE_DAMAGE:
+                break;
+        }
     }
 }

@@ -19,8 +19,6 @@ public class Stage1Scene : BaseScene
 
         if (StageManager.Instance.CurrentStage == StageType.Lobby)
         {
-            Player.Instance.transform.position = new Vector3(0, 0, 0);
-
             StageManager.Instance.CurrentStage = StageType.Stage11;
             StageManager.Instance.SetStage();
 
@@ -35,6 +33,8 @@ public class Stage1Scene : BaseScene
         Player.Instance.weaponManager.RegisterWeapon(weapon);
         Player.Instance.weaponManager.SetWeapon(weapon);
 
+        StatManager.Instance.SetReinforceLevel(saveData);
+        StatManager.Instance.Gold = saveData.Gold;
         Player.Instance.LoadCurrentHp(saveData.CurrentHP);
         Player.Instance.weaponManager.Weapon.CurrentSkillGauge = saveData.CurrentST;
 

@@ -56,6 +56,9 @@ public class UI_InGame : UI_Scene
 
         Slider stBar = GetObject((int)GameObjects.SliST).GetComponent<Slider>();
         stBar.value = Player.Instance.weaponManager.Weapon.InitStBar();
+
+        GetText((int)Texts.TxtGoods).text = StatManager.Instance.Gold.ToString();
+        GetImage((int)Images.ImgGoods).GetComponent<RectTransform>().anchoredPosition = new Vector3(-80 - (GetText((int)Texts.TxtGoods).text.Length * 25), 56, 0);
     }
 
     public void OnChangeHP(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
@@ -73,5 +76,6 @@ public class UI_InGame : UI_Scene
     public void OnChangeGoods(UI_EventHandler.UIEventType eventType, Component sender, object param = null)
     {
         Get<TextMeshProUGUI>((int)Texts.TxtGoods).text = $"{param}";
+        GetImage((int)Images.ImgGoods).GetComponent<RectTransform>().anchoredPosition = new Vector3(-60 - (GetText((int)Texts.TxtGoods).text.Length * 30), 56, 0);
     }
 }
