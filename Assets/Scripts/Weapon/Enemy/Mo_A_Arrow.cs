@@ -7,7 +7,7 @@ public class Mo_A_Arrow : MonoBehaviour
 {
     public Enemy owner;
     public Rigidbody rigidBody;
-    public const float MAX_DISTANCE = 35f;
+    public const float MAX_DISTANCE = 15f;
     private Coroutine meterCalculatedCoroutine;
     private Char_Private_A_Weapon weapon;
 

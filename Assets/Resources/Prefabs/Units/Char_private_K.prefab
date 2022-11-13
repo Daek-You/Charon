@@ -967,9 +967,9 @@ MonoBehaviour:
   moveSpeed: 300
   armor: 10
   weapon: {fileID: 1070696982}
-  attackDelay: 1
+  attackDelay: 1.5
   detectRange: 3.4028235e+38
-  attackRange: 1
+  attackRange: 1.5
   rotationSpeed: 15
 --- !u!82 &443331432
 AudioSource:

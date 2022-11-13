@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 256912402}
   - component: {fileID: 256912403}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 541460828}
   - component: {fileID: 541460829}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collider (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,8 +88,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0650053, y: 1, z: 0.9999985}
-  m_Center: {x: -0.37028417, y: 0, z: 0.0000000021937225}
+  m_Size: {x: 1.1313807, y: 1, z: 0.9999985}
+  m_Center: {x: -0.35279515, y: 0, z: 0.0000000025980995}
 --- !u!1 &625323147
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 625323148}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 732758838}
   - component: {fileID: 732758839}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 895051691}
   - component: {fileID: 895051692}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1277635084}
   - component: {fileID: 1277635085}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collider (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1333705129}
   - component: {fileID: 1333705130}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collider (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,8 +306,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2308664, y: 1, z: 0.9999985}
-  m_Center: {x: 0.49939033, y: 0, z: -0.0000000045862336}
+  m_Size: {x: 1.3673979, y: 1, z: 0.94672227}
+  m_Center: {x: 0.36055622, y: 0, z: 0.026637623}
 --- !u!1 &1483865888
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1483865889}
   - component: {fileID: 1483865890}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collider (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

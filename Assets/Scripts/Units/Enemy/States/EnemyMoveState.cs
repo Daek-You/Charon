@@ -36,8 +36,6 @@ public class EnemyMoveState : CharacterController.BaseState
 
     public override void OnUpdateState()
     {
-        LookAtMovingDirection();
-
         if (enemy.agent.enabled)
         {
             if (enemy.IsDetected)
@@ -50,12 +48,15 @@ public class EnemyMoveState : CharacterController.BaseState
                 enemy.animator.SetFloat(moveSpeedAnimation, moveAnimationSpeed);
                 enemy.animator.SetBool(moveAnimation, true);
                 enemy.agent.SetDestination(enemy.Target.position);
+                LookAtMovingDirection();
                 return;
             }
 
             if (enemy.IsAlived || enemy.IsWithinAttackRange)
             {
-                enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_ATTACK);
+                if(enemy.isCooltimeDone)
+                    enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_ATTACK);
+                enemy.animator.SetBool(moveAnimation, false);
             }
         }
     }

@@ -40,13 +40,15 @@ public class Char_Private_A_Weapon : EnemyWeapon
             GameObject myArrow = arrowPool.Dequeue();
             myArrow.transform.SetParent(null);
 
-            Vector3 direction = (Player.Instance.transform.position - owner.transform.position).normalized;
+            EnemyAttackState state = owner.stateMachine.GetState(CharacterController.StateName.ENEMY_ATTACK) as EnemyAttackState;
+            Quaternion targetAngle = state.targetAngle;
+
             myArrow.transform.position = arrowCreatePosition.position;
-            myArrow.transform.rotation = Quaternion.LookRotation(direction);
+            myArrow.transform.rotation = targetAngle;
             myArrow.SetActive(true);
 
             Mo_A_Arrow arrowScript = myArrow.GetComponent<Mo_A_Arrow>();
-            arrowScript.rigidBody.velocity = direction * arrowMoveSpeed;
+            arrowScript.rigidBody.velocity = myArrow.transform.forward * arrowMoveSpeed;
             arrowScript.StartCalculatingMeter();
         }
     }

@@ -22,7 +22,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     public EnemyWeapon Weapon { get { return weapon; } }
     public float RotationSpeed { get { return rotationSpeed; } }
     public float AttackDelay { get { return attackDelay; } }
-
+    public float AttackRange { get { return attackRange; } }
 
     #region #¸ó½ºÅÍ ½ºÅÈ
     [Header("¸ó½ºÅÍ ½ºÅÈ")]
@@ -60,7 +60,8 @@ public abstract class Enemy : MonoBehaviour, IHittable
     public bool IsMoving        { get; private set; }
     public bool IsDetected      { get; private set; }
     public bool IsWithinAttackRange   { get; private set; }
-
+    public bool isCooltimeDone { get; set; } = true;
+    
 
     #region# Unity Functions
     void Update()
@@ -162,6 +163,8 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
     public void CheckAttackDelay()
     {
+        weapon.StopAttack();
+
         if (attackDelayCoroutine != null)
             StopCoroutine(attackDelayCoroutine);
         attackDelayCoroutine = StartCoroutine(AttackDelayCoroutine());
@@ -170,6 +173,8 @@ public abstract class Enemy : MonoBehaviour, IHittable
     private IEnumerator AttackDelayCoroutine()
     {
         float timer = 0f;
+        stateMachine.ChangeState(StateName.ENEMY_MOVE);
+        isCooltimeDone = false;
 
         while (true)
         {
@@ -178,7 +183,9 @@ public abstract class Enemy : MonoBehaviour, IHittable
             if (timer >= attackDelay)
             {
                 EnemyAttackState attackState = stateMachine.GetState(StateName.ENEMY_ATTACK) as EnemyAttackState;
+                isCooltimeDone = true;
                 attackState.isAttack = false;
+                attackState.isCheckedPlayerPosition = false;
                 break;
             }
 
