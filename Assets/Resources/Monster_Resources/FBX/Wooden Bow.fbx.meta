@@ -1,76 +1,211 @@
 fileFormatVersion: 2
 guid: 0be2ba322dd85494db39a44ee439af41
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: WB.down.bone
-    100002: WB.down.bone.001
-    100004: WB.down.bone.002
-    100006: WB.down.bone.003
-    100008: WB.down.bone.004
-    100010: WB.down.bone.005
-    100012: WB.down.bone.005_end
-    100014: WB.down.horn
-    100016: WB.down.horn_end
-    100018: WB.down.ik
-    100020: WB.down.ik_end
-    100022: WB.down.shoulder
-    100024: WB.main
-    100026: WB.string
-    100028: WB.string_end
-    100030: WB.top.bone
-    100032: WB.top.bone.001
-    100034: WB.top.bone.002
-    100036: WB.top.bone.003
-    100038: WB.top.bone.004
-    100040: WB.top.bone.005
-    100042: WB.top.bone.005_end
-    100044: WB.top.horn
-    100046: WB.top.horn_end
-    100048: WB.top.ik
-    100050: WB.top.ik_end
-    100052: WB.top.shoulder
-    100054: //RootNode
-    100056: Wooden Bow_1
-    100058: wooden bow_1
-    400000: WB.down.bone
-    400002: WB.down.bone.001
-    400004: WB.down.bone.002
-    400006: WB.down.bone.003
-    400008: WB.down.bone.004
-    400010: WB.down.bone.005
-    400012: WB.down.bone.005_end
-    400014: WB.down.horn
-    400016: WB.down.horn_end
-    400018: WB.down.ik
-    400020: WB.down.ik_end
-    400022: WB.down.shoulder
-    400024: WB.main
-    400026: WB.string
-    400028: WB.string_end
-    400030: WB.top.bone
-    400032: WB.top.bone.001
-    400034: WB.top.bone.002
-    400036: WB.top.bone.003
-    400038: WB.top.bone.004
-    400040: WB.top.bone.005
-    400042: WB.top.bone.005_end
-    400044: WB.top.horn
-    400046: WB.top.horn_end
-    400048: WB.top.ik
-    400050: WB.top.ik_end
-    400052: WB.top.shoulder
-    400054: //RootNode
-    400056: Wooden Bow_1
-    400058: wooden bow_1
-    2100000: Wooden Bow_1
-    4300000: wooden bow_1
-    7400000: Wooden Bow_1|Armature.001Action.003
-    9500000: //RootNode
-    13700000: wooden bow_1
-  externalObjects: {}
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: WB.down.bone
+  - first:
+      1: 100002
+    second: WB.down.bone.001
+  - first:
+      1: 100004
+    second: WB.down.bone.002
+  - first:
+      1: 100006
+    second: WB.down.bone.003
+  - first:
+      1: 100008
+    second: WB.down.bone.004
+  - first:
+      1: 100010
+    second: WB.down.bone.005
+  - first:
+      1: 100012
+    second: WB.down.bone.005_end
+  - first:
+      1: 100014
+    second: WB.down.horn
+  - first:
+      1: 100016
+    second: WB.down.horn_end
+  - first:
+      1: 100018
+    second: WB.down.ik
+  - first:
+      1: 100020
+    second: WB.down.ik_end
+  - first:
+      1: 100022
+    second: WB.down.shoulder
+  - first:
+      1: 100024
+    second: WB.main
+  - first:
+      1: 100026
+    second: WB.string
+  - first:
+      1: 100028
+    second: WB.string_end
+  - first:
+      1: 100030
+    second: WB.top.bone
+  - first:
+      1: 100032
+    second: WB.top.bone.001
+  - first:
+      1: 100034
+    second: WB.top.bone.002
+  - first:
+      1: 100036
+    second: WB.top.bone.003
+  - first:
+      1: 100038
+    second: WB.top.bone.004
+  - first:
+      1: 100040
+    second: WB.top.bone.005
+  - first:
+      1: 100042
+    second: WB.top.bone.005_end
+  - first:
+      1: 100044
+    second: WB.top.horn
+  - first:
+      1: 100046
+    second: WB.top.horn_end
+  - first:
+      1: 100048
+    second: WB.top.ik
+  - first:
+      1: 100050
+    second: WB.top.ik_end
+  - first:
+      1: 100052
+    second: WB.top.shoulder
+  - first:
+      1: 100054
+    second: //RootNode
+  - first:
+      1: 100056
+    second: Wooden Bow_1
+  - first:
+      1: 100058
+    second: wooden bow_1
+  - first:
+      4: 400000
+    second: WB.down.bone
+  - first:
+      4: 400002
+    second: WB.down.bone.001
+  - first:
+      4: 400004
+    second: WB.down.bone.002
+  - first:
+      4: 400006
+    second: WB.down.bone.003
+  - first:
+      4: 400008
+    second: WB.down.bone.004
+  - first:
+      4: 400010
+    second: WB.down.bone.005
+  - first:
+      4: 400012
+    second: WB.down.bone.005_end
+  - first:
+      4: 400014
+    second: WB.down.horn
+  - first:
+      4: 400016
+    second: WB.down.horn_end
+  - first:
+      4: 400018
+    second: WB.down.ik
+  - first:
+      4: 400020
+    second: WB.down.ik_end
+  - first:
+      4: 400022
+    second: WB.down.shoulder
+  - first:
+      4: 400024
+    second: WB.main
+  - first:
+      4: 400026
+    second: WB.string
+  - first:
+      4: 400028
+    second: WB.string_end
+  - first:
+      4: 400030
+    second: WB.top.bone
+  - first:
+      4: 400032
+    second: WB.top.bone.001
+  - first:
+      4: 400034
+    second: WB.top.bone.002
+  - first:
+      4: 400036
+    second: WB.top.bone.003
+  - first:
+      4: 400038
+    second: WB.top.bone.004
+  - first:
+      4: 400040
+    second: WB.top.bone.005
+  - first:
+      4: 400042
+    second: WB.top.bone.005_end
+  - first:
+      4: 400044
+    second: WB.top.horn
+  - first:
+      4: 400046
+    second: WB.top.horn_end
+  - first:
+      4: 400048
+    second: WB.top.ik
+  - first:
+      4: 400050
+    second: WB.top.ik_end
+  - first:
+      4: 400052
+    second: WB.top.shoulder
+  - first:
+      4: 400054
+    second: //RootNode
+  - first:
+      4: 400056
+    second: Wooden Bow_1
+  - first:
+      4: 400058
+    second: wooden bow_1
+  - first:
+      21: 2100000
+    second: Wooden Bow_1
+  - first:
+      43: 4300000
+    second: wooden bow_1
+  - first:
+      74: 7400000
+    second: Wooden Bow_1|Armature.001Action.003
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: wooden bow_1
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wooden Bow_1
+    second: {fileID: 2100000, guid: 06595812bc7dd2e46a5b1e76761a2ea9, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -79,6 +214,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -102,34 +238,47 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -139,14 +288,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

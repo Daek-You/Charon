@@ -7,13 +7,14 @@ public class Char_Private_K : Enemy
     void OnEnable()
     {
         currentHP = maxHP;
+        //skinnedMeshRenderer.material.color = originMaterial.color;
         stateMachine?.ChangeState(CharacterController.StateName.ENEMY_MOVE);
     }
 
     void Start()
     {
         InitSettings();
-        target = Player.Instance.transform;
+        Target = Player.Instance.transform;
 
         if (effectSounds.ContainsKey(SoundType.DIE) || effectSounds.ContainsKey(SoundType.HIT))
             return;

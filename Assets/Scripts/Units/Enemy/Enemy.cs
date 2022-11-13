@@ -14,7 +14,6 @@ public abstract class Enemy : MonoBehaviour, IHittable
         
     }
 
-
     public string Name { get { return _name; } }
     public float MaxHP { get { return maxHP; } }
     public float CurrentHP { get { return currentHP; } }
@@ -22,7 +21,6 @@ public abstract class Enemy : MonoBehaviour, IHittable
     public float Armor { get { return armor; } }
     public EnemyWeapon Weapon { get { return weapon; } }
     public float RotationSpeed { get { return rotationSpeed; } }
-    public Transform Target { get { return target; } }
     public float AttackDelay { get { return attackDelay; } }
 
 
@@ -36,32 +34,38 @@ public abstract class Enemy : MonoBehaviour, IHittable
     [SerializeField] protected EnemyWeapon weapon;
     [SerializeField] protected float attackDelay;
 
+    [SerializeField, Tooltip("적을 탐지하는 거리입니다."), Range(0.0f, float.PositiveInfinity)]
+    protected float detectRange;
+    [SerializeField, Tooltip("공격 사거리입니다.")]
+    protected float attackRange;
+
     [Header("옵션")]
-    [SerializeField] protected Transform target;
     [SerializeField] protected float rotationSpeed;   // 15f가 적당
     #endregion
 
     public const float HIT_TIME = 0.75f;
+    public Transform Target { get; protected set; }
     public NavMeshAgent agent { get; private set; }
     public Animator animator { get; private set; }
     public Rigidbody rigidBody { get; private set; }
     public StateMachine stateMachine { get; private set; }
     public AudioSource audioSource { get; private set; }
     public Dictionary<SoundType, AudioClip> effectSounds { get; private set; }
-
-    public SkinnedMeshRenderer skinnedMeshRenderer { get; private set; }
-    public Material originMaterial { get; private set; }
-
+    public SkinnedMeshRenderer[] skinnedMeshRenderers { get; private set; }
+    public List<Color> originColors { get; private set; } = new List<Color>();
 
     private Coroutine attackDelayCoroutine;
-    private Coroutine hitDelayCoroutine;
-    public bool isAlived { get; private set; }
-    public bool isMoving { get; private set; }
+
+    public bool IsAlived        { get; private set; }
+    public bool IsMoving        { get; private set; }
+    public bool IsDetected      { get; private set; }
+    public bool IsWithinAttackRange   { get; private set; }
 
 
     #region# Unity Functions
     void Update()
     {
+        agent.stoppingDistance = attackRange;
         CalculateAliveOrMoving();
         stateMachine?.UpdateState();
     }
@@ -79,9 +83,13 @@ public abstract class Enemy : MonoBehaviour, IHittable
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
-        skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         effectSounds = new Dictionary<SoundType, AudioClip>();
-        originMaterial = skinnedMeshRenderer.material;
+        skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        for(int i = 0; i < skinnedMeshRenderers.Length; i++)
+        {
+            originColors.Add(skinnedMeshRenderers[i].material.color);
+        }
 
         agent.updateRotation = false;
         agent.isStopped = true;
@@ -90,8 +98,8 @@ public abstract class Enemy : MonoBehaviour, IHittable
         stateMachine.AddState(StateName.ENEMY_ATTACK, new EnemyAttackState(this));
         stateMachine.AddState(StateName.ENEMY_HIT, new EnemyHitState(this));
         stateMachine.AddState(StateName.ENEMY_DIE, new EnemyDieState(this));
+        agent.stoppingDistance = attackRange;
     }
-
 
     public void SetStats(float maxHP, float currentHP, float moveSpeed, float armor)
     {
@@ -132,8 +140,23 @@ public abstract class Enemy : MonoBehaviour, IHittable
     {
         if (agent.enabled)
         {
-            isAlived = agent.velocity.sqrMagnitude >= 0.1f * 0.1f && agent.remainingDistance <= agent.stoppingDistance + 0.1f;
-            isMoving = agent.desiredVelocity.sqrMagnitude >= 0.1f * 0.1f;
+            IsAlived = agent.velocity.sqrMagnitude >= 0.1f * 0.1f && agent.remainingDistance <= agent.stoppingDistance + 0.1f;
+            IsMoving = agent.desiredVelocity.sqrMagnitude >= 0.1f * 0.1f;
+
+            var rangeDiffernce = Mathf.Abs(detectRange - attackRange);
+            var distance = Vector3.Distance(Target.position, this.transform.position);
+
+            IsWithinAttackRange = (distance <= attackRange);
+            IsDetected = (distance <= detectRange && !IsWithinAttackRange);
+        }
+    }
+
+    public void LookAt(Vector3 direction)
+    {
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetAngle = Quaternion.LookRotation(direction);
+            transform.rotation = targetAngle;
         }
     }
 

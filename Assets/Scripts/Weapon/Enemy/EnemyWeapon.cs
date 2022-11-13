@@ -13,7 +13,7 @@ public abstract class EnemyWeapon : MonoBehaviour
     public abstract void Attack();
     public abstract void StopAttack();
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Sondol"))
         {

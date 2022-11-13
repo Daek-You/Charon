@@ -16,7 +16,11 @@ public class EnemyDieState : CharacterController.BaseState
     
     public override void OnEnterState()
     {
-        enemy.skinnedMeshRenderer.material.color = Color.black;
+        for(int i =0; i< enemy.skinnedMeshRenderers.Length; i++)
+        {
+            enemy.skinnedMeshRenderers[i].material.color = Color.black;
+        }
+
         enemy.animator.SetTrigger(dieAnimation);
         enemy.audioSource.PlayOneShot(enemy.effectSounds[Enemy.SoundType.DIE]);
         timer = 0f;
@@ -25,7 +29,10 @@ public class EnemyDieState : CharacterController.BaseState
 
     public override void OnExitState()
     {
-        enemy.skinnedMeshRenderer.material.color = enemy.originMaterial.color;
+        for (int i = 0; i < enemy.skinnedMeshRenderers.Length; i++)
+        {
+            enemy.skinnedMeshRenderers[i].material.color = enemy.originColors[i];
+        }
     }
 
     public override void OnFixedUpdateState()

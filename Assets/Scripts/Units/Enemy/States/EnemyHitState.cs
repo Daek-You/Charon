@@ -8,16 +8,12 @@ public class EnemyHitState : CharacterController.BaseState
 {
     public bool IsHit { get; set; }
     private readonly int damagedAnimation = Animator.StringToHash("Damaged");
-    private SkinnedMeshRenderer renderer;
-    private Color originalColor;
     private Enemy enemy;
     private float timer;
 
     public EnemyHitState(Enemy enemy)
     {
         this.enemy = enemy;
-        renderer = enemy.GetComponentInChildren<SkinnedMeshRenderer>();
-        originalColor = renderer.material.color;
     }
 
     public override void OnEnterState()
@@ -32,12 +28,23 @@ public class EnemyHitState : CharacterController.BaseState
         var knockBackPower = Player.Instance.weaponManager.Weapon.KnockBackPower;
 
         enemy.rigidBody.AddForce(direction * knockBackPower, ForceMode.Impulse);
-        renderer.material.color = Color.red;
+
+        for(int i =0; i< enemy.skinnedMeshRenderers.Length; i++)
+        {
+            enemy.skinnedMeshRenderers[i].material.color = Color.red;
+        }
     }
 
     public override void OnExitState()
     {
-        renderer.material.color = originalColor;
+        enemy.rigidBody.isKinematic = true;
+        enemy.agent.isStopped = false;
+
+        for (int i = 0; i < enemy.skinnedMeshRenderers.Length; i++)
+        {
+            enemy.skinnedMeshRenderers[i].material.color = enemy.originColors[i];
+        }
+
         enemy.rigidBody.velocity = Vector3.zero;
     }
 

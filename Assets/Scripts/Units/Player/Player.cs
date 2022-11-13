@@ -13,7 +13,8 @@ public class Player : MonoBehaviour, IHittable
     public Rigidbody rigidBody { get; private set; }
     public Animator animator { get; private set; }
     public CapsuleCollider capsuleCollider { get; private set; }
-
+    public SkinnedMeshRenderer skinnedMeshRenderer { get; private set; }
+    public Color originalMaterialColor { get; private set; }
     public AnimationEventHandler _AnimationEventHandler { get; private set; }
     public AudioSource audioSource { get; private set; }
 
@@ -65,6 +66,9 @@ public class Player : MonoBehaviour, IHittable
             capsuleCollider = GetComponent<CapsuleCollider>();
             _AnimationEventHandler = GetComponent<AnimationEventHandler>();
             audioSource = GetComponent<AudioSource>();
+            skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            originalMaterialColor = skinnedMeshRenderer.material.color;
+
             InitStateMachine();
             DontDestroyOnLoad(gameObject);
             return;
@@ -98,7 +102,6 @@ public class Player : MonoBehaviour, IHittable
             enemy?.Damaged(weaponManager.Weapon.AttackDamage * chargingState.ChargingGauge * multiplier);
         }
     }
-
     #endregion
 
     public void OnUpdateStat(float maxHP, float currentHP, float armor, float moveSpeed, int dashCount)

@@ -18,6 +18,7 @@ public class HitState : CharacterController.BaseState
     {
         IsHit = true;
         Player.Instance.rigidBody.velocity = Vector3.zero;
+        Player.Instance.skinnedMeshRenderer.material.color = Color.red;
         Player.Instance.animator.SetTrigger(hitAnimation);
         timer = 0;
     }
@@ -25,6 +26,7 @@ public class HitState : CharacterController.BaseState
     public override void OnExitState()
     {
         IsHit = false;
+        Player.Instance.skinnedMeshRenderer.material.color = Player.Instance.originalMaterialColor;
     }
 
     public override void OnFixedUpdateState()

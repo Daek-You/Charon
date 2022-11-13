@@ -20,7 +20,7 @@ TagManager:
   - EnemyWeapon
   - Interactable
   - Door
-  - Transparent
+  - EnvironmentObject
   - 
   - 
   - 

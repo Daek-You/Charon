@@ -8,7 +8,6 @@ public class AnimationEventHandler : MonoBehaviour
     public float CurrentCoolTime { get; private set; } = 0f;
     public Dictionary<string, IEffect> myWeaponEffects { get; private set; }
     public Dictionary<string, ISound> mySounds { get; private set; }
-    private Color originColor;                           /// 쿨타임 시각용 테스트 변수
     private DashState dashState;
     private DashAttackState dashAttackState;
     private ChargingAttackState chargingAttackState;
@@ -16,7 +15,6 @@ public class AnimationEventHandler : MonoBehaviour
     private SkillState skillState;
     
     private Coroutine dashCoolTimeCoroutine;
-    private SkinnedMeshRenderer skinnedMeshRenderer;     /// 쿨타임 시각용 테스트 변수
 
 
     #region #Unity Functions
@@ -33,8 +31,6 @@ public class AnimationEventHandler : MonoBehaviour
         attackState = Player.Instance.stateMachine.GetState(StateName.ATTACK) as AttackState;
         chargingAttackState = Player.Instance.stateMachine.GetState(StateName.CHARGING_ATTACK) as ChargingAttackState;
         skillState = Player.Instance.stateMachine.GetState(StateName.SKILL) as SkillState;
-        skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-        originColor = skinnedMeshRenderer.material.color;
     }
 
     public void OnParticleCollision(GameObject other)
@@ -199,7 +195,6 @@ public class AnimationEventHandler : MonoBehaviour
     private IEnumerator CheckDashReInputLimitTime(float limitTime)
     {
         float timer = 0f;
-        skinnedMeshRenderer.material.color = Color.red;
 
         while (true)
         {
@@ -209,7 +204,6 @@ public class AnimationEventHandler : MonoBehaviour
             {
                 dashState.IsDash = false;
                 dashState.CurrentDashCount = 0;
-                skinnedMeshRenderer.material.color = originColor;
                 Player.Instance.stateMachine.ChangeState(StateName.MOVE);
                 break;
             }

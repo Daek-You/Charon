@@ -15,6 +15,8 @@ public class EnemyAttackState : CharacterController.BaseState
     public override void OnEnterState()
     {
         isAttack = true;
+        Vector3 direction = (Player.Instance.transform.position - enemy.transform.position).normalized;
+        enemy.LookAt(direction);
         enemy.Weapon?.Attack();
     }
 
@@ -31,6 +33,9 @@ public class EnemyAttackState : CharacterController.BaseState
     public override void OnUpdateState()
     {
         bool isOverRange = Vector3.Distance(enemy.transform.position, Player.Instance.transform.position) > enemy.agent.stoppingDistance;
+        Vector3 direction = (Player.Instance.transform.position - enemy.transform.position).normalized;
+        enemy.LookAt(direction);
+
         if (isOverRange && !isAttack)
         {
             enemy.Weapon?.StopAttack();
