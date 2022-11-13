@@ -80,7 +80,7 @@ public class UI_SaveSlot : UI_Base
         string weaponName = go.GetComponent<CharonPaddle>().Name;
         Utils.Destroy(go);
 
-        string text = $"{weaponName} +0\n"
+        string text = $"{weaponName} +{DataManager.Instance.SaveData.CurrentWeaponReinforecLevel}\n"
             + $"체력 +{slotData.CurrentHPReinforceLevel}\n"
             + $"방어력 +{slotData.CurrentArmorReinforceLevel}\n"
             + $"이동속도 +{slotData.CurrentMoveSpeedReinforceLevel}\n"

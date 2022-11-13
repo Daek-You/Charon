@@ -2,7 +2,7 @@
   "statValues": [
     {
       "currentReinforceLevel": "0",
-      "increasingAmount": "0.0f",
+      "increasingAmount": "1.0f",
       "currentCost": "100"
     },
     {

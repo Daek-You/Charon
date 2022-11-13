@@ -50,6 +50,8 @@ public class UI_StatSlot : UI_Base
                 GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurDashLevel}";
                 break;
             case StatType.PADDLE_DAMAGE:
+                GetImage((int)Images.ImgStat).sprite = Resources.Load<Sprite>($"WeaponIcon/{Player.Instance.weaponManager.GetWeaponName()}");
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{Player.Instance.weaponManager.Weapon.CurrentReinforceLevel}";
                 break;
         }
     }
@@ -74,6 +76,7 @@ public class UI_StatSlot : UI_Base
                 GetText((int)Texts.TxtUpgradeCount).text = $"+{StatManager.Instance.CurDashLevel}";
                 break;
             case StatType.PADDLE_DAMAGE:
+                GetText((int)Texts.TxtUpgradeCount).text = $"+{Player.Instance.weaponManager.Weapon.CurrentReinforceLevel}";
                 break;
         }
     }

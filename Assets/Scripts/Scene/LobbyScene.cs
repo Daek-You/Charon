@@ -35,6 +35,7 @@ public class LobbyScene : BaseScene
             return;
         }
 
+        Player.Instance.weaponManager.LoadWeaponDictionary();
         weapon = Utils.Instantiate($"Weapons/{saveData.WeaponName}");
         Player.Instance.weaponManager.RegisterWeapon(weapon);
         Player.Instance.weaponManager.SetWeapon(weapon);

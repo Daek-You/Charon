@@ -131,9 +131,4 @@ public class UI_Status : UI_Popup
         StatManager.Instance.UpgradeStatus(StatType.DASH_COUNT);
         RefreshUI();
     }
-
-    public void OnReturn(PointerEventData data)
-    {
-        ClosePopupUI();
-    }
 }

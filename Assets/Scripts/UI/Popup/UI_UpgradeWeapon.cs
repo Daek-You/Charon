@@ -48,14 +48,21 @@ public class UI_UpgradeWeapon : UI_Popup
 
     public void RefreshUI()
     {
-        // 강화수치, 배율(+0.2), 비용 갱신
+        GetText((int)Texts.UI_StPaddle).text = $"카론의 노 +{Player.Instance.weaponManager.reinforceDict["CharonPaddle"]}";
+        GetText((int)Texts.UI_StPaddleLv).text = $"공격력: {Player.Instance.weaponManager.Weapon.AttackDamage}";
+        if (Player.Instance.weaponManager.reinforceDict["CharonPaddle"] < 10)
+            GetText((int)Texts.UI_StPaddleCost).text = DataManager.CharonPaddleData[Player.Instance.weaponManager.reinforceDict["CharonPaddle"]].currentCost.ToString();
+        else
+            GetText((int)Texts.UI_StPaddleCost).text = "-";
     }
 
     public void OnUpgradePaddle(PointerEventData data)
     {
-        // 재화 체크 및 계산
+        if (StatManager.Instance.Gold < DataManager.CharonPaddleData[Player.Instance.weaponManager.reinforceDict["CharonPaddle"]].currentCost)
+            return;
+        StatManager.Instance.Gold -= DataManager.CharonPaddleData[Player.Instance.weaponManager.reinforceDict["CharonPaddle"]].currentCost;
 
-        // 무기 강화
+        StatManager.Instance.UpgradeStatus(StatType.PADDLE_DAMAGE);
         RefreshUI();
     }
 }

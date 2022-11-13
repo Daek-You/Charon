@@ -66,7 +66,7 @@ public class StatManager : MonoBehaviour
     public void InitStatus()
     {
         maxHP = new Stat(StatType.MAX_HP, initValue: 1000, currentReinforceLevel: 0, maxReinforceLevel: 10);
-        moveSpeed = new Stat(StatType.MOVE_SPEED, initValue: 3, currentReinforceLevel: 0, maxReinforceLevel: 10);
+        moveSpeed = new Stat(StatType.MOVE_SPEED, initValue: 300, currentReinforceLevel: 0, maxReinforceLevel: 10);
         dashCount = new Stat(StatType.DASH_COUNT, initValue: 1,  currentReinforceLevel: 0, maxReinforceLevel: 1);
         //attackDamage = new Stat(StatType.ATTACK_DAMAGE, initValue: 100, increasingAmount: 20, currentReinforceLevel: 0, maxReinforceLevel: 10);
         armor = new Stat(StatType.ARMOR, initValue: 50, currentReinforceLevel: 0, maxReinforceLevel: 10);
@@ -89,7 +89,7 @@ public class StatManager : MonoBehaviour
                 dashCount.currentValue = dashCount.initValue + DataManager.DashCountDict[dashCount.currentReinforceLevel].increasingAmount;
                 return;
             case StatType.ARMOR:
-                armor.currentValue = armor.initValue + DataManager.ArmorDict[armor.currentReinforceLevel].increasingAmount;
+                armor.currentValue = armor.initValue * DataManager.ArmorDict[armor.currentReinforceLevel].increasingAmount;
                 return;
             default:
                 Player.Instance.OnUpdateStat(currentMaxHP, currentMaxHP, currentArmor, currentMoveSpeed, currentDashCount); 
@@ -141,7 +141,13 @@ public class StatManager : MonoBehaviour
                 }
                 return;
             case StatType.PADDLE_DAMAGE:
-                WeaponUpgradeFunction();
+                if (Player.Instance.weaponManager.Weapon.CurrentReinforceLevel < Player.Instance.weaponManager.Weapon.MaxReinforceLevel)
+                {
+                    Player.Instance.weaponManager.Weapon.CurrentReinforceLevel++;
+                    UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeUpgrade, this, statType);
+                    reporters[4].Report();
+                    // WeaponUpgradeFunction();
+                }
                 return;
             //case StatType.SICKLE_DAMAGE:
             //    if (dashCount.currentReinforceLevel < dashCount.maxReinforceLevel)

@@ -29,6 +29,7 @@ public class Stage1Scene : BaseScene
         GameData saveData = DataManager.Instance.SaveData;
 
         Player.Instance.transform.position = saveData.CurrentPosition;
+        Player.Instance.weaponManager.LoadWeaponDictionary();
         GameObject weapon = Utils.Instantiate($"Weapons/{saveData.WeaponName}");
         Player.Instance.weaponManager.RegisterWeapon(weapon);
         Player.Instance.weaponManager.SetWeapon(weapon);
