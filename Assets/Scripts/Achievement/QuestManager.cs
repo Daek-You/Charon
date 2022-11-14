@@ -111,8 +111,6 @@ public class QuestManager : MonoBehaviour
 
         PlayerPrefs.SetString(saveRootPath, root.ToString());
         PlayerPrefs.Save();
-
-        Debug.Log("Quest Datas are saved.");
     }
 
     public bool LoadQuestData()

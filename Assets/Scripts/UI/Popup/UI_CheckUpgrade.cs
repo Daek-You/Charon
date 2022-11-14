@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class UI_CheckUpgrade : UI_Popup
 {
-    int numOfStats = 5;
-
     enum GameObjects
     {
         GridPanel
@@ -14,17 +12,15 @@ public class UI_CheckUpgrade : UI_Popup
     static bool isUpgradeOpen = false;
     public static bool IsUpgradeOpen { get { return isUpgradeOpen; } }
 
-    private void Awake()
+    int numOfStats = 5;
+    private List<StatType> statList = new List<StatType>();
+
+    private void Start()
     {
         Init();
     }
 
-    private void OnEnable()
-    {
-        isUpgradeOpen = true;
-    }
-
-    private void OnDisable()
+    private void OnDestroy()
     {
         isUpgradeOpen = false;
     }
@@ -33,19 +29,22 @@ public class UI_CheckUpgrade : UI_Popup
     {
         base.Init();
 
+        isUpgradeOpen = true;
         Bind<GameObject>(typeof(GameObjects));
 
         GameObject panel = Get<GameObject>((int)GameObjects.GridPanel);
         foreach (Transform child in panel.transform)
             Utils.Destroy(child.gameObject);
 
-        // StatManager의 GetStat으로 Dictionary를 반환, 해당 Dict로 초기 강화 레벨 표시
+        statList = StatManager.Instance.GetStatList();
+
         for (int i = 0; i < numOfStats; i++)
         {
             GameObject slot = Utils.Instantiate("UI/SubItem/UI_StatSlot");
             slot.transform.SetParent(panel.transform);
 
             UI_StatSlot statSlot = Utils.GetAddedComponent<UI_StatSlot>(slot);
+            statSlot.Type = statList[i];
         }
     }
 }

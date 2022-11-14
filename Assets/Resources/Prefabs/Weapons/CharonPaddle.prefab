@@ -135,6 +135,7 @@ MonoBehaviour:
   attackDamage: 150
   attackSpeed: 2
   attackRange: 3
+  maxReinforceLevel: 10
   defaultAttackEffs:
   - {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
   - {fileID: 1645009922904612, guid: 5e3170c6ef0f014409bd7423e3bb805a, type: 3}

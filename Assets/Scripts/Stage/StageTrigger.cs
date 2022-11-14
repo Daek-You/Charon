@@ -10,6 +10,6 @@ public class StageTrigger : MonoBehaviour
             return;
 
         UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.AccessStage, this, StageManager.Instance.CurrentStage);
-        Utils.Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

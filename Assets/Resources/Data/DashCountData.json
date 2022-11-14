@@ -1,0 +1,14 @@
+{
+  "statValues": [
+    {
+      "currentReinforceLevel": "0",
+      "increasingAmount": "0",
+      "currentCost": "500"
+    },
+    {
+      "currentReinforceLevel": "1",
+      "increasingAmount": "1",
+      "currentCost": "0"
+    }
+  ]
+}

@@ -57,6 +57,11 @@ public class DataManager : MonoBehaviour
     public int DataIndex { get { return _dataIndex; } set { _dataIndex = value; } }
 
     public static Dictionary<MainStageType, List<EnemyData>> EnemyDict { get; private set; } = new Dictionary<MainStageType, List<EnemyData>>();
+    public static Dictionary<int, StatData> MaxHpDict { get; private set; } = new Dictionary<int, StatData>();
+    public static Dictionary<int, StatData> ArmorDict { get; private set; } = new Dictionary<int, StatData>();
+    public static Dictionary<int, StatData> MoveSpeedDict { get; private set; } = new Dictionary<int, StatData>();
+    public static Dictionary<int, StatData> DashCountDict { get; private set; } = new Dictionary<int, StatData>();
+    public static Dictionary<int, StatData> CharonPaddleData { get; private set; } = new Dictionary<int, StatData>();
 
     public void Start()
     {
@@ -85,6 +90,11 @@ public class DataManager : MonoBehaviour
                 _instance = dataManager.GetComponent<DataManager>();
 
                 EnemyDict = LoadJson<EnemyDataForLoad, MainStageType, List<EnemyData>>("EnemyData").MakeDict();
+                MaxHpDict = LoadJson<StatDataForLoad, int, StatData>("MaxHPData").MakeDict();
+                ArmorDict = LoadJson<StatDataForLoad, int, StatData>("ArmorData").MakeDict();
+                MoveSpeedDict = LoadJson<StatDataForLoad, int, StatData>("MoveSpeedData").MakeDict();
+                DashCountDict = LoadJson<StatDataForLoad, int, StatData>("DashCountData").MakeDict();
+                CharonPaddleData = LoadJson<StatDataForLoad, int, StatData>("CharonPaddleData").MakeDict();
             }
         }
     }
@@ -151,13 +161,23 @@ public class DataManager : MonoBehaviour
     public void SetSaveData()
     {
         _saveData.CurrentPosition = GameObject.Find("Sondol").transform.position;
+        _saveData.Gold = StatManager.Instance.Gold;
 
         _saveData.CurrentHP = Player.Instance.CurrentHP;
         _saveData.CurrentST = Player.Instance.weaponManager.Weapon.CurrentSkillGauge;
         _saveData.WeaponName = Player.Instance.weaponManager.GetWeaponName();
+        _saveData.CurrentWeaponReinforecLevel = Player.Instance.weaponManager.Weapon.CurrentReinforceLevel;
+
+        _saveData.CurrentHPReinforceLevel = StatManager.Instance.CurHPLevel;
+        _saveData.CurrentArmorReinforceLevel = StatManager.Instance.CurArmorLevel;
+        _saveData.CurrentMoveSpeedReinforceLevel = StatManager.Instance.CurSpeedLevel;
+        _saveData.CurrentDashCountReinforceLevel = StatManager.Instance.CurDashLevel;
 
         _saveData.CurrentStage = StageManager.Instance.CurrentStage;
         _saveData.IsCleared = StageManager.Instance.IsCleared;
+
+        _saveData.ReinforceWeaponList = Player.Instance.weaponManager.GetReinforceList();
+        _saveData.ReinforceWeaponValueList = Player.Instance.weaponManager.GetReinforceValueList();
     }
 
     public void StartGameData()

@@ -116,6 +116,7 @@ public class UI_Setting : UI_Popup
     {
         GetText((int)Texts.TxtBGMSlider).text = sound.ToString();
         DataManager.Instance.OptData.BgmValue = (int)sound;
+        BGM_Manager.Instance.SetVolume(sound / 100);
     }
 
     public void OnChangeEffectSlider(float sound)

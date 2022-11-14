@@ -1,0 +1,59 @@
+{
+  "statValues": [
+    {
+      "currentReinforceLevel": "0",
+      "increasingAmount": "1.0f",
+      "currentCost": "100"
+    },
+    {
+      "currentReinforceLevel": "1",
+      "increasingAmount": "1.2f",
+      "currentCost": "120"
+    },
+    {
+      "currentReinforceLevel": "2",
+      "increasingAmount": "1.4f",
+      "currentCost": "140"
+    },
+    {
+      "currentReinforceLevel": "3",
+      "increasingAmount": "1.6f",
+      "currentCost": "160"
+    },
+    {
+      "currentReinforceLevel": "4",
+      "increasingAmount": "1.8f",
+      "currentCost": "180"
+    },
+    {
+      "currentReinforceLevel": "5",
+      "increasingAmount": "2.0f",
+      "currentCost": "200"
+    },
+    {
+      "currentReinforceLevel": "6",
+      "increasingAmount": "2.2f",
+      "currentCost": "225"
+    },
+    {
+      "currentReinforceLevel": "7",
+      "increasingAmount": "2.4f",
+      "currentCost": "250"
+    },
+    {
+      "currentReinforceLevel": "8",
+      "increasingAmount": "2.6f",
+      "currentCost": "275"
+    },
+    {
+      "currentReinforceLevel": "9",
+      "increasingAmount": "2.8f",
+      "currentCost": "300"
+    },
+    {
+      "currentReinforceLevel": "10",
+      "increasingAmount": "3.0f",
+      "currentCost": "0"
+    }
+  ]
+}

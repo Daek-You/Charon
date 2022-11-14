@@ -183,4 +183,9 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
     {
         Player.Instance.audioSource.PlayOneShot(skillSound);
     }
+
+    public override void CalculateAttackDamage()
+    {
+        calculatedDamage = attackDamage * DataManager.CharonPaddleData[currentReinforceLevel].increasingAmount;
+    }
 }

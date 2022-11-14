@@ -16,5 +16,10 @@ namespace CharacterController
         ENEMY_ATTACK,
         ENEMY_HIT,
         ENEMY_DIE,
+        ENEMY_STAY,
+        ENEMY_CHARGE,
+        ENEMY_CLOSE_SKILL,
+        ENEMY_FAR_SKILL,
+        ENEMY_STIFFNESS
     }
 }

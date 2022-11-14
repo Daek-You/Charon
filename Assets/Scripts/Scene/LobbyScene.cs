@@ -28,15 +28,20 @@ public class LobbyScene : BaseScene
             weapon = Utils.Instantiate($"Weapons/CharonPaddle");
             Player.Instance.weaponManager.RegisterWeapon(weapon);
             Player.Instance.weaponManager.SetWeapon(weapon);
+            StatManager.Instance.SetReinforceLevel();
+            StatManager.Instance.Gold = 8000;
             DataManager.Instance.SaveGameData(DataManager.Instance.DataIndex, false);
             // UIManager.Instance.ShowPopupUI<UI_StageName>();
             return;
         }
 
+        Player.Instance.weaponManager.LoadWeaponDictionary();
         weapon = Utils.Instantiate($"Weapons/{saveData.WeaponName}");
         Player.Instance.weaponManager.RegisterWeapon(weapon);
         Player.Instance.weaponManager.SetWeapon(weapon);
 
+        StatManager.Instance.SetReinforceLevel(saveData);
+        StatManager.Instance.Gold = saveData.Gold;
         Player.Instance.LoadCurrentHp(saveData.CurrentHP);
         Player.Instance.weaponManager.Weapon.CurrentSkillGauge = saveData.CurrentST;
 

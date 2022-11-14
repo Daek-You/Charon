@@ -12,7 +12,6 @@ public class WeaponUpgradeBox : Interactable
 
     public override void interact()
     {
-        // 무기 강화 UI 출력
-        Debug.Log("무기 강화 UI");
+        UIManager.Instance.ShowPopupUI<UI_UpgradeWeapon>();
     }
 }

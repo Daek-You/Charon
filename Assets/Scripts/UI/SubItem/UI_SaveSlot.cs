@@ -60,7 +60,7 @@ public class UI_SaveSlot : UI_Base
         if (isExist)
         {
             GetText((int)Texts.TxtIndex).text = $"{SlotIndex + 1}번 데이터";
-            GetText((int)Texts.TxtReinforecInfo).text = MakeReinforceText();
+            GetText((int)Texts.TxtReinforecInfo).text = MakeReinforceText(slotData);
             GetText((int)Texts.TxtStageInfo).text = MakeStageText();
         }
         else
@@ -72,7 +72,7 @@ public class UI_SaveSlot : UI_Base
     }
 
 
-    public string MakeReinforceText()
+    public string MakeReinforceText(GameData slotData)
     {
         // 게임 중 같은 씬에서 저장할 경우 그 때마다 호출 (빈도 높을 수 있음)
         // 무기를 Poolable로 만든다면 2번째 호출부터는 부하가 줄어들 것
@@ -80,11 +80,11 @@ public class UI_SaveSlot : UI_Base
         string weaponName = go.GetComponent<CharonPaddle>().Name;
         Utils.Destroy(go);
 
-        string text = $"{weaponName} +0\n"
-            + $"체력 +0\n"
-            + $"방어력 +0\n"
-            + $"이동속도 +0\n"
-            + $"대시 +0";
+        string text = $"{weaponName} +{DataManager.Instance.SaveData.CurrentWeaponReinforecLevel}\n"
+            + $"체력 +{slotData.CurrentHPReinforceLevel}\n"
+            + $"방어력 +{slotData.CurrentArmorReinforceLevel}\n"
+            + $"이동속도 +{slotData.CurrentMoveSpeedReinforceLevel}\n"
+            + $"대시 +{slotData.CurrentDashCountReinforceLevel}";
         return text;
     }
 
@@ -97,7 +97,7 @@ public class UI_SaveSlot : UI_Base
         {
             text = "로비";
         }
-        else if (type != StageType.Unknown && type != StageType.Ending)
+        else if (type != StageType.Unknown && type != StageType.Ending && type != StageType.Title && type != StageType.Loading && type != StageType.Opening)
         {
             text = DataManager.Instance.SaveData.CurrentStage.ToString();
             text = text.Substring(text.Length - 2);

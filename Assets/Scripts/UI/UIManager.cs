@@ -62,7 +62,11 @@ public class UIManager : MonoBehaviour
         // 일시 정지 중에는 다른 메뉴를 띄우거나 게임이 진행되어서는 안 됨
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (popupStack.Count == 0 && StageManager.Instance.CurrentStage != StageType.Unknown)
+            if (popupStack.Count == 0 && StageManager.Instance.CurrentStage != StageType.Unknown
+                && StageManager.Instance.CurrentStage != StageType.Title
+                && StageManager.Instance.CurrentStage != StageType.Opening
+                && StageManager.Instance.CurrentStage != StageType.Ending
+                && StageManager.Instance.CurrentStage != StageType.Loading)
                 ShowPopupUI<UI_Pause>();
             else if (!UI_Logo.EscLock)
                 ClosePopupUI();
@@ -78,7 +82,11 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        if (!UI_Pause.IsPause && StageManager.Instance.CurrentStage != StageType.Unknown)
+        if (!UI_Pause.IsPause && StageManager.Instance.CurrentStage != StageType.Unknown
+            && StageManager.Instance.CurrentStage != StageType.Title
+            && StageManager.Instance.CurrentStage != StageType.Opening
+            && StageManager.Instance.CurrentStage != StageType.Ending
+            && StageManager.Instance.CurrentStage != StageType.Loading)
         {
             if (Input.GetKeyDown(KeyCode.B))
             {
@@ -96,29 +104,8 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    float maxHP = 1000;
-        //    float curHP = Random.Range(0, maxHP);
-        //    EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeHP, this, (curHP / maxHP));
-        //}
-
         //if (Input.GetKeyDown(KeyCode.L))
         //    ShowPopupUI<UI_Dialogue>();
-
-        /* if (Input.GetKeyDown(KeyCode.A))
-        {
-            // 무기가 변경될 경우 리스너를 호출
-            // 무기 아이콘이 확정될 경우 수정이 필요
-            int weapon = Random.Range(0, 3);
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeWeapon, this, weapon);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            // 재화 값이 변경될 경우 리스너를 호출
-            int goods = Random.Range(0, 10000);
-            EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeGoods, this, goods);
-        } */
     }
 
     private void OnDestroy()

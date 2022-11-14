@@ -10,7 +10,7 @@ public class Narration_Opening : MonoBehaviour
 {
     public TMP_Text dialogText;
     public TMP_Text nameText;
-    public AudioSource BGM_Source;
+    public AudioSource BGM_SoundSource;
     public AudioSource Eff_SoundSource;
     private JsonData _jsonDialogData;
     private JsonData _jsonNameData;
@@ -41,8 +41,8 @@ public class Narration_Opening : MonoBehaviour
 
     void Start()
     {
-        BGM_Source.volume = 0.1f;
-        Eff_SoundSource.volume = 0.1f;
+        BGM_SoundSource.volume = BGM_Manager.Instance.OriginalVolume;
+        Eff_SoundSource.volume = BGM_Manager.Instance.OriginalVolume;
     }
 
     public void ShowNarration()
@@ -200,9 +200,9 @@ public class Narration_Opening : MonoBehaviour
 
     private IEnumerator FadeOutOpeningSounde()
     {
-        while(BGM_Source.volume > 0.15f && Eff_SoundSource.volume > 0.15f)
+        while(Eff_SoundSource.volume > 0.15f && BGM_SoundSource.volume > 0.15f)
         {
-            BGM_Source.volume -= Time.deltaTime;
+            BGM_SoundSource.volume -= Time.deltaTime;
             Eff_SoundSource.volume -= Time.deltaTime;
             yield return soundFadeOutDelay;
         }
@@ -210,9 +210,9 @@ public class Narration_Opening : MonoBehaviour
 
     private IEnumerator FadeInOpeningSounde()
     {
-        while (BGM_Source.volume < 1f || Eff_SoundSource.volume < 1f)
+        while (Eff_SoundSource.volume < BGM_Manager.Instance.OriginalVolume && BGM_SoundSource.volume < BGM_Manager.Instance.OriginalVolume)
         {
-            BGM_Source.volume += Time.deltaTime * speed;
+            BGM_SoundSource.volume += Time.deltaTime * speed;
             Eff_SoundSource.volume += Time.deltaTime * speed;
             yield return soundFadeOutDelay;
         }

@@ -12,7 +12,6 @@ public class StatUpgradeBox : Interactable
 
     public override void interact()
     {
-        // 스탯 강화 UI 출력
-        Debug.Log("스탯 강화 UI");
+        UIManager.Instance.ShowPopupUI<UI_Status>();
     }
 }

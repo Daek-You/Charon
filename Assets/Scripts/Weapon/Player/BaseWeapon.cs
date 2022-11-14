@@ -26,12 +26,31 @@ public abstract class BaseWeapon : MonoBehaviour
     public WeaponHandleData HandleData { get { return weaponhandleData; } }
     public RuntimeAnimatorController WeaponAnimator { get { return weaponAnimator; } }
     public string Name { get { return _name; } }
-    public float AttackDamage { get { return attackDamage; } }
+    protected float calculatedDamage;
+    public float AttackDamage { get { return calculatedDamage; } }
     public float AttackSpeed { get { return attackSpeed; } }
     public float AttackRange { get { return attackRange; } }
+    public float MaxReinforceLevel { get { return maxReinforceLevel; } }
     private Coroutine checkAttackReInputCor;
 
+    protected int currentReinforceLevel = 0;
+    public int CurrentReinforceLevel
+    {
+        get { return currentReinforceLevel; }
+        set
+        {
+            currentReinforceLevel = value;
+            Player.Instance.weaponManager.SaveWeaponReinforceInfo();
+            CalculateAttackDamage();
+        }
+    }
+
     public QuestReporter Reporter { get; set; }
+
+    private void Start()
+    {
+        CalculateAttackDamage();
+    }
 
     #region #무기 정보
     [Header("생성 정보"), Tooltip("해당 무기를 쥐었을 때의 Local Transform 값 정보입니다.")]
@@ -43,6 +62,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] protected float attackDamage;
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected float attackRange;
+    [SerializeField] protected int maxReinforceLevel;
     #endregion
 
     public void SetWeaponData(string name, float attackDamage, float attackSpeed, float attackRange)
@@ -79,6 +99,8 @@ public abstract class BaseWeapon : MonoBehaviour
         ComboCount = 0;
         Player.Instance.animator.SetInteger("AttackCombo", 0);
     }
+
+    public abstract void CalculateAttackDamage();
 
     public float InitStBar()
     {

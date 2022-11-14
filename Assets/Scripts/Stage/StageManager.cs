@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -142,7 +140,7 @@ public class StageManager : MonoBehaviour
 
     public void SetStage()
     {
-        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending)
+        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending || currentStage == StageType.Title || currentStage == StageType.Opening || currentStage == StageType.Loading)
             return;
 
         SetEnemies();
@@ -171,7 +169,7 @@ public class StageManager : MonoBehaviour
 
     public void SetMainStage()
     {
-        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending)
+        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending || currentStage == StageType.Title || currentStage == StageType.Opening || currentStage == StageType.Loading)
             return;
 
         string stage = currentStage.ToString();
@@ -204,17 +202,18 @@ public class StageManager : MonoBehaviour
 
     private void ActiveEnemies()
     {
-        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending)
+        if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending || currentStage == StageType.Title || currentStage == StageType.Opening || currentStage == StageType.Loading)
             return;
 
         // 현재 스테이지에 맞는 spawnDictionary의 몬스터를 활성화
+        // 약간 프레임 드랍 발생
         GameObject root = Utils.FindChild(Root, currentStage.ToString());
         if (root == null)
             return;
 
-        for (int i = 0; i < root.transform.childCount; i++)
+        foreach (Transform child in root.transform)
         {
-            root.transform.GetChild(i).gameObject.SetActive(true);
+            child.gameObject.SetActive(true);
             clearCount++;
         }
     }
@@ -225,7 +224,7 @@ public class StageManager : MonoBehaviour
         CurrentCount++;
     }
 
-    public void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
             CurrentCount = clearCount;
