@@ -69,8 +69,6 @@ public class WeaponManager
         {
             if (weapons[i].name.Equals(weapon.name))
             {
-                SaveWeaponReinforceInfo();
-
                 weaponObject = weapons[i];
                 weaponObject.SetActive(true);
                 Weapon = weapons[i].GetComponent<BaseWeapon>();
