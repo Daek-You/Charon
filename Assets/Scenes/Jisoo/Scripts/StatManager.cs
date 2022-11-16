@@ -81,20 +81,19 @@ public class StatManager : MonoBehaviour
         {
             case StatType.MAX_HP:
                 maxHP.currentValue = maxHP.initValue + DataManager.MaxHpDict[maxHP.currentReinforceLevel].increasingAmount;
-                return;
+                break;
             case StatType.MOVE_SPEED:
                 moveSpeed.currentValue = moveSpeed.initValue + DataManager.MoveSpeedDict[moveSpeed.currentReinforceLevel].increasingAmount;
-                return;
+                break;
             case StatType.DASH_COUNT:
                 dashCount.currentValue = dashCount.initValue + DataManager.DashCountDict[dashCount.currentReinforceLevel].increasingAmount;
-                return;
+                break;
             case StatType.ARMOR:
                 armor.currentValue = armor.initValue * DataManager.ArmorDict[armor.currentReinforceLevel].increasingAmount;
-                return;
-            default:
-                Player.Instance.OnUpdateStat(currentMaxHP, currentMaxHP, currentArmor, currentMoveSpeed, currentDashCount); 
-                return;
+                break;
         }
+
+        Player.Instance.OnUpdateStat(currentMaxHP, currentMaxHP, currentArmor, currentMoveSpeed, currentDashCount);
     }
 
     public void UpgradeStatus(StatType statType)

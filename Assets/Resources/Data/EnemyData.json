@@ -3,7 +3,7 @@
     {
       "mstage": "Stage1",
       "sstage": "Stage11",
-      "type": "Char_Jinkwang",
+      "type": "Char_private_K",
       "position": [ "-8", "0.5f", "-1" ]
     },
     {
@@ -15,7 +15,7 @@
     {
       "mstage": "Stage1",
       "sstage": "Stage12",
-      "type": "Char_private_K",
+      "type": "Char_private_A",
       "position": [ "9.5f", "0.5f", "26" ]
     },
     {
@@ -39,25 +39,25 @@
     {
       "mstage": "Stage1",
       "sstage": "Stage13",
-      "type": "Char_private_K",
+      "type": "Char_General",
       "position": [ "29", "6.5f", "36.5f" ]
     },
     {
       "mstage": "Stage1",
       "sstage": "Stage13",
-      "type": "Char_private_K",
+      "type": "Char_private_A",
       "position": [ "36", "6.5f", "36.5f" ]
     },
     {
       "mstage": "Stage1",
       "sstage": "Stage13",
-      "type": "Char_private_K",
+      "type": "Char_private_A",
       "position": [ "26", "6.5f", "42" ]
     },
     {
       "mstage": "Stage1",
       "sstage": "Stage13",
-      "type": "Char_private_K",
+      "type": "Char_private_A",
       "position": [ "20", "6.5f", "36.5f" ]
     },
     {
@@ -87,13 +87,13 @@
     {
       "mstage": "Stage1",
       "sstage": "Stage14",
-      "type": "Char_private_K",
+      "type": "Char_General",
       "position": [ "42.5f", "9", "58.5f" ]
     },
     {
       "mstage": "Stage1",
       "sstage": "Stage14",
-      "type": "Char_private_K",
+      "type": "Char_General",
       "position": [ "47", "9", "54" ]
     },
     {

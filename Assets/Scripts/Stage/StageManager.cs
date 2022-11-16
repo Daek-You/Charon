@@ -13,6 +13,7 @@ public enum StageType
     Stage13,
     Stage14,
     Stage15,
+    Stage21,
     Ending
 }
 
@@ -149,13 +150,22 @@ public class StageManager : MonoBehaviour
 
     public void ActiveStage(StageType type)
     {
-        if (currentStage == StageType.Ending)
-            return;
-
         CurrentStage = type;
         isCleared = false;
         clearCount = 0;
         currentCount = 0;
+
+        if (currentStage.Equals(StageType.Ending))
+        {
+            FadeInOutController.Instance.FadeOutAndLoadScene("EndingScene1", StageType.Ending);
+            return;
+        }
+
+        if (!GetMainStage(currentStage).Equals(GetMainStage(currentStage - 1)) && GetMainStage(currentStage - 1) != -1)
+        {
+            FadeInOutController.Instance.FadeOutAndLoadScene($"Stage{GetMainStage(currentStage)}Scene", StageType.Stage11);
+            return;
+        }
 
         if (isClearedByLoad)
         {
@@ -170,12 +180,16 @@ public class StageManager : MonoBehaviour
     public void SetMainStage()
     {
         if (currentStage == StageType.Unknown || currentStage == StageType.Lobby || currentStage == StageType.Ending || currentStage == StageType.Title || currentStage == StageType.Opening || currentStage == StageType.Loading)
+        {
+            currentMainStage = MainStageType.Unknown;
             return;
+        }
 
         string stage = currentStage.ToString();
         stage = stage.Substring(stage.Length - 2, 1);
         int stageInt = int.Parse(stage);
-        currentMainStage = (MainStageType)stageInt;
+
+        currentMainStage = (MainStageType)GetMainStage(currentStage);
     }
 
     private void SetEnemies()
@@ -184,6 +198,9 @@ public class StageManager : MonoBehaviour
         // 이를 관리할 수 있도록 spawnDictionary에 저장
         List<EnemyData> enemyData;
         DataManager.EnemyDict.TryGetValue(currentMainStage, out enemyData);
+
+        if (enemyData == null)
+            return;
 
         foreach (EnemyData enemy in enemyData)
         {
@@ -208,8 +225,13 @@ public class StageManager : MonoBehaviour
         // 현재 스테이지에 맞는 spawnDictionary의 몬스터를 활성화
         // 약간 프레임 드랍 발생
         GameObject root = Utils.FindChild(Root, currentStage.ToString());
-        if (root == null)
+        if (root == null || root.GetComponentInChildren<Transform>() == null)
+        {
+            clearCount = 0;
+            CurrentCount = clearCount;
+            Debug.Log("Empty Stage.");
             return;
+        }
 
         foreach (Transform child in root.transform)
         {
@@ -224,7 +246,19 @@ public class StageManager : MonoBehaviour
         CurrentCount++;
     }
 
-    private void Update()
+    public int GetMainStage(StageType type)
+    {
+        if (type == StageType.Unknown || type == StageType.Lobby || type == StageType.Ending || type == StageType.Title || type == StageType.Opening || type == StageType.Loading)
+            return -1;
+
+        string stage = type.ToString();
+        stage = stage.Substring(stage.Length - 2, 1);
+        int stageInt = int.Parse(stage);
+
+        return stageInt;
+    }
+
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
             CurrentCount = clearCount;

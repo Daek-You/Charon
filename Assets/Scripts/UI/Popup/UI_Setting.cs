@@ -123,6 +123,10 @@ public class UI_Setting : UI_Popup
     {
         GetText((int)Texts.TxtEffectSlider).text = sound.ToString();
         DataManager.Instance.OptData.SeValue = (int)sound;
+        BGM_Manager.Instance.SetSeVolume(sound / 100);
+
+        if (Player.Instance != null)
+            Player.Instance.SetVolume(sound / 100);
     }
 
     public void OnChangeDropdown(TMP_Dropdown box)

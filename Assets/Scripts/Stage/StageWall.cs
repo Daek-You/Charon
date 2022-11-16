@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StageWall : MonoBehaviour
-{
+{ 
     [SerializeField]
     private StageType wallType;
     MeshRenderer[] renderers;
     GameObject trigger;
+    int[] compensation = { 100, 100, 150, 150, 300 };
 
     private void Start()
     {
@@ -49,6 +50,8 @@ public class StageWall : MonoBehaviour
 
         // 다음 스테이지 실행 여부를 판단하기 위해 트리거 오브젝트를 활성화함
         trigger.SetActive(true);
+
+        StatManager.Instance.Gold += compensation[(int)(wallType - 5)];
     }
 
     public void OnAccessNextStage(UI_EventHandler.UIEventType eventType, Component sender, object param = null)

@@ -12,6 +12,7 @@ public class BGM_Manager : MonoBehaviour
     private WaitForSeconds delay = new WaitForSeconds(0.01f);
     private float speed = 1.5f;
     private Coroutine fadeOutCoroutine;
+    public float SeVolume { get; private set; } = 100f;
 
 
     void Awake()
@@ -48,8 +49,12 @@ public class BGM_Manager : MonoBehaviour
         clip = Resources.Load<AudioClip>(Path + "Sound_Bgm_Opening");
         BGM_list.Add(StageType.Opening, clip);
 
+        clip = Resources.Load<AudioClip>(Path + "Sound_Bgm_Ending");
+        BGM_list.Add(StageType.Ending, clip);
+
         DataManager.Instance.LoadOptionData();
         SetVolume((float)DataManager.Instance.OptData.BgmValue / 100);
+        SetSeVolume((float)DataManager.Instance.OptData.SeValue / 100);
     }
 
     public void Play(StageType BGM_Scene)
@@ -104,6 +109,11 @@ public class BGM_Manager : MonoBehaviour
     {
         audioSource.volume = value;
         OriginalVolume = audioSource.volume;
+    }
+
+    public void SetSeVolume(float value)
+    {
+        SeVolume = value;
     }
 
     public void SetLoop(bool enable)

@@ -140,7 +140,7 @@ public class UI_SaveSlot : UI_Base
                 FadeInOutController.Instance.FadeOutAndLoadScene("LobbyScene", StageType.Lobby);
             //UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "LobbyScene");
             else
-                FadeInOutController.Instance.FadeOutAndLoadScene("Stage1Scene", StageType.Stage11);
+                FadeInOutController.Instance.FadeOutAndLoadScene("Stage1Scene_DaekYou", StageType.Stage11);
             //UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.ChangeScene, this, "Stage1Scene");
         }
     }
