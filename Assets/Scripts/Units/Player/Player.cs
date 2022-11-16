@@ -86,6 +86,10 @@ public class Player : MonoBehaviour, IHittable
         stateMachine?.FixedUpdateState();
     }
 
+
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
@@ -142,6 +146,7 @@ public class Player : MonoBehaviour, IHittable
         {
             animator.SetTrigger("Die");
             rigidBody.velocity = Vector3.zero;
+            rigidBody.isKinematic = true;
             IsDied = true;
             return;
         }
@@ -165,5 +170,16 @@ public class Player : MonoBehaviour, IHittable
     public float InitHpBar()
     {
         return currentHP / maxHP;
+    }
+
+    public void Revive()
+    {
+        if (IsDied)
+        {
+            IsDied = false;
+            rigidBody.isKinematic = false;
+            OnUpdateStat(maxHP, maxHP, armor, moveSpeed, dashCount);
+            animator.SetTrigger("Revive");
+        }
     }
 }

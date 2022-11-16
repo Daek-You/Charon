@@ -166,7 +166,6 @@ public abstract class Enemy : MonoBehaviour, IHittable
             IsAlived = agent.velocity.sqrMagnitude >= 0.1f * 0.1f && agent.remainingDistance <= agent.stoppingDistance + 0.1f;
             IsMoving = agent.desiredVelocity.sqrMagnitude >= 0.1f * 0.1f;
 
-            var rangeDiffernce = Mathf.Abs(detectRange - attackRange);
             var distance = Vector3.Distance(Target.position, this.transform.position);
 
             IsWithinAttackRange = (distance <= attackRange);
@@ -195,10 +194,12 @@ public abstract class Enemy : MonoBehaviour, IHittable
     private IEnumerator AttackDelayCoroutine()
     {
         float timer = 0f;
+
         if (IsBoss)
             stateMachine.ChangeState(StateName.ENEMY_CHARGE);
         else
             stateMachine.ChangeState(StateName.ENEMY_MOVE);
+
         isCooltimeDone = false;
 
         while (true)
