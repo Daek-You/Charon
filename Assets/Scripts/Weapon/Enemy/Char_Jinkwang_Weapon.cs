@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Char_Jinkwang_Weapon : EnemyWeapon
 {
-    private int attackAnimation = Animator.StringToHash("IsAttack");
-    public int AttackAnimation { get { return attackAnimation; } set { attackAnimation = value; } }
+    public int AttackAnimation { get; set; }
 
     public override void Attack()
     {
-        owner.animator.SetBool(attackAnimation, true);
+        owner.animator.SetBool(AttackAnimation, true);
     }
 
     public override void StopAttack()
     {
-        owner.animator.SetBool(attackAnimation, false);
+        owner.animator.SetBool(AttackAnimation, false);
     }
 }

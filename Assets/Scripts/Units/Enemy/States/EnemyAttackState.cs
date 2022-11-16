@@ -8,6 +8,8 @@ public class EnemyAttackState : CharacterController.BaseState
     public bool isCheckedPlayerPosition { get; set; }
     private Enemy enemy;
     public Quaternion targetAngle { get; private set; }
+    private float timer = 0f;
+    private const float ROTATE_TIME = 0.5f;
 
     public EnemyAttackState(Enemy enemy)
     {
@@ -20,11 +22,6 @@ public class EnemyAttackState : CharacterController.BaseState
         Vector3 direction = (enemy.Target.position - enemy.transform.position).normalized;
         targetAngle = Quaternion.LookRotation(direction);
         isCheckedPlayerPosition = false;
-
-        //isAttack = true;
-        //Vector3 direction = (Player.Instance.transform.position - enemy.transform.position).normalized;
-        //enemy.LookAt(direction);
-        //enemy.Weapon?.Attack();
     }
 
     public override void OnExitState()
@@ -54,12 +51,14 @@ public class EnemyAttackState : CharacterController.BaseState
         {
             isCheckedPlayerPosition = true;
             targetAngle = Quaternion.LookRotation(direction);
+            timer = 0f;
             return;
         }
 
-        if (Quaternion.Angle(enemy.transform.rotation, targetAngle) > 5f && !isAttack)
+        if (Quaternion.Angle(enemy.transform.rotation, targetAngle) > 5f && !isAttack && timer < ROTATE_TIME)
         {
             enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetAngle, enemy.RotationSpeed * 2 * Time.deltaTime);
+            timer += enemy.RotationSpeed * 1.5f * Time.deltaTime;
             return;
         }
 

@@ -13,7 +13,7 @@ public class EnemyChargeHitState : EnemyHitState
     {
         this.enemy = enemy;
         if (enemy is Char_Jinkwang)
-            bossEnemy = (Char_Jinkwang)enemy;
+            bossEnemy = enemy as Char_Jinkwang;
         chargeAnimation = Animator.StringToHash("Charge");
     }
 
@@ -53,12 +53,17 @@ public class EnemyChargeHitState : EnemyHitState
 
     public override void OnUpdateState()
     {
+        bossEnemy.ChargeTimer += Time.deltaTime;
         timer += Time.deltaTime;
 
         if (timer >= 0.25f && IsHit)
         {
             IsHit = false;
             enemy.rigidBody.velocity = Vector3.zero;
+
+            if (bossEnemy.ChargeTimer > enemy.AttackDelay)
+                enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_CHARGE);
+
         }
         else if (timer >= enemy.TetanyTime)
         {

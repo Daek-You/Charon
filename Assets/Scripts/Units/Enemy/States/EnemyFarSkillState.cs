@@ -5,19 +5,24 @@ using UnityEngine;
 public class EnemyFarSkillState : CharacterController.BaseState
 {
     private Enemy enemy;
-    private Char_Jinkwang bossEnemy;
+    //private Char_Jinkwang bossEnemy;
     public bool IsAttack { get; set; }
     public bool isCheckedPlayerPosition { get; set; }
     public Quaternion targetAngle { get; private set; }
+    public readonly int AttackAnimation;
+    private float timer = 0f;
+    private const float ROTATE_TIME = 0.5f;
 
     public EnemyFarSkillState(Enemy enemy)
     {
         this.enemy = enemy;
-        bossEnemy = enemy as Char_Jinkwang;
+        //bossEnemy = enemy as Char_Jinkwang;
+        AttackAnimation = Animator.StringToHash("IsFarAttack");
     }
 
     public override void OnEnterState()
     {
+        //enemy.animator.applyRootMotion = false;
         IsAttack = false;
         Vector3 direction = (enemy.Target.position - enemy.transform.position).normalized;
         targetAngle = Quaternion.LookRotation(direction);
@@ -26,11 +31,12 @@ public class EnemyFarSkillState : CharacterController.BaseState
 
         var weapon = enemy.Weapon as Char_Jinkwang_Weapon;
         if (weapon != null)
-            weapon.AttackAnimation = Animator.StringToHash("IsFarAttack");
+            weapon.AttackAnimation = AttackAnimation;
     }
 
     public override void OnExitState()
     {
+        enemy.animator.applyRootMotion = true;
         IsAttack = false;
         isCheckedPlayerPosition = false;
         enemy.isCooltimeDone = true;
@@ -50,12 +56,14 @@ public class EnemyFarSkillState : CharacterController.BaseState
         {
             isCheckedPlayerPosition = true;
             targetAngle = Quaternion.LookRotation(direction);
+            timer = 0f;
             return;
         }
 
-        if (Quaternion.Angle(enemy.transform.rotation, targetAngle) > 5f && !IsAttack)
+        if (Quaternion.Angle(enemy.transform.rotation, targetAngle) > 5f && !IsAttack && timer < ROTATE_TIME)
         {
             enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetAngle, enemy.RotationSpeed * 2 * Time.deltaTime);
+            timer += enemy.RotationSpeed * 1.5f * Time.deltaTime;
             return;
         }
 
@@ -65,8 +73,8 @@ public class EnemyFarSkillState : CharacterController.BaseState
             enemy.isCooltimeDone = false;
             enemy.transform.rotation = targetAngle;
 
-            if (bossEnemy != null)
-                bossEnemy.Direction = direction;
+            //if (bossEnemy != null)
+            //    bossEnemy.Direction = direction;
 
             enemy.Weapon?.Attack();
         }

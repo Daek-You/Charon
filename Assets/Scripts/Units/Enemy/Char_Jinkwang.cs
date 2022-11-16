@@ -5,26 +5,21 @@ using UnityEngine;
 
 public class Char_Jinkwang : Enemy
 {
-    private float chargeTimer = 0.0f;
-    public float ChargeTimer { get { return chargeTimer; } set { chargeTimer = value; } }
-    private bool IsSecondAttack { get; set; }
-    public bool IsSecondAttackDone { get; set; }
+    public float ChargeTimer { get; set; } = 0f;
+    public bool IsSecondAttack { get; set; }
+    public Vector3 Direction { get; set; }
 
-    private Vector3 direction;
-    public Vector3 Direction { get { return direction; } set { direction = value; } }
+    private GameObject effect;
+    [SerializeField] private GameObject farAttackEffect;
+    [SerializeField] private GameObject closeAttackEffect;
+    [SerializeField] private Transform effectGenerator;
 
-    GameObject effect;
 
-    [SerializeField]
-    private GameObject farAttackEffect;
-    [SerializeField]
-    private GameObject closeAttackEffect;
 
     void OnEnable()
     {
         currentHP = maxHP;
         IsSecondAttack = false;
-        IsSecondAttackDone = false;
         //skinnedMeshRenderer.material.color = originMaterial.color;
         stateMachine?.ChangeState(StateName.ENEMY_CHARGE);
     }
@@ -53,43 +48,20 @@ public class Char_Jinkwang : Enemy
 
         stateMachine?.ChangeState(StateName.ENEMY_CHARGE);
     }
-
-    public void MoveForAttack()
-    {
-        if (!IsSecondAttack)
-            rigidBody.AddForce(direction * 9f, ForceMode.Impulse);
-
-        animator.SetFloat("AttackSpeed", 1f);
-    }
+    
 
     public void StopForAttack()
     {
         if (!IsSecondAttack)
-            animator.SetFloat("AttackSpeed", 10f);
-        else
-            rigidBody.velocity = Vector3.zero;
-            
-    }
-
-    public void JumpForAttack()
-    {
-        rigidBody.AddForce(direction * 3f, ForceMode.Impulse);
-    }
-
-    public void StopJumpForAttack()
-    {
-        rigidBody.velocity = Vector3.zero;
-    }
-
-    public void CheckSecondAttack()
-    {
-        if (!IsSecondAttack)
         {
             IsSecondAttack = true;
-            return;
+            animator.SetTrigger("NextComboAttack");
         }
+    }
 
-        IsSecondAttackDone = true;
+
+    public void OnFinsithFarAttack()
+    {
         weapon.StopAttack();
 
         if (attackDelayCoroutine != null)
@@ -124,23 +96,20 @@ public class Char_Jinkwang : Enemy
 
     public void PlayFarAttackEffect()
     {
-        if (IsSecondAttackDone)
-            return;
-
         effect = Instantiate(farAttackEffect);
 
-        effect.transform.position = transform.position;
-        effect.transform.rotation = Quaternion.LookRotation(direction);
+        effect.transform.position = effectGenerator.position;
+        effect.transform.rotation = Quaternion.LookRotation(Direction);
+        effect.transform.SetParent(effectGenerator);
         effect.GetComponent<ParticleSystem>().Play();
-        effect.GetComponent<Rigidbody>().AddForce(direction * 9f, ForceMode.Impulse);
     }
 
     public void PlayCloseAttackEffect()
     {
         effect = Instantiate(closeAttackEffect);
 
-        effect.transform.position = transform.position + direction * 7f;
-        effect.transform.rotation = Quaternion.LookRotation(direction);
+        effect.transform.position = effectGenerator.position;
+        effect.transform.rotation = Quaternion.LookRotation(Direction);
         effect.GetComponent<ParticleSystem>().Play();
     }
 

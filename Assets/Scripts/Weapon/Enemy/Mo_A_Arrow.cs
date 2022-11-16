@@ -19,10 +19,10 @@ public class Mo_A_Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Sondol"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Sondol") && weapon != null)
         {
             IHittable target = other.gameObject.GetComponent<IHittable>();
-            target.Damaged(owner.Weapon.AttackDamage);
+            target?.Damaged(owner.Weapon.AttackDamage);
         }
 
         if (weapon == null)

@@ -88,6 +88,10 @@ public class Player : MonoBehaviour, IHittable
         stateMachine?.FixedUpdateState();
     }
 
+
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
@@ -143,6 +147,7 @@ public class Player : MonoBehaviour, IHittable
         if(Mathf.Approximately(currentHP, 0))
         {
             animator.SetTrigger("Die");
+            rigidBody.velocity = Vector3.zero;
             rigidBody.isKinematic = true;
             IsDied = true;
             StartCoroutine("CorCooldown", ACTIVE_TIME);
@@ -152,18 +157,6 @@ public class Player : MonoBehaviour, IHittable
         audioSource.PlayOneShot(hitSound);
         stateMachine.ChangeState(StateName.HIT);
     }
-
-    public void Revive()
-    {
-        if (IsDied)
-        {
-            rigidBody.isKinematic = false;
-            IsDied = false;
-            OnUpdateStat(maxHP, maxHP, armor, moveSpeed, dashCount);
-            animator.SetTrigger("Revive");
-        }
-    }
-
 
     public void LoadCurrentHp(float curHp)
     {
@@ -183,6 +176,17 @@ public class Player : MonoBehaviour, IHittable
         return currentHP / maxHP;
     }
 
+    public void Revive()
+    {
+        if (IsDied)
+        {
+            IsDied = false;
+            rigidBody.isKinematic = false;
+            OnUpdateStat(maxHP, maxHP, armor, moveSpeed, dashCount);
+            animator.SetTrigger("Revive");
+        }
+    }
+
     IEnumerator CorCooldown(float second)
     {
         float cool = second;
@@ -194,6 +198,7 @@ public class Player : MonoBehaviour, IHittable
 
         FadeInOutController.Instance.FadeOutAndLoadScene("GameOver", StageType.Unknown);
     }
+
 
     public void SetVolume(float value)
     {
