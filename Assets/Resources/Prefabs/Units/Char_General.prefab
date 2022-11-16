@@ -505,7 +505,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1007397775350546868}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -626,6 +626,7 @@ MonoBehaviour:
   armor: 30
   weapon: {fileID: 5790661566079347060}
   attackDelay: 1.8
+  tetanyTime: 0
   detectRange: 3.4028235e+38
   attackRange: 4
   rotationSpeed: 15

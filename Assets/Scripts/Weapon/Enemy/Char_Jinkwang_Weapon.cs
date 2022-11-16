@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Char_Jinkwang_Weapon : EnemyWeapon
 {
-    public readonly int attackAnimation = Animator.StringToHash("IsAttack");
+    private int attackAnimation = Animator.StringToHash("IsAttack");
+    public int AttackAnimation { get { return attackAnimation; } set { attackAnimation = value; } }
 
     public override void Attack()
     {

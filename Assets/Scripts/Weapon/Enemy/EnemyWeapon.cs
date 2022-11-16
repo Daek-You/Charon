@@ -12,17 +12,4 @@ public abstract class EnemyWeapon : MonoBehaviour
 
     public abstract void Attack();
     public abstract void StopAttack();
-
-    protected void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Sondol"))
-        {
-            HitState hitState = Player.Instance.stateMachine.GetState(CharacterController.StateName.HIT) as HitState;
-
-            if (Player.Instance.stateMachine.CurrentState == hitState)
-                return;
-
-            Player.Instance.Damaged(attackDamage);
-        }
-    }
 }

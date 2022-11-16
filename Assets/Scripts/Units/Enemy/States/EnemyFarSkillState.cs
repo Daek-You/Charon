@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCloseSkillState : CharacterController.BaseState
+public class EnemyFarSkillState : CharacterController.BaseState
 {
     private Enemy enemy;
     private Char_Jinkwang bossEnemy;
@@ -10,7 +10,7 @@ public class EnemyCloseSkillState : CharacterController.BaseState
     public bool isCheckedPlayerPosition { get; set; }
     public Quaternion targetAngle { get; private set; }
 
-    public EnemyCloseSkillState(Enemy enemy)
+    public EnemyFarSkillState(Enemy enemy)
     {
         this.enemy = enemy;
         bossEnemy = enemy as Char_Jinkwang;
@@ -26,7 +26,7 @@ public class EnemyCloseSkillState : CharacterController.BaseState
 
         var weapon = enemy.Weapon as Char_Jinkwang_Weapon;
         if (weapon != null)
-            weapon.AttackAnimation = Animator.StringToHash("IsAttack");
+            weapon.AttackAnimation = Animator.StringToHash("IsFarAttack");
     }
 
     public override void OnExitState()

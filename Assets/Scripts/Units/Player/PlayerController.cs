@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSkillButton(InputAction.CallbackContext context)
     {
-        if (player.IsDied)
+        if (player.IsDied || player.stateMachine.CurrentState is HitState)
             return;
 
         if (context.performed && !skillState.IsSkillActive)
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnClickLeftMouse(InputAction.CallbackContext context)
     {
-        if (player.IsDied)
+        if (player.IsDied || player.stateMachine.CurrentState is HitState || UIManager.Instance.IsPopupOpened)
             return;
 
         if (context.performed && context.interaction is PressInteraction)
@@ -134,8 +134,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnClickCharging(InputAction.CallbackContext context)
     {
-        if (player.IsDied)
+        if (player.IsDied || player.stateMachine.CurrentState is HitState || UIManager.Instance.IsPopupOpened)
             return;
+
+        
 
         if (context.performed && context.interaction is HoldInteraction)
         {
@@ -151,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDashInput(InputAction.CallbackContext context)
     {
-        if (player.IsDied)
+        if (player.IsDied || player.stateMachine.CurrentState is HitState)
             return;
 
         if (context.performed && context.interaction is PressInteraction)
@@ -180,6 +182,9 @@ public class PlayerController : MonoBehaviour
 
     protected Vector3 GetMouseWorldPosition()
     {
+        if (player.IsDied || player.stateMachine.CurrentState is HitState)
+            return Vector3.zero;
+
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f);
@@ -248,7 +253,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        if (player.IsDied)
+        if (player.IsDied || player.stateMachine.CurrentState is HitState)
             return;
 
         Vector2 input = context.ReadValue<Vector2>();

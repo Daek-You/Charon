@@ -18,8 +18,8 @@ namespace CharacterController
         ENEMY_DIE,
         ENEMY_STAY,
         ENEMY_CHARGE,
+        ENEMY_CHARGE_HIT,
         ENEMY_CLOSE_SKILL,
-        ENEMY_FAR_SKILL,
-        ENEMY_STIFFNESS
+        ENEMY_FAR_SKILL
     }
 }

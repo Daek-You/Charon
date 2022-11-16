@@ -11,7 +11,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     {
         HIT = 300,
         DIE,
-        
+
     }
 
     public string Name { get { return _name; } }
@@ -23,6 +23,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     public float RotationSpeed { get { return rotationSpeed; } }
     public float AttackDelay { get { return attackDelay; } }
     public float AttackRange { get { return attackRange; } }
+    public float TetanyTime { get { return tetanyTime; } }
 
     #region #몬스터 스탯
     [Header("몬스터 스탯")]
@@ -33,6 +34,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     [SerializeField] protected float armor;
     [SerializeField] protected EnemyWeapon weapon;
     [SerializeField] protected float attackDelay;
+    [SerializeField] protected float tetanyTime;
 
     [SerializeField, Tooltip("적을 탐지하는 거리입니다."), Range(0.0f, float.PositiveInfinity)]
     protected float detectRange;
@@ -43,7 +45,6 @@ public abstract class Enemy : MonoBehaviour, IHittable
     [SerializeField] protected float rotationSpeed;   // 15f가 적당
     #endregion
 
-    public const float HIT_TIME = 0.75f;
     public Transform Target { get; protected set; }
     public NavMeshAgent agent { get; private set; }
     public Animator animator { get; private set; }
@@ -54,13 +55,14 @@ public abstract class Enemy : MonoBehaviour, IHittable
     public SkinnedMeshRenderer[] skinnedMeshRenderers { get; private set; }
     public List<Color> originColors { get; private set; } = new List<Color>();
 
-    private Coroutine attackDelayCoroutine;
+    protected Coroutine attackDelayCoroutine;
 
     public bool IsAlived        { get; private set; }
     public bool IsMoving        { get; private set; }
     public bool IsDetected      { get; private set; }
     public bool IsWithinAttackRange   { get; private set; }
     public bool isCooltimeDone { get; set; } = true;
+    public bool IsBoss { get; protected set; } = false;
     
 
     #region# Unity Functions
@@ -74,6 +76,19 @@ public abstract class Enemy : MonoBehaviour, IHittable
     void FixedUpdate()
     {
         stateMachine?.FixedUpdateState();
+    }
+
+    protected void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Sondol"))
+        {
+            HitState hitState = Player.Instance.stateMachine.GetState(CharacterController.StateName.HIT) as HitState;
+
+            if (Player.Instance.stateMachine.CurrentState == hitState)
+                return;
+
+            Player.Instance.Damaged(Weapon.AttackDamage);
+        }
     }
     #endregion
 
@@ -117,6 +132,9 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
     public void Damaged(float damage)
     {
+        if (stateMachine.CurrentState is EnemyCloseSkillState || stateMachine.CurrentState is EnemyFarSkillState)
+            return;
+
         VCam.Instance.SetImpulseOptions(gain: 0.25f, amplitude: 1f, frequency: 1, duration: 0.5f);
 
         if (stateMachine.CurrentState is EnemyAttackState)
@@ -131,7 +149,11 @@ public abstract class Enemy : MonoBehaviour, IHittable
         }
 
         audioSource.PlayOneShot(effectSounds[SoundType.HIT]);
-        stateMachine.ChangeState(StateName.ENEMY_HIT);
+
+        if (stateMachine.CurrentState is EnemyChargeState || stateMachine.CurrentState is EnemyChargeHitState)
+            stateMachine.ChangeState(StateName.ENEMY_CHARGE_HIT);
+        else
+            stateMachine.ChangeState(StateName.ENEMY_HIT);
 
         var skillGauge = Player.Instance.weaponManager.Weapon.CurrentSkillGauge;
         Player.Instance.weaponManager.Weapon.CurrentSkillGauge = Mathf.Clamp(++skillGauge, 0, BaseWeapon.MAX_SKILL_GAUGE);
@@ -173,7 +195,10 @@ public abstract class Enemy : MonoBehaviour, IHittable
     private IEnumerator AttackDelayCoroutine()
     {
         float timer = 0f;
-        stateMachine.ChangeState(StateName.ENEMY_MOVE);
+        if (IsBoss)
+            stateMachine.ChangeState(StateName.ENEMY_CHARGE);
+        else
+            stateMachine.ChangeState(StateName.ENEMY_MOVE);
         isCooltimeDone = false;
 
         while (true)
@@ -182,10 +207,20 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
             if (timer >= attackDelay)
             {
-                EnemyAttackState attackState = stateMachine.GetState(StateName.ENEMY_ATTACK) as EnemyAttackState;
+                if (IsBoss)
+                {
+                    EnemyCloseSkillState skillState = stateMachine.GetState(StateName.ENEMY_CLOSE_SKILL) as EnemyCloseSkillState;
+                    skillState.IsAttack = false;
+                    skillState.isCheckedPlayerPosition = false;
+                }
+                else
+                {
+                    EnemyAttackState attackState = stateMachine.GetState(StateName.ENEMY_ATTACK) as EnemyAttackState;
+                    attackState.isAttack = false;
+                    attackState.isCheckedPlayerPosition = false;
+                }
+
                 isCooltimeDone = true;
-                attackState.isAttack = false;
-                attackState.isCheckedPlayerPosition = false;
                 break;
             }
 

@@ -4,35 +4,32 @@ using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyHitState : CharacterController.BaseState
+public class EnemyChargeHitState : EnemyHitState
 {
-    public bool IsHit { get; set; }
-    private readonly int damagedAnimation = Animator.StringToHash("Damaged");
-    protected Enemy enemy;
-    protected float timer;
+    private Char_Jinkwang bossEnemy;
+    public readonly int chargeAnimation;
 
-    public EnemyHitState(Enemy enemy)
+    public EnemyChargeHitState(Enemy enemy) : base(enemy)
     {
         this.enemy = enemy;
+        if (enemy is Char_Jinkwang)
+            bossEnemy = (Char_Jinkwang)enemy;
+        chargeAnimation = Animator.StringToHash("Charge");
     }
 
     public override void OnEnterState()
     {
-        enemy.animator.SetTrigger(damagedAnimation);
         IsHit = true;
         timer = 0f;
         enemy.rigidBody.isKinematic = false;
         enemy.agent.isStopped = true;
 
-        Vector3 direction = (enemy.transform.position - Player.Instance.transform.position).normalized;
-        var knockBackPower = Player.Instance.weaponManager.Weapon.KnockBackPower;
-
-        enemy.rigidBody.AddForce(direction * knockBackPower, ForceMode.Impulse);
-
-        for(int i =0; i< enemy.skinnedMeshRenderers.Length; i++)
+        for (int i = 0; i < enemy.skinnedMeshRenderers.Length; i++)
         {
             enemy.skinnedMeshRenderers[i].material.color = Color.red;
         }
+
+        enemy.animator.SetBool(chargeAnimation, true);
     }
 
     public override void OnExitState()
@@ -47,6 +44,7 @@ public class EnemyHitState : CharacterController.BaseState
         }
 
         enemy.rigidBody.velocity = Vector3.zero;
+        bossEnemy.ChargeTimer += timer;
     }
 
     public override void OnFixedUpdateState()
@@ -62,16 +60,9 @@ public class EnemyHitState : CharacterController.BaseState
             IsHit = false;
             enemy.rigidBody.velocity = Vector3.zero;
         }
-
         else if (timer >= enemy.TetanyTime)
         {
-            if (enemy.IsBoss)
-            {
-                enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_CHARGE);
-                return;
-            }
-
-            enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_MOVE);
+            enemy.stateMachine.ChangeState(CharacterController.StateName.ENEMY_CHARGE);
         }
     }
 }

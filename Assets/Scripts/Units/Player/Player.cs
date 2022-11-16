@@ -91,7 +91,12 @@ public class Player : MonoBehaviour, IHittable
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            EnemyHitState hitState = enemy.stateMachine.GetState(StateName.ENEMY_HIT) as EnemyHitState;
+            EnemyHitState hitState;
+
+            if (enemy.stateMachine.CurrentState == enemy.stateMachine.GetState(StateName.ENEMY_CHARGE_HIT))
+                hitState = enemy.stateMachine.GetState(StateName.ENEMY_CHARGE_HIT) as EnemyChargeHitState;
+            else
+                hitState = enemy.stateMachine.GetState(StateName.ENEMY_HIT) as EnemyHitState;
 
             if (enemy.stateMachine.CurrentState == enemy.stateMachine.GetState(StateName.ENEMY_DIE) || hitState.IsHit)
                 return;
@@ -127,7 +132,7 @@ public class Player : MonoBehaviour, IHittable
 
     public void Damaged(float damage)
     {
-        if (stateMachine.CurrentState is DashState || IsDied)
+        if (stateMachine.CurrentState is DashState || IsDied || stateMachine.CurrentState is HitState)
             return;
 
         float resultDamage = damage - (armor * 0.01f);

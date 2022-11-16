@@ -29,7 +29,7 @@ public class LobbyScene : BaseScene
             Player.Instance.weaponManager.RegisterWeapon(weapon);
             Player.Instance.weaponManager.SetWeapon(weapon);
             StatManager.Instance.SetReinforceLevel();
-            StatManager.Instance.Gold = 8000;
+            StatManager.Instance.Gold = 100;
             DataManager.Instance.SaveGameData(DataManager.Instance.DataIndex, false);
             // UIManager.Instance.ShowPopupUI<UI_StageName>();
             return;
