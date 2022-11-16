@@ -143,7 +143,7 @@ public class Player : MonoBehaviour, IHittable
         if(Mathf.Approximately(currentHP, 0))
         {
             animator.SetTrigger("Die");
-            rigidBody.velocity = Vector3.zero;
+            rigidBody.isKinematic = true;
             IsDied = true;
             StartCoroutine("CorCooldown", ACTIVE_TIME);
             return;
@@ -152,6 +152,18 @@ public class Player : MonoBehaviour, IHittable
         audioSource.PlayOneShot(hitSound);
         stateMachine.ChangeState(StateName.HIT);
     }
+
+    public void Revive()
+    {
+        if (IsDied)
+        {
+            rigidBody.isKinematic = false;
+            IsDied = false;
+            OnUpdateStat(maxHP, maxHP, armor, moveSpeed, dashCount);
+            animator.SetTrigger("Revive");
+        }
+    }
+
 
     public void LoadCurrentHp(float curHp)
     {
