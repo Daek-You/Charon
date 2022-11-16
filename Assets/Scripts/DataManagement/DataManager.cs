@@ -56,6 +56,9 @@ public class DataManager : MonoBehaviour
     private int _dataIndex;
     public int DataIndex { get { return _dataIndex; } set { _dataIndex = value; } }
 
+    private bool _isDirOrClear = false;
+    public bool IsDirOrClear { get { return _isDirOrClear; } set { _isDirOrClear = value; } }
+
     public static Dictionary<MainStageType, List<EnemyData>> EnemyDict { get; private set; } = new Dictionary<MainStageType, List<EnemyData>>();
     public static Dictionary<int, StatData> MaxHpDict { get; private set; } = new Dictionary<int, StatData>();
     public static Dictionary<int, StatData> ArmorDict { get; private set; } = new Dictionary<int, StatData>();

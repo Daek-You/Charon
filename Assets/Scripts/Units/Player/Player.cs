@@ -28,6 +28,7 @@ public class Player : MonoBehaviour, IHittable
     private static Player instance;
     [SerializeField] AudioClip hitSound;
 
+    float ACTIVE_TIME = 3.0f;
 
     #region #Ä³¸¯ÅÍ ½ºÅÈ
     public float MaxHP     { get { return maxHP; } }
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour, IHittable
             capsuleCollider = GetComponent<CapsuleCollider>();
             _AnimationEventHandler = GetComponent<AnimationEventHandler>();
             audioSource = GetComponent<AudioSource>();
+            audioSource.volume = BGM_Manager.Instance.SeVolume;
             skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
             originalMaterialColor = skinnedMeshRenderer.material.color;
 
@@ -148,6 +150,7 @@ public class Player : MonoBehaviour, IHittable
             rigidBody.velocity = Vector3.zero;
             rigidBody.isKinematic = true;
             IsDied = true;
+            StartCoroutine("CorCooldown", ACTIVE_TIME);
             return;
         }
 
@@ -163,6 +166,7 @@ public class Player : MonoBehaviour, IHittable
         if (Mathf.Approximately(currentHP, 0))
         {
             animator.SetTrigger("Die");
+            StartCoroutine("CorCooldown", ACTIVE_TIME);
             IsDied = true;
         }
     }
@@ -181,5 +185,23 @@ public class Player : MonoBehaviour, IHittable
             OnUpdateStat(maxHP, maxHP, armor, moveSpeed, dashCount);
             animator.SetTrigger("Revive");
         }
+    }
+
+    IEnumerator CorCooldown(float second)
+    {
+        float cool = second;
+        while (cool > 0)
+        {
+            cool -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        FadeInOutController.Instance.FadeOutAndLoadScene("GameOver", StageType.Unknown);
+    }
+
+
+    public void SetVolume(float value)
+    {
+        audioSource.volume = value;
     }
 }

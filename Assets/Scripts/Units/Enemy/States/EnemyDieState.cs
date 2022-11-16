@@ -22,6 +22,7 @@ public class EnemyDieState : CharacterController.BaseState
         }
 
         enemy.animator.SetTrigger(dieAnimation);
+        enemy.audioSource.volume = BGM_Manager.Instance.SeVolume;
         enemy.audioSource.PlayOneShot(enemy.effectSounds[Enemy.SoundType.DIE]);
         timer = 0f;
         UIManager.EventHandler.PostNotification(UI_EventHandler.UIEventType.DieEnemy, null);

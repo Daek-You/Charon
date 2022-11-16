@@ -148,6 +148,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
             return;
         }
 
+        audioSource.volume = BGM_Manager.Instance.SeVolume;
         audioSource.PlayOneShot(effectSounds[SoundType.HIT]);
 
         if (stateMachine.CurrentState is EnemyChargeState || stateMachine.CurrentState is EnemyChargeHitState)
