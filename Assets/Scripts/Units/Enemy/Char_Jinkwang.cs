@@ -38,6 +38,13 @@ public class Char_Jinkwang : Enemy
         clip = Resources.Load<AudioClip>("Sounds/EffectSounds/Enemy/Sound_Eff_EnemyHit");
         effectSounds.Add(SoundType.HIT, clip);
 
+        clip = Resources.Load<AudioClip>("Sounds/EffectSounds/Enemy/JinKwang/Sound_Eff_JinkwangSkill1");
+        effectSounds.Add(SoundType.JINKWANG_SKILL1, clip);
+
+        clip = Resources.Load<AudioClip>("Sounds/EffectSounds/Enemy/JinKwang/Sound_Eff_JinkwangSkill2");
+        effectSounds.Add(SoundType.JINKWANG_SKILL2, clip);
+
+
         transform.LookAt(Target.transform.position);
         IsBoss = true;
 
@@ -112,6 +119,18 @@ public class Char_Jinkwang : Enemy
         effect.transform.rotation = Quaternion.LookRotation(Direction);
         effect.GetComponent<ParticleSystem>().Play();
     }
+
+
+    public void OnPlaySkill1Sound()
+    {
+        audioSource.PlayOneShot(effectSounds[SoundType.JINKWANG_SKILL1]);
+    }
+
+    public void OnPlaySkill2Sound()
+    {
+        audioSource.PlayOneShot(effectSounds[SoundType.JINKWANG_SKILL2]);
+    }
+
 
     public void StopAttackEffect()
     {

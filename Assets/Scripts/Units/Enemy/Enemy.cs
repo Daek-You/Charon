@@ -11,7 +11,8 @@ public abstract class Enemy : MonoBehaviour, IHittable
     {
         HIT = 300,
         DIE,
-
+        JINKWANG_SKILL1,
+        JINKWANG_SKILL2,
     }
 
     public string Name { get { return _name; } }

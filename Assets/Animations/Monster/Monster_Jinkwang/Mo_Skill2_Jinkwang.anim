@@ -93869,6 +93869,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 1.4333333
+    functionName: OnPlaySkill2Sound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 2.3132758
     functionName: CheckAttackDelay
     data: 

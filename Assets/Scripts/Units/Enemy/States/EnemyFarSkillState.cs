@@ -22,7 +22,9 @@ public class EnemyFarSkillState : CharacterController.BaseState
 
     public override void OnEnterState()
     {
-        //enemy.animator.applyRootMotion = false;
+        enemy.Weapon.AttackDamage = enemy.Weapon.originalDamage * 1.5f;
+        VCam.Instance.SetImpulseOptions(gain: 0.5f, amplitude: 0.5f, frequency: 1, duration: 0.6f);
+
         IsAttack = false;
         Vector3 direction = (enemy.Target.position - enemy.transform.position).normalized;
         targetAngle = Quaternion.LookRotation(direction);
@@ -36,6 +38,7 @@ public class EnemyFarSkillState : CharacterController.BaseState
 
     public override void OnExitState()
     {
+        enemy.Weapon.AttackDamage = enemy.Weapon.originalDamage;
         enemy.animator.applyRootMotion = true;
         IsAttack = false;
         isCheckedPlayerPosition = false;

@@ -127,7 +127,7 @@ public class Player : MonoBehaviour, IHittable
     private void InitStateMachine()
     {
         stateMachine = new StateMachine(StateName.MOVE, new MoveState());
-        stateMachine.AddState(StateName.DASH, new DashState(dashPower: 2f, dashTetanyTime: 0.5f, dashCoolTime: 0.5f));
+        stateMachine.AddState(StateName.DASH, new DashState(dashPower: 1.5f, dashTetanyTime: 0.5f, dashCoolTime: 0.5f));
         stateMachine.AddState(StateName.ATTACK, new AttackState());
         stateMachine.AddState(StateName.DASH_ATTACK, new DashAttackState());
         stateMachine.AddState(StateName.CHARGING, new ChargingState());

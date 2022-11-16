@@ -31,7 +31,7 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
     [SerializeField] private AudioClip skillSound;
     #endregion
 
-    public const float dashAttackPower = 4f;
+    public const float dashAttackPower = 2f;
     private Coroutine dashAttackCoroutine;
     private WaitForSeconds dashAttackSecond = new WaitForSeconds(0.2f);
 
@@ -81,7 +81,7 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
 
     public override void Skill(BaseState state)
     {
-        MultiplierDamage = 1f;
+        MultiplierDamage = 1.75f;
         VCam.Instance.SetImpulseOptions(gain: 1.5f, amplitude: 1f, frequency: 2, duration: 3f);
         Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 7;
         Player.Instance.animator.SetBool(hashSkillAnimation, true);

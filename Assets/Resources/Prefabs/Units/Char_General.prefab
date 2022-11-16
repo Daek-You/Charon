@@ -626,7 +626,7 @@ MonoBehaviour:
   armor: 30
   weapon: {fileID: 5790661566079347060}
   attackDelay: 1.8
-  tetanyTime: 0
+  tetanyTime: 1.4
   detectRange: 3.4028235e+38
   attackRange: 4
   rotationSpeed: 15
