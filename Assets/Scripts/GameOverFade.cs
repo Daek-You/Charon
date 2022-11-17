@@ -8,6 +8,7 @@ public class GameOverFade : MonoBehaviour
 
     private void Start()
     {
+        Player.Instance.Revive();
         DataManager.Instance.IsDirOrClear = true;
         StartCoroutine("CorCooldown", ACTIVE_TIME);
     }

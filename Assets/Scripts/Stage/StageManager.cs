@@ -145,26 +145,29 @@ public class StageManager : MonoBehaviour
             return;
 
         SetEnemies();
-        ActiveStage(currentStage);
+        ActiveStage(currentStage, true);
     }
 
-    public void ActiveStage(StageType type)
+    public void ActiveStage(StageType type, bool isSet = false)
     {
         CurrentStage = type;
         isCleared = false;
         clearCount = 0;
         currentCount = 0;
 
-        if (currentStage.Equals(StageType.Ending))
+        if (!isSet)
         {
-            FadeInOutController.Instance.FadeOutAndLoadScene("EndingScene1", StageType.Ending);
-            return;
-        }
+            if (currentStage.Equals(StageType.Ending))
+            {
+                FadeInOutController.Instance.FadeOutAndLoadScene("EndingScene1", StageType.Ending);
+                return;
+            }
 
-        if (!GetMainStage(currentStage).Equals(GetMainStage(currentStage - 1)) && GetMainStage(currentStage - 1) != -1)
-        {
-            FadeInOutController.Instance.FadeOutAndLoadScene($"Stage{GetMainStage(currentStage)}Scene", StageType.Stage11);
-            return;
+            if (!GetMainStage(currentStage).Equals(GetMainStage(currentStage - 1)) && GetMainStage(currentStage - 1) != -1)
+            {
+                FadeInOutController.Instance.FadeOutAndLoadScene($"Stage{GetMainStage(currentStage)}Scene", StageType.Stage11);
+                return;
+            }
         }
 
         if (isClearedByLoad)

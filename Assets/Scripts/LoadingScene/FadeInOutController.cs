@@ -63,6 +63,8 @@ public class FadeInOutController : MonoBehaviour
 
         FadeIn(LoadingScene.nextSceneBGM);
         BGM_Manager.Instance.Play(LoadingScene.nextSceneBGM);
+
+        Debug.Log(scene.name + " 로드 완료");
     }
 
 
@@ -76,6 +78,7 @@ public class FadeInOutController : MonoBehaviour
 
     public void FadeOutAndLoadScene(string nextSceneName, StageType nextSceneBGM)
     {
+        Debug.Log(nextSceneName + " 요청");
         canvas.gameObject.SetActive(true);
         image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
         StartCoroutine(ProcessFadeOut(nextSceneName, nextSceneBGM));
