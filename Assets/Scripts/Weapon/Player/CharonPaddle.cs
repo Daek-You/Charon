@@ -82,7 +82,7 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
     public override void Skill(BaseState state)
     {
         MultiplierDamage = 1.75f;
-        VCam.Instance.SetImpulseOptions(gain: 1.5f, amplitude: 1f, frequency: 2, duration: 3f);
+        VCam.Instance.SetImpulseOptions(gain: 0.5f, amplitude: 0.5f, frequency: 1, duration: 0.7f);
         Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 7;
         Player.Instance.animator.SetBool(hashSkillAnimation, true);
         Reporter.Report();

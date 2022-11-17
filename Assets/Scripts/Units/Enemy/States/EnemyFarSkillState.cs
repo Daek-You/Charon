@@ -23,7 +23,7 @@ public class EnemyFarSkillState : CharacterController.BaseState
     public override void OnEnterState()
     {
         enemy.Weapon.AttackDamage = enemy.Weapon.originalDamage * 1.5f;
-        VCam.Instance.SetImpulseOptions(gain: 0.5f, amplitude: 0.5f, frequency: 1, duration: 0.6f);
+        VCam.Instance.SetImpulseOptions(gain: 0.6f, amplitude: 0.65f, frequency: 1, duration: 0.6f);
 
         IsAttack = false;
         Vector3 direction = (enemy.Target.position - enemy.transform.position).normalized;

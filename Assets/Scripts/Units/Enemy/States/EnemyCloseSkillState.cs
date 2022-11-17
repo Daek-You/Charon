@@ -24,7 +24,7 @@ public class EnemyCloseSkillState : CharacterController.BaseState
     public override void OnEnterState()
     {
         enemy.animator.applyRootMotion = false;
-        VCam.Instance.SetImpulseOptions(gain: 1f, amplitude: 0.7f, frequency: 1, duration: 0.7f);
+        VCam.Instance.SetImpulseOptions(gain: 0.8f, amplitude: 0.7f, frequency: 1, duration: 0.7f);
 
         IsAttack = false;
         Vector3 direction = (enemy.Target.position - enemy.transform.position).normalized;
