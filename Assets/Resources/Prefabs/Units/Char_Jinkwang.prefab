@@ -884,6 +884,7 @@ GameObject:
   - component: {fileID: 1339142456}
   - component: {fileID: 443331432}
   - component: {fileID: 4672514378544988149}
+  - component: {fileID: -4088739640243681013}
   m_Layer: 9
   m_Name: Char_Jinkwang
   m_TagString: enemy
@@ -1103,6 +1104,36 @@ MonoBehaviour:
   farAttackEffect: {fileID: 1236453127613114, guid: bfbc37d0bc0e8ff4082a8b2894b3a486, type: 3}
   closeAttackEffect: {fileID: 1644958980890870, guid: 08e78e41b241be940b0453b5ea00a584, type: 3}
   effectGenerator: {fileID: 254746912}
+  onDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -4088739640243681013}
+        m_TargetAssemblyTypeName: QuestReporter, Assembly-CSharp
+        m_MethodName: Report
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-4088739640243681013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2821105845565404914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd831837571dbe4c9d67a4bf80ef400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 9b8f4c50fe13f5f4796a4195db316162, type: 2}
+  target: {fileID: 11400000, guid: a03c65a703087da408ac7a7fff992a7e, type: 2}
+  successCount: 1
 --- !u!1 &2850919270074677809
 GameObject:
   m_ObjectHideFlags: 0

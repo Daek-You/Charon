@@ -66,7 +66,8 @@ public class UIManager : MonoBehaviour
                 && StageManager.Instance.CurrentStage != StageType.Title
                 && StageManager.Instance.CurrentStage != StageType.Opening
                 && StageManager.Instance.CurrentStage != StageType.Ending
-                && StageManager.Instance.CurrentStage != StageType.Loading)
+                && StageManager.Instance.CurrentStage != StageType.Loading
+                && !Player.Instance.IsDied)
                 ShowPopupUI<UI_Pause>();
             else if (!UI_Logo.EscLock)
                 ClosePopupUI();

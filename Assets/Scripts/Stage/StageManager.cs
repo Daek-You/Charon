@@ -260,10 +260,4 @@ public class StageManager : MonoBehaviour
 
         return stageInt;
     }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-            CurrentCount = clearCount;
-    }
 }

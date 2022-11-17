@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de47d7e2a6021754fbb6a0a982878e93, type: 3}
   m_Name: Target_Jinkwang
   m_EditorClassIdentifier: 
-  value: {fileID: 0}
+  value: {fileID: 2821105845565404914, guid: 0edb6914f36811149b774fb0e990d7e1, type: 3}

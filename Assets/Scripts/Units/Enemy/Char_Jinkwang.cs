@@ -14,7 +14,7 @@ public class Char_Jinkwang : Enemy
     [SerializeField] private GameObject closeAttackEffect;
     [SerializeField] private Transform effectGenerator;
 
-
+    public UnityEngine.Events.UnityEvent onDead;
 
     void OnEnable()
     {
@@ -22,6 +22,11 @@ public class Char_Jinkwang : Enemy
         IsSecondAttack = false;
         //skinnedMeshRenderer.material.color = originMaterial.color;
         stateMachine?.ChangeState(StateName.ENEMY_CHARGE);
+    }
+
+    private void OnDisable()
+    {
+        onDead?.Invoke();
     }
 
     void Start()
