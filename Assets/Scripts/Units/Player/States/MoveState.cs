@@ -29,7 +29,7 @@ namespace CharacterController
 
         public override void OnEnterState()
         {
-            VCam.Instance.SetImpulseOptions(gain: 1f, amplitude: 1f, frequency: 1, duration: 1f);
+            // VCam.Instance.SetImpulseOptions(gain: 1f, amplitude: 1f, frequency: 1, duration: 1f);
             Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER;
             /// 아직까진 필요 X
         }

@@ -40,7 +40,6 @@ public class TransparentObject : MonoBehaviour
         }
 
         SetMaterialTransparent();
-        Debug.Log("Rendering Mode : Fade");
         IsTransparent = true;
         becomeTransparentCoroutine = StartCoroutine(BecomeTransparentCoroutine());
     }
@@ -54,7 +53,7 @@ public class TransparentObject : MonoBehaviour
         {
             foreach(Material material in renderers[i].materials)
             {
-                material.SetFloat("_Mode", 2f);      // 0 = Opaque, 1 = Cutout, 2 = Fade, 3 = Transparent
+                material.SetFloat("_Mode", 3f);      // 0 = Opaque, 1 = Cutout, 2 = Fade, 3 = Transparent
                 material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
                 material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
                 material.SetInt("ZWrite", 0);
@@ -72,6 +71,7 @@ public class TransparentObject : MonoBehaviour
         {
             foreach (Material material in renderers[i].materials)
             {
+                material.SetFloat("_Mode", 0f);
                 material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
                 material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
                 material.SetInt("ZWrite", 1);
@@ -88,7 +88,6 @@ public class TransparentObject : MonoBehaviour
     public void ResetOriginalTransparent()
     {
         SetMaterialOpaque();
-        Debug.Log("Rendering Mode : Opaque");
         resetCoroutine = StartCoroutine(ResetOriginalTransparentCoroutine());
     }
 

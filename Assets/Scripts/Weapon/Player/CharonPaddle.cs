@@ -62,7 +62,7 @@ public class CharonPaddle : BaseWeapon, IEffect, ISound
     public override void DashAttack(BaseState state)
     {
         MultiplierDamage = 1.5f;
-        VCam.Instance.SetImpulseOptions(gain: 0.75f, amplitude: 1f, frequency: 1, duration: 0.75f);
+        VCam.Instance.SetImpulseOptions(gain: 0.75f, amplitude: 0.6f, frequency: 1, duration: 0.75f);
         Player.Instance.weaponManager.Weapon.KnockBackPower = BaseWeapon.DEFAULT_KNOCKBACK_POWER * 4;
 
         Player.Instance.animator.SetBool(hashDashAttackAnimation, true);

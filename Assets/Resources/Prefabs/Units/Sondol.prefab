@@ -1857,7 +1857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
-    m_ImpulseChannel: -1
+    m_ImpulseChannel: 2
     m_ImpulseShape: 2
     m_CustomImpulseShape:
       serializedVersion: 2
@@ -1901,8 +1901,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   m_IgnoreTag: 
-  m_UseImpactDirection: 0
-  m_ScaleImpactWithMass: 1
+  m_UseImpactDirection: 1
+  m_ScaleImpactWithMass: 0
   m_ScaleImpactWithSpeed: 0
 --- !u!114 &8721799818773135441
 MonoBehaviour:
