@@ -222,6 +222,7 @@ public class UIManager : MonoBehaviour
     public void Clear()
     {
         CloseAllPopupUI();
+        
         EventHandler.Clear();
     }
 }

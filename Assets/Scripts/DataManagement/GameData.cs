@@ -20,7 +20,7 @@ public class GameData
     [SerializeField]
     private string weaponName;
     [SerializeField]
-    private int currentWeaponReinforceLevel;
+    private int currentWeaponReinforceLevel = 0;
     [SerializeField]
     private int gold = 0;
     [SerializeField]
